@@ -1,0 +1,27 @@
+.center-button {
+	text-align: center;
+}
+
+.btn-width {
+	width: 160px;
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.not-hover {
+	&:hover {
+		background-color: #354052 !important;
+	}
+}
+
+.icon-width-height {
+	width: 24px;
+	height: 24px;
+}
+
+.right {
+	position: absolute;
+	right: 0.7rem;
+	top: 1rem;
+	fill: white;
+}

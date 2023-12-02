@@ -1,4 +1,5 @@
 import { Home, Login, ResetPass, Unknown, App } from '~/pages';
+import { HeaderSidebarLayout } from '~/Layout';
 import config from '~/config';
 
 export const publicRoutes = [
@@ -8,4 +9,6 @@ export const publicRoutes = [
 	{ path: config.routes.Unknown, component: Unknown },
 ];
 
-export const privateRoutes = [{ path: config.routes.App, component: App }];
+export const privateRoutes = [
+	{ path: config.routes.App, component: App, layout: HeaderSidebarLayout },
+];
