@@ -1,11 +1,17 @@
+import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
+
+//css
 import styles from '../Sidebar.module.scss';
+
+//config
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
 function People() {
 	return (
-		<a href="#aauth" className="sidebar-link " aria-expanded="false">
+		<Link to={config.routes.Member} className="sidebar-link " aria-expanded="false">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="24"
@@ -25,7 +31,7 @@ function People() {
 			</svg>
 			<span className="align-middle">People</span>
 			<span className="sidebar-badge badge badge-secondary">12/24</span>
-		</a>
+		</Link>
 	);
 }
 

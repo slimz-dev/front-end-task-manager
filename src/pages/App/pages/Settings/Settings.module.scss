@@ -1,0 +1,13 @@
+.mg-2 {
+	margin-bottom: 3rem !important;
+}
+
+.hover {
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.none {
+	display: none;
+}

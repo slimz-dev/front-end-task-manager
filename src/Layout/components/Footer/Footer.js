@@ -1,4 +1,4 @@
-function FooterCopyright() {
+function Footer() {
 	return (
 		<footer className="footer">
 			<div className="container-fluid">
@@ -16,4 +16,4 @@ function FooterCopyright() {
 		</footer>
 	);
 }
-export default FooterCopyright;
+export default Footer;

@@ -1,11 +1,13 @@
+import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from '../Sidebar.module.scss';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
 function Calendar() {
 	return (
-		<a className="sidebar-link" href="caalendar.html">
+		<Link className="sidebar-link" to={config.routes.Calendar}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="24"
@@ -24,7 +26,7 @@ function Calendar() {
 				<line x1="3" y1="10" x2="21" y2="10"></line>
 			</svg>
 			<span className="align-middle">Calendar</span>
-		</a>
+		</Link>
 	);
 }
 

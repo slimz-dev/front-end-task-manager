@@ -1,7 +1,6 @@
 import Calendar from './components/contentComponents/Calendar';
 import Appointment from './components/contentComponents/Appointment';
 import TaskReview from './components/contentComponents/TaskReview';
-import FooterCopyright from './components/footerComponents/FooterCopyright';
 function App() {
 	return (
 		<>
@@ -16,8 +15,6 @@ function App() {
 					</div>
 				</div>
 			</main>
-
-			<FooterCopyright />
 		</>
 	);
 }

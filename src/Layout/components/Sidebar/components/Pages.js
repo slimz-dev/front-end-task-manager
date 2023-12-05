@@ -1,12 +1,25 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from '../Sidebar.module.scss';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
 function Pages() {
+	const [isOpen, setIsOpen] = useState(false);
+	function handleOpen() {
+		setIsOpen(!isOpen);
+	}
 	return (
 		<>
-			<a href="#apages" data-toggle="collapse" className="sidebar-link collapsed">
+			<div
+				onClick={handleOpen}
+				data-toggle="collapse"
+				className={cx('sidebar-link', {
+					collapsed: !isOpen,
+				})}
+			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="24"
@@ -24,51 +37,35 @@ function Pages() {
 					<line x1="9" y1="21" x2="9" y2="9"></line>
 				</svg>
 				<span className="align-middle">Pages</span>
-			</a>
+			</div>
 			<ul
 				id="pages"
-				className="sidebar-dropdown list-unstyled collapse "
+				className={cx('sidebar-dropdown list-unstyled', {
+					collapse: !isOpen,
+				})}
 				data-parent="#sidebar"
 			>
-				<li className="sidebar-item">
-					<a className="sidebar-link" href="paages-profile.html">
+				{/* <li className="sidebar-item">
+					<Link className="sidebar-link" to={config.routes.Profile}>
 						Profile
-					</a>
-				</li>
+					</Link>
+				</li> */}
 				<li className="sidebar-item">
-					<a className="sidebar-link" href="paages-settings.html">
+					<Link className="sidebar-link" to={config.routes.Settings}>
 						Settings
-					</a>
+					</Link>
 				</li>
+
 				<li className="sidebar-item">
-					<a className="sidebar-link" href="paages-clients.html">
-						Clients
-					</a>
+					<Link className="sidebar-link" to={config.routes.Projects}>
+						Projects
+					</Link>
 				</li>
+
 				<li className="sidebar-item">
-					<a className="sidebar-link" href="paages-projects.html">
-						Projects <span className="sidebar-badge badge badge-primary">New</span>
-					</a>
-				</li>
-				<li className="sidebar-item">
-					<a className="sidebar-link" href="paages-invoice.html">
-						Invoice
-					</a>
-				</li>
-				<li className="sidebar-item">
-					<a className="sidebar-link" href="paages-pricing.html">
-						Pricing
-					</a>
-				</li>
-				<li className="sidebar-item">
-					<a className="sidebar-link" href="paages-tasks.html">
-						Tasks <span className="sidebar-badge badge badge-primary">New</span>
-					</a>
-				</li>
-				<li className="sidebar-item">
-					<a className="sidebar-link" href="paages-blank.html">
-						Blank Page
-					</a>
+					<Link className="sidebar-link" to={config.routes.Tasks}>
+						Tasks
+					</Link>
 				</li>
 			</ul>
 		</>

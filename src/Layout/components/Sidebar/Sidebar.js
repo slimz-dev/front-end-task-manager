@@ -1,9 +1,9 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
 //context
-import { Toggle } from '~/Layout/HeaderSidebarLayout/context/ToggleProvider';
+import { Toggle } from '~/Layout/DefaultLayout/context/ToggleProvider';
 
 //css
 import styles from './Sidebar.module.scss';
@@ -12,20 +12,29 @@ import styles from './Sidebar.module.scss';
 import TaskAdding from './components/TaskAdding';
 import Pages from './components/Pages';
 import People from './components/People';
-import Table from './components/Table';
 import Calendar from './components/Calendar';
-import GoogleMap from './components/GoogleMap';
 import MemberAdding from './components/MemberAdding';
+import Img from '~/components/Img/Img';
 
 // config
 import config from '~/config';
+
+import { getMe } from '~/services/getMeService';
 
 const cx = classNames.bind(styles);
 
 function Sidebar() {
 	const sidebarToggle = useContext(Toggle);
+	const [currentUser, setCurrentUser] = useState({});
+	useEffect(() => {
+		const fetchApi = async () => {
+			const result = await getMe(localStorage.getItem('token'));
+			setCurrentUser(result.data[0]);
+		};
+		fetchApi();
+	}, []);
+
 	return (
-		//toggle sidebar margin-left: -256px ;
 		<nav
 			id="sidebar"
 			className={cx('sidebar', {
@@ -60,13 +69,7 @@ function Sidebar() {
 						<People />
 					</li>
 					<li className="sidebar-item">
-						<Table />
-					</li>
-					<li className="sidebar-item">
 						<Calendar />
-					</li>
-					<li className="sidebar-item">
-						<GoogleMap />
 					</li>
 					<li className="sidebar-header">Actions</li>
 					<li className="sidebar-item">
@@ -76,7 +79,7 @@ function Sidebar() {
 
 				<div className="sidebar-bottom d-none d-lg-block">
 					<div className="media">
-						<img
+						<Img
 							className="rounded-circle mr-3"
 							src=".\assets\img\avatars\avatar.jpg"
 							alt="Chris Wood"
@@ -84,7 +87,7 @@ function Sidebar() {
 							height="40"
 						/>
 						<div className="media-body">
-							<h5 className="mb-1">Chris Wood</h5>
+							<h5 className="mb-1">{currentUser.firstName}</h5>
 							<div>
 								<i className="fas fa-circle text-success"></i> Online
 							</div>

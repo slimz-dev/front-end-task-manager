@@ -1,21 +1,41 @@
-import { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { useState, useRef, useContext, useEffect } from 'react';
 import classNames from 'classnames/bind';
-
+import config from '~/config';
+import { UserContext } from '~/contexts/userProvider';
+//component render
+import Img from '~/components/Img/Img';
 //css
 import styles from '../Header.module.scss';
 
+import { getMe } from '~/services/getMeService';
 const cx = classNames.bind(styles);
 
 function UserSetting() {
 	const [isOpen, setIsOpen] = useState(false);
+	const [currentUser, setCurrentUser] = useState({});
+	const user = useContext(UserContext);
 	const insideRef = useRef();
+	useEffect(() => {
+		const fetchApi = async () => {
+			const result = await getMe(user.token);
+			setCurrentUser(result.data[0]);
+		};
+		fetchApi();
+	}, []);
+
 	function handleDropDown() {
 		setIsOpen(!isOpen);
 	}
 
+	function handleSignOut() {
+		user.setUser(false);
+		user.setToken(false);
+	}
+
 	//Click outside box
 	window.addEventListener('click', (e) => {
-		if (!insideRef.current.contains(e.target)) {
+		if (!insideRef?.current?.contains(e.target)) {
 			setIsOpen(false);
 		}
 	});
@@ -26,12 +46,12 @@ function UserSetting() {
 				className="nav-link dropdown-toggle d-none d-sm-inline-block"
 				data-toggle="dropdown"
 			>
-				<img
+				<Img
 					src=".\assets\img\avatars\avatar.jpg"
 					className="avatar img-fluid rounded-circle mr-1"
 					alt="Chris Wood"
-				></img>
-				<span className="text-dark">Chris Wood 2</span>
+				/>
+				<span className="text-dark">{currentUser.firstName}</span>
 			</div>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -47,22 +67,19 @@ function UserSetting() {
 					show: isOpen,
 				})}
 			>
-				<a className="dropdown-item" href="pages-profile.html">
+				<Link className="dropdown-item" to={config.routes.Profile}>
 					<i className="align-middle mr-1" data-feather="user"></i> Profile
-				</a>
-				<a className="dropdown-item" href="#">
-					<i className="align-middle mr-1" data-feather="pie-chart"></i> Analytics
-				</a>
+				</Link>
 				<div className="dropdown-divider"></div>
-				<a className="dropdown-item" href="pages-settings.html">
+				<Link className="dropdown-item" to={config.routes.Settings}>
 					Settings & Privacy
-				</a>
-				<a className="dropdown-item" href="#">
+				</Link>
+				<Link className="dropdown-item" to={config.routes.Unknown}>
 					Help
-				</a>
-				<a className="dropdown-item" href="#">
+				</Link>
+				<div onClick={handleSignOut} className="dropdown-item">
 					Sign out
-				</a>
+				</div>
 			</div>
 		</div>
 	);

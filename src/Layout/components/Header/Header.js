@@ -3,7 +3,7 @@ import Message from './components/Message';
 import Notification from './components/Notification';
 import UserSetting from './components/UserSetting';
 import SearchTask from './components/SearchTask';
-import { Toggle } from '~/Layout/HeaderSidebarLayout/context/ToggleProvider';
+import { Toggle } from '~/Layout/DefaultLayout/context/ToggleProvider';
 
 function Header() {
 	const toggleSidebar = useContext(Toggle);
