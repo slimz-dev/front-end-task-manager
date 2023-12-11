@@ -1,0 +1,11 @@
+.dropdown-arrow {
+	position: absolute;
+	right: 0.4rem;
+	top: 0.9rem;
+}
+
+.hover {
+	&:hover {
+		cursor: pointer;
+	}
+}

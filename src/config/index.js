@@ -1,4 +1,8 @@
-import { routes } from './routes';
+import { mainRoutes, childRoutes } from './routes';
+const routes = {
+	...mainRoutes,
+	...childRoutes,
+};
 const config = {
 	routes,
 };

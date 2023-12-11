@@ -5,12 +5,15 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import GlobalStyle from '~/components/Global';
 import reportWebVitals from './reportWebVitals';
+import UserProvider from './contexts/userProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<BrowserRouter>
 		<GlobalStyle>
-			<App />
+			<UserProvider>
+				<App />
+			</UserProvider>
 		</GlobalStyle>
 	</BrowserRouter>
 );

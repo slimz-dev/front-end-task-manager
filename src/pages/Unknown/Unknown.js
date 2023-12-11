@@ -1,6 +1,7 @@
-import { Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Unknown.module.scss';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 function Unknown() {
@@ -20,12 +21,9 @@ function Unknown() {
 									<p className="h2 font-weight-normal mt-3 mb-4">
 										The page you are looking for might have been removed.
 									</p>
-									<a
-										href="dashboard-default.html"
-										className="btn btn-primary btn-lg"
-									>
+									<Link to={config.routes.App} className="btn btn-primary btn-lg">
 										Return to website
-									</a>
+									</Link>
 								</div>
 							</div>
 						</div>

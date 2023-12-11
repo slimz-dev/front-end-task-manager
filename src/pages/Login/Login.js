@@ -1,15 +1,91 @@
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import config from '~/config';
 import classNames from 'classnames/bind';
+
+//Context
+import { UserContext } from '~/contexts/userProvider';
+
+//component render
+import Img from '~/components/Img/Img';
+
+//config
+import config from '~/config';
+
+//css
 import styles from './Login.module.scss';
 
+//Login api
+import { userLogin } from '~/services/loginService';
+import { toast, ToastContainer } from 'react-toastify';
 const cx = classNames.bind(styles);
 
 function Login() {
+	const [data, setData] = useState({});
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const user = useContext(UserContext);
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		const loginUser = async () => {
+			if (Object.keys(data).length > 0) {
+				const result = await userLogin(data);
+				let msg;
+				if (result.statusCode === 404) {
+					msg = "This account doesn't exist";
+				} else if (result.statusCode === 200) {
+					msg = result.data.message;
+					setTimeout(() => {
+						navigate(config.routes.App);
+					}, 2000);
+					user.setToken(result.data.token);
+					user.setUser(true);
+				}
+				toast(msg, {
+					position: 'top-center',
+					autoClose: 300,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: 'dark',
+				});
+			}
+		};
+		loginUser();
+	}, [data, user, navigate]);
+
+	useEffect(() => {
+		if (user.user !== false) {
+			navigate(config.routes.App);
+		}
+	}, []);
+
 	function handleReset() {
 		return navigate(config.routes.ResetPass);
 	}
+	function handleChange(e) {
+		switch (e.target.name) {
+			case 'email': {
+				setEmail(e.target.value);
+				break;
+			}
+			default: {
+				setPassword(e.target.value);
+				break;
+			}
+		}
+	}
+
+	function handleSubmit() {
+		if (email && password) {
+			setData({ email, password });
+		} else {
+			console.log('dont have enough info');
+		}
+	}
+
 	return (
 		<div className={cx('wrapper')}>
 			<main className="main d-flex w-100">
@@ -18,7 +94,7 @@ function Login() {
 						<div className="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
 							<div className="d-table-cell align-middle">
 								<div className="text-center mt-4">
-									<h1 className="h2">Welcome back, Chris</h1>
+									{/* <h1 className="h2">Welcome back, Chris</h1> */}
 									<p className="lead">Sign in to your account to continue</p>
 								</div>
 
@@ -26,9 +102,9 @@ function Login() {
 									<div className="card-body">
 										<div className="m-sm-4">
 											<div className="text-center">
-												<img
-													src="./assets/img/avatars/avatar-2.jpg"
+												<Img
 													alt="Chris Wood"
+													src="hi"
 													className="img-fluid rounded-circle"
 													width="132"
 													height="132"
@@ -41,6 +117,8 @@ function Login() {
 														className="form-control form-control-lg"
 														type="email"
 														name="email"
+														value={email}
+														onChange={(e) => handleChange(e)}
 														placeholder="Enter your email"
 													/>
 												</div>
@@ -50,9 +128,11 @@ function Login() {
 														className="form-control form-control-lg"
 														type="password"
 														name="password"
+														value={password}
+														onChange={(e) => handleChange(e)}
 														placeholder="Enter your password"
 													/>
-													<small>
+													<small className="d-flex">
 														<div
 															className={cx('btn-reset')}
 															onClick={handleReset}
@@ -68,7 +148,6 @@ function Login() {
 															className="custom-control-input"
 															value="remember-me"
 															name="remember-me"
-															checked=""
 														/>
 														<label className="custom-control-label text-small">
 															Remember me next time
@@ -76,12 +155,16 @@ function Login() {
 													</div>
 												</div>
 												<div className="text-center mt-3">
-													<a
+													<div
+														onClick={handleSubmit}
 														href="dashboard-default.html"
-														className="btn btn-lg btn-primary"
+														className={cx(
+															'btn btn-lg btn-primary',
+															'btn-submit'
+														)}
 													>
 														Sign in
-													</a>
+													</div>
 												</div>
 											</form>
 										</div>
@@ -92,6 +175,7 @@ function Login() {
 					</div>
 				</div>
 			</main>
+			<ToastContainer />
 		</div>
 	);
 }
