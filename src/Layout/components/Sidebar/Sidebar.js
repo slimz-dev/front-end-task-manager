@@ -28,8 +28,12 @@ function Sidebar() {
 	const [currentUser, setCurrentUser] = useState({});
 	useEffect(() => {
 		const fetchApi = async () => {
-			const result = await getMe(localStorage.getItem('token'));
-			setCurrentUser(result.data[0]);
+			try {
+				const result = await getMe(localStorage.getItem('token'));
+				setCurrentUser(result.data[0]);
+			} catch (error) {
+				console.log(error);
+			}
 		};
 		fetchApi();
 	}, []);
@@ -87,7 +91,9 @@ function Sidebar() {
 							height="40"
 						/>
 						<div className="media-body">
-							<h5 className="mb-1">{currentUser.firstName}</h5>
+							<h5 className="mb-1">
+								{currentUser?.firstName ? currentUser?.firstName : ''}
+							</h5>
 							<div>
 								<i className="fas fa-circle text-success"></i> Online
 							</div>

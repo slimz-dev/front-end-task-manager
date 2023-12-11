@@ -25,7 +25,6 @@ function SettingSelect() {
 			},
 		});
 	}
-	console.log(modalConfig);
 	return (
 		<div className="col-md-3 col-xl-2">
 			<div className="card">

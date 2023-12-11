@@ -54,12 +54,14 @@ function Login() {
 			}
 		};
 		loginUser();
-	}, [data, user, navigate]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [data]);
 
 	useEffect(() => {
 		if (user.user !== false) {
 			navigate(config.routes.App);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	function handleReset() {

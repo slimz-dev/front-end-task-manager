@@ -8,41 +8,25 @@ const cx = classNames.bind(styles);
 
 function Info() {
 	const [currentUser, setCurrentUser] = useState({});
-	const [data, setData] = useState({});
-	const [isSubmit, setIsSubmit] = useState(false);
 	const [img, setImg] = useState('');
-	const [secondEmail, setSecondEmail] = useState('');
-	const [firstName, setFirstName] = useState('');
-	const [lastName, setLastName] = useState('');
-	const [biography, setBiography] = useState('');
-	const [address, setAddress] = useState('');
-
 	useEffect(() => {
 		const fetchApi = async () => {
-			console.log('hi');
-			const result = await getMe();
-			setCurrentUser(result.data[0]);
-			setSecondEmail(currentUser.secondEmail ? currentUser.secondEmail : '');
-			setFirstName(currentUser.firstName ? currentUser.firstName : '');
-			setLastName(currentUser.lastName ? currentUser.lastName : '');
-			setAddress(currentUser.address ? currentUser.address : '');
-			setBiography(currentUser.biography ? currentUser.biography : '');
+			try {
+				const result = await getMe();
+				setCurrentUser(result.data[0]);
+			} catch (err) {
+				console.log(err);
+			}
 		};
 		fetchApi();
 	}, []);
 
-	useEffect(() => {
-		if (Object.keys(data).length > 0) {
-			const fetchApi = async () => {
-				const result = await changeInfo(data);
-				console.log(result);
-			};
-			fetchApi();
-		}
-	}, [isSubmit]);
-
 	function handleSubmit() {
-		setIsSubmit(!isSubmit);
+		const fetchApi = async () => {
+			const result = await changeInfo(currentUser);
+			console.log(result);
+		};
+		fetchApi();
 	}
 
 	function handleSetImg(e) {
@@ -51,48 +35,11 @@ function Info() {
 	}
 
 	function handleChange(e) {
-		switch (e.target.name) {
-			case 'biography': {
-				setBiography(e.target.value);
-				setData((prev) => ({
-					...prev,
-					biography: biography,
-				}));
-				break;
-			}
-			case 'email': {
-				setSecondEmail(e.target.value);
-				setData((prev) => ({
-					...prev,
-					secondEmail: secondEmail,
-				}));
-				break;
-			}
-			case 'firstName': {
-				setFirstName(e.target.value);
-				setData((prev) => ({
-					...prev,
-					firstName: firstName,
-				}));
-				break;
-			}
-			case 'lastName': {
-				setLastName(e.target.value);
-				setData((prev) => ({
-					...prev,
-					lastName: lastName,
-				}));
-				break;
-			}
-			default: {
-				setAddress(e.target.value);
-				setData((prev) => ({
-					...prev,
-					address: address,
-				}));
-				break;
-			}
-		}
+		const propName = e.target.name;
+		setCurrentUser((prev) => ({
+			...prev,
+			[propName]: e.target.value,
+		}));
 	}
 	return (
 		<div className="tab-pane fade show active" id="account" role="tabpanel">
@@ -119,12 +66,10 @@ function Info() {
 										onChange={(e) => handleChange(e)}
 										rows="2"
 										className="form-control"
-										value={biography}
+										value={currentUser.biography ? currentUser.biography : ''}
 										id="inputBio"
 										name="biography"
-										placeholder={
-											biography ? biography : 'Tell something about yourself'
-										}
+										placeholder="Tell something about yourself"
 									></textarea>
 								</div>
 							</div>
@@ -178,12 +123,12 @@ function Info() {
 								<label htmlFor="inputFirstName">First name</label>
 								<input
 									onChange={(e) => handleChange(e)}
-									value={firstName}
+									value={currentUser.firstName ? currentUser.firstName : ''}
 									name="firstName"
 									type="text"
 									className="form-control"
 									id="inputFirstName"
-									placeholder={firstName ? firstName : 'First name'}
+									placeholder="First name"
 								/>
 							</div>
 							<div className="form-group col-md-6">
@@ -191,11 +136,11 @@ function Info() {
 								<input
 									onChange={(e) => handleChange(e)}
 									name="lastName"
-									value={lastName}
+									value={currentUser.lastName ? currentUser.lastName : ''}
 									type="text"
 									className="form-control"
 									id="inputLastName"
-									placeholder={lastName ? lastName : 'Last name'}
+									placeholder="Last name"
 								/>
 							</div>
 						</div>
@@ -203,12 +148,12 @@ function Info() {
 							<label htmlFor="inputEmail4">Email</label>
 							<input
 								onChange={(e) => handleChange(e)}
-								name="email"
-								value={secondEmail}
+								name="secondEmail"
+								value={currentUser.secondEmail ? currentUser.secondEmail : ''}
 								type="email"
 								className="form-control"
 								id="inputEmail4"
-								placeholder={secondEmail ? secondEmail : 'Email'}
+								placeholder="Email"
 							/>
 						</div>
 						<div className={cx('form-group', 'mg-2')}>
@@ -216,11 +161,11 @@ function Info() {
 							<input
 								onChange={(e) => handleChange(e)}
 								name="address"
-								value={address}
+								value={currentUser.address ? currentUser.address : ''}
 								type="text"
 								className="form-control"
 								id="inputAddress"
-								placeholder={address ? address : 'Write your address'}
+								placeholder="Write your address"
 							/>
 						</div>
 

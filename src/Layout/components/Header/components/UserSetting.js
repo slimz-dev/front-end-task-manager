@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useState, useRef, useContext, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import config from '~/config';

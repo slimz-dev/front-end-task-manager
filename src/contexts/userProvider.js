@@ -1,5 +1,4 @@
 import { createContext, useState, useEffect } from 'react';
-import { getMe } from '~/services/getMeService';
 export const UserContext = createContext();
 
 function UserProvider({ children }) {
@@ -12,10 +11,10 @@ function UserProvider({ children }) {
 	useEffect(() => {
 		// const getData = async () => {
 		// 	const result = await getMe(token);
-		// 	// if (result.data.length === 0) {
-		// 	// 	setUser(false);
-		// 	// 	setToken(false);
-		// 	// }
+		// 	if (result.data.length !== 1) {
+		// 		localStorage.removeItem('user');
+		// 		localStorage.removeItem('token');
+		// 	}
 		// };
 		// getData();
 		localStorage.setItem('user', JSON.stringify(user));
