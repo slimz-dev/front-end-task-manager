@@ -84,7 +84,9 @@ function Sidebar() {
 						/>
 						<div className="media-body">
 							<h5 className="mb-1">
-								{currentUser?.firstName ? currentUser?.firstName : ''}
+								{currentUser?.firstName
+									? `${currentUser.firstName} ${currentUser.lastName}`
+									: ''}
 							</h5>
 							<div>
 								<i className="fas fa-circle text-success"></i> Online

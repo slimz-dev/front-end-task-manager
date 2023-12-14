@@ -22,10 +22,28 @@ function InfoProvider({ children }) {
 			[propName]: e.target.value,
 		}));
 	}
-	function handleSubmit() {
+	function handleSubmitPublic() {
 		const fetchApi = async () => {
-			const result = await changeInfo(currentUser);
+			const result = await changeInfo({
+				userName: currentUser.userName,
+				biography: currentUser.biography,
+				img: currentUser.img,
+			});
 			console.log(result);
+			window.location.reload();
+		};
+		fetchApi();
+	}
+	function handleSubmitPrivate() {
+		const fetchApi = async () => {
+			const result = await changeInfo({
+				firstName: currentUser.firstName,
+				lastName: currentUser.lastName,
+				secondEmail: currentUser.secondEmail,
+				address: currentUser.address,
+			});
+			console.log(result);
+			window.location.reload();
 		};
 		fetchApi();
 	}
@@ -53,7 +71,8 @@ function InfoProvider({ children }) {
 		img,
 		setImg,
 		handleChange,
-		handleSubmit,
+		handleSubmitPublic,
+		handleSubmitPrivate,
 		handleSetImg,
 		currentUser,
 	};

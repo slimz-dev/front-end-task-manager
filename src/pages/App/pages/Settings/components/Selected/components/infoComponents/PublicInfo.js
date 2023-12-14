@@ -27,6 +27,9 @@ function PublicInfo() {
 								<label htmlFor="inputUsername">Username</label>
 								<input
 									onChange={(e) => info.handleChange(e)}
+									value={
+										info.currentUser.userName ? info.currentUser.userName : ''
+									}
 									name="userName"
 									type="text"
 									className="form-control"
@@ -82,9 +85,12 @@ function PublicInfo() {
 						</div>
 					</div>
 
-					<button type="submit" className="btn btn-primary">
+					<div
+						onClick={info.handleSubmitPublic}
+						className={cx('btn btn-primary', 'hover')}
+					>
 						Save changes
-					</button>
+					</div>
 				</form>
 			</div>
 		</div>

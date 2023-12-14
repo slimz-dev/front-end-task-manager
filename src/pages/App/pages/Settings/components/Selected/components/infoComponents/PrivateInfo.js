@@ -69,7 +69,10 @@ function PrivateInfo() {
 						/>
 					</div>
 
-					<div onClick={info.handleSubmit} className={cx('btn btn-primary', 'hover')}>
+					<div
+						onClick={info.handleSubmitPrivate}
+						className={cx('btn btn-primary', 'hover')}
+					>
 						Save changes
 					</div>
 				</form>
