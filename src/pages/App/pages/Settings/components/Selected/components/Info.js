@@ -1,25 +1,32 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import classNames from 'classnames/bind';
+
+//context
+import { UserContext } from '~/contexts/userProvider';
+
+//render component
 import Img from '~/components/Img/Img';
+
+//css
 import styles from '../../../Settings.module.scss';
-import { getMe } from '~/services/getMeService';
+
+//call api
 import { changeInfo } from '~/services/changeInfoService';
+
 const cx = classNames.bind(styles);
 
 function Info() {
+	const user = useContext(UserContext);
 	const [currentUser, setCurrentUser] = useState({});
 	const [img, setImg] = useState('');
+
 	useEffect(() => {
-		const fetchApi = async () => {
-			try {
-				const result = await getMe();
-				setCurrentUser(result.data[0]);
-			} catch (err) {
-				console.log(err);
-			}
-		};
-		fetchApi();
-	}, []);
+		setCurrentUser(user.info);
+	}, [user]);
+
+	useEffect(() => {
+		setImg(currentUser.img);
+	}, [currentUser]);
 
 	function handleSubmit() {
 		const fetchApi = async () => {
@@ -30,8 +37,23 @@ function Info() {
 	}
 
 	function handleSetImg(e) {
-		const imgUrl = URL.createObjectURL(e.target.files[0]);
+		const currentImg = e.target.files[0];
+		const imgUrl = URL.createObjectURL(currentImg);
 		setImg(imgUrl);
+		const propName = e.target.name;
+		if (currentImg instanceof Blob) {
+			const imgReader = new FileReader();
+			imgReader.readAsDataURL(currentImg);
+			imgReader.onload = () => {
+				setCurrentUser((prev) => ({
+					...prev,
+					[propName]: imgReader.result,
+				}));
+			};
+			imgReader.onerror = () => {
+				console.log('error');
+			};
+		}
 	}
 
 	function handleChange(e) {
@@ -77,7 +99,7 @@ function Info() {
 								<div className="text-center">
 									<Img
 										alt="Chris Wood"
-										src={img}
+										src={img ? img : ''}
 										className="rounded-circle img-responsive mt-2"
 										width="128"
 										height="128"
@@ -93,6 +115,7 @@ function Info() {
 											onChange={(e) => handleSetImg(e)}
 											id="avatar"
 											type="file"
+											name="img"
 											accept="image/png, image/jpeg"
 											className={cx('none')}
 										/>

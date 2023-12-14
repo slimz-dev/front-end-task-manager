@@ -8,7 +8,6 @@ import Img from '~/components/Img/Img';
 //css
 import styles from '../Header.module.scss';
 
-import { getMe } from '~/services/getMeService';
 const cx = classNames.bind(styles);
 
 function UserSetting() {
@@ -17,12 +16,8 @@ function UserSetting() {
 	const user = useContext(UserContext);
 	const insideRef = useRef();
 	useEffect(() => {
-		const fetchApi = async () => {
-			const result = await getMe(user.token);
-			setCurrentUser(result.data[0]);
-		};
-		fetchApi();
-	}, []);
+		setCurrentUser(user.info);
+	}, [user]);
 
 	function handleDropDown() {
 		setIsOpen(!isOpen);
@@ -47,7 +42,7 @@ function UserSetting() {
 				data-toggle="dropdown"
 			>
 				<Img
-					src=".\assets\img\avatars\avatar.jpg"
+					src={currentUser ? currentUser.img : ''}
 					className="avatar img-fluid rounded-circle mr-1"
 					alt="Chris Wood"
 				/>

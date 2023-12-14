@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
 //context
+import { UserContext } from '~/contexts/userProvider';
 import { Toggle } from '~/Layout/DefaultLayout/context/ToggleProvider';
 
 //css
@@ -19,24 +20,15 @@ import Img from '~/components/Img/Img';
 // config
 import config from '~/config';
 
-import { getMe } from '~/services/getMeService';
-
 const cx = classNames.bind(styles);
 
 function Sidebar() {
 	const sidebarToggle = useContext(Toggle);
+	const user = useContext(UserContext);
 	const [currentUser, setCurrentUser] = useState({});
 	useEffect(() => {
-		const fetchApi = async () => {
-			try {
-				const result = await getMe(localStorage.getItem('token'));
-				setCurrentUser(result.data[0]);
-			} catch (error) {
-				console.log(error);
-			}
-		};
-		fetchApi();
-	}, []);
+		setCurrentUser(user.info);
+	}, [user]);
 
 	return (
 		<nav
@@ -85,7 +77,7 @@ function Sidebar() {
 					<div className="media">
 						<Img
 							className="rounded-circle mr-3"
-							src=".\assets\img\avatars\avatar.jpg"
+							src={currentUser ? currentUser.img : ''}
 							alt="Chris Wood"
 							width="40"
 							height="40"
