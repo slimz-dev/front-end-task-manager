@@ -8,6 +8,7 @@ export const changeInfo = async (data) => {
 			data: res.data.data,
 		};
 	} catch (error) {
+		console.log(error.response.status);
 		return error;
 	}
 };

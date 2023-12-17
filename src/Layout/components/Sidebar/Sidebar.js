@@ -85,7 +85,9 @@ function Sidebar() {
 						<div className="media-body">
 							<h5 className="mb-1">
 								{currentUser?.firstName
-									? `${currentUser.firstName} ${currentUser.lastName}`
+									? `${currentUser.firstName} ${
+											currentUser.lastName ? currentUser.lastName : ''
+									  }`
 									: ''}
 							</h5>
 							<div>

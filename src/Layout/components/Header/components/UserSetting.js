@@ -42,11 +42,13 @@ function UserSetting() {
 				data-toggle="dropdown"
 			>
 				<Img
-					src={currentUser ? currentUser.img : ''}
+					src={currentUser.img ? currentUser.img : ''}
 					className="avatar img-fluid rounded-circle mr-1"
 					alt="Chris Wood"
 				/>
-				<span className="text-dark">{`${currentUser.firstName} ${currentUser.lastName}`}</span>
+				<span className="text-dark">{`${currentUser.firstName} ${
+					currentUser.lastName ? currentUser.lastName : ''
+				}`}</span>
 			</div>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"

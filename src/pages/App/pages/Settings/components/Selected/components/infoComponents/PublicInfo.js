@@ -38,6 +38,18 @@ function PublicInfo() {
 								/>
 							</div>
 							<div className="form-group">
+								<label htmlFor="inputUsername">Phone number</label>
+								<input
+									onChange={(e) => info.handleChange(e)}
+									value={info.currentUser.phone ? info.currentUser.phone : ''}
+									name="phone"
+									type="text"
+									className="form-control"
+									id="inputUsername"
+									placeholder="Update your phone number"
+								/>
+							</div>
+							<div className="form-group">
 								<label htmlFor="inputUsername">Biography</label>
 								<textarea
 									onChange={(e) => info.handleChange(e)}

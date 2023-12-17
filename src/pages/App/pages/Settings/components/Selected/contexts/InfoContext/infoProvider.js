@@ -28,6 +28,7 @@ function InfoProvider({ children }) {
 				userName: currentUser.userName,
 				biography: currentUser.biography,
 				img: currentUser.img,
+				phone: currentUser.phone,
 			});
 			console.log(result);
 			window.location.reload();
