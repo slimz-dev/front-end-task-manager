@@ -14,7 +14,12 @@ function UserProvider({ children }) {
 		const getData = async () => {
 			try {
 				const result = await getMe(token);
-				setInfo(result.data[0]);
+				if (result.data[0] === undefined) {
+					localStorage.setItem('user', JSON.stringify(false));
+					localStorage.setItem('token', JSON.stringify(false));
+				} else {
+					setInfo(result.data[0]);
+				}
 			} catch (error) {
 				localStorage.setItem('user', JSON.stringify(false));
 				localStorage.setItem('token', JSON.stringify(false));

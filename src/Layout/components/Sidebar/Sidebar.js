@@ -77,17 +77,19 @@ function Sidebar() {
 					<div className="media">
 						<Img
 							className="rounded-circle mr-3"
-							src={currentUser ? currentUser.img : ''}
+							src={currentUser.img ? currentUser.img : ''}
 							alt="Chris Wood"
 							width="40"
 							height="40"
 						/>
 						<div className="media-body">
 							<h5 className="mb-1">
-								{currentUser?.firstName
-									? `${currentUser.firstName} ${
-											currentUser.lastName ? currentUser.lastName : ''
-									  }`
+								{currentUser
+									? currentUser?.firstName
+										? `${currentUser.firstName} ${
+												currentUser.lastName ? currentUser.lastName : ''
+										  }`
+										: ''
 									: ''}
 							</h5>
 							<div>

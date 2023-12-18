@@ -30,7 +30,6 @@ function InfoProvider({ children }) {
 				img: currentUser.img,
 				phone: currentUser.phone,
 			});
-			console.log(result);
 			window.location.reload();
 		};
 		fetchApi();
@@ -43,7 +42,6 @@ function InfoProvider({ children }) {
 				secondEmail: currentUser.secondEmail,
 				address: currentUser.address,
 			});
-			console.log(result);
 			window.location.reload();
 		};
 		fetchApi();
@@ -51,21 +49,23 @@ function InfoProvider({ children }) {
 
 	function handleSetImg(e) {
 		const currentImg = e.target.files[0];
-		const imgUrl = URL.createObjectURL(currentImg);
-		setImg(imgUrl);
-		const propName = e.target.name;
-		if (currentImg instanceof Blob) {
-			const imgReader = new FileReader();
-			imgReader.readAsDataURL(currentImg);
-			imgReader.onload = () => {
-				setCurrentUser((prev) => ({
-					...prev,
-					[propName]: imgReader.result,
-				}));
-			};
-			imgReader.onerror = () => {
-				console.log('error');
-			};
+		if (currentImg) {
+			const imgUrl = URL.createObjectURL(currentImg);
+			setImg(imgUrl);
+			const propName = e.target.name;
+			if (currentImg instanceof Blob) {
+				const imgReader = new FileReader();
+				imgReader.readAsDataURL(currentImg);
+				imgReader.onload = () => {
+					setCurrentUser((prev) => ({
+						...prev,
+						[propName]: imgReader.result,
+					}));
+				};
+				imgReader.onerror = () => {
+					console.log('error');
+				};
+			}
 		}
 	}
 	const value = {

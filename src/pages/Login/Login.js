@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
-
+import validator from 'validator';
 //Context
 import { UserContext } from '~/contexts/userProvider';
 
@@ -29,6 +29,10 @@ function Login() {
 	useEffect(() => {
 		const loginUser = async () => {
 			if (Object.keys(data).length > 0) {
+				if (!validator.isEmail(data.email)) {
+					data.userName = data.email;
+					delete data.email;
+				}
 				const result = await userLogin(data);
 				let msg;
 				if (result.statusCode === 404) {
@@ -36,7 +40,7 @@ function Login() {
 				} else if (result.statusCode === 200) {
 					msg = result.data.message;
 					setTimeout(() => {
-						navigate(config.routes.App);
+						window.location.reload();
 					}, 2000);
 					user.setToken(result.data.token);
 					user.setUser(true);

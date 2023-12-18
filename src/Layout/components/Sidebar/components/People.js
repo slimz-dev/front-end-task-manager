@@ -8,6 +8,7 @@ import styles from '../Sidebar.module.scss';
 
 //config
 import config from '~/config';
+// import { el } from '@fullcalendar/core/internal-common';
 
 const cx = classNames.bind(styles);
 
@@ -19,10 +20,14 @@ function People() {
 	useEffect(() => {
 		const fetchAll = async () => {
 			const result = await getAll();
-			setUsers({
-				...users,
-				totalUsers: result.meta.numbers,
-			});
+			if (!result.meta) {
+				console.log('error getting all user');
+			} else {
+				setUsers({
+					...users,
+					totalUsers: result.meta.numbers,
+				});
+			}
 		};
 
 		fetchAll();
