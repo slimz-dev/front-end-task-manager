@@ -12,10 +12,19 @@ import config from '~/config';
 
 const cx = classNames.bind(styles);
 
+const online = [
+	{ state: true, id: '657fdc506a08c4f65ac33abc' },
+	{ state: false, id: '657fdc5d6a08c4f65ac33abf' },
+	{ state: true, id: '657fdc696a08c4f65ac33ac2' },
+	{ state: true, id: '657fdc766a08c4f65ac33ac5' },
+	{ state: false, id: '657fdc816a08c4f65ac33ac8' },
+	{ state: false, id: '657fdc906a08c4f65ac33acb' },
+	{ state: true, id: '657fdcb76a08c4f65ac33acf' },
+];
 function People() {
 	const [users, setUsers] = useState({
-		activeUsers: 1,
-		totalUsers: 24,
+		activeUsers: 0,
+		totalUsers: 0,
 	});
 	useEffect(() => {
 		const fetchAll = async () => {
@@ -23,8 +32,11 @@ function People() {
 			if (!result.meta) {
 				console.log('error getting all user');
 			} else {
+				const activeUsers = online.filter((userState) => {
+					return userState.state === true;
+				});
 				setUsers({
-					...users,
+					activeUsers: activeUsers.length,
 					totalUsers: result.meta.numbers,
 				});
 			}

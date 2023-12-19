@@ -1,7 +1,10 @@
 import { useContext } from 'react';
+import classNames from 'classnames/bind';
+import styles from '../Member.module.scss';
 import Img from '~/components/Img/Img';
 import { TotalUsers } from '../context/TotalUsersProvider';
 
+const cx = classNames.bind(styles);
 function SingleInfo() {
 	const totalUsers = useContext(TotalUsers);
 	const thisUser = totalUsers.singleUser;
@@ -71,7 +74,14 @@ function SingleInfo() {
 						<tr>
 							<th>Status</th>
 							<td>
-								<span className="badge badge-success">Active</span>
+								<span
+									className={cx('badge ', {
+										'badge-success': thisUser.state,
+										'badge-warning': !thisUser.state,
+									})}
+								>
+									{thisUser.state ? 'Active' : 'Inactive'}
+								</span>
 							</td>
 						</tr>
 					</tbody>

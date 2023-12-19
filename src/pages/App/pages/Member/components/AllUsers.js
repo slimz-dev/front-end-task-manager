@@ -9,7 +9,6 @@ const cx = classNames.bind(styles);
 
 function AllUsers() {
 	const totalUsers = useContext(TotalUsers);
-	console.log(totalUsers.singleUser);
 	function handleChoose(e) {
 		const userId = e.target.parentNode.id;
 		const thisUser = totalUsers.users.find((user) => {
@@ -82,7 +81,14 @@ function AllUsers() {
 									<td>senior</td>
 									<td>{user.email}</td>
 									<td>
-										<span className="badge badge-success">Active</span>
+										<span
+											className={cx('badge', {
+												'badge-success': user.state,
+												'badge-warning': !user.state,
+											})}
+										>
+											{user.state ? 'Active' : 'Inactive'}
+										</span>
 									</td>
 								</tr>
 							);
