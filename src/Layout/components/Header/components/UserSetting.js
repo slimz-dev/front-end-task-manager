@@ -1,5 +1,6 @@
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState, useRef, useContext, useEffect } from 'react';
+import { socket } from '~/socket';
 import classNames from 'classnames/bind';
 import config from '~/config';
 import { UserContext } from '~/contexts/userProvider';
@@ -24,8 +25,9 @@ function UserSetting() {
 	}
 
 	function handleSignOut() {
-		user.setUser(false);
-		user.setToken(false);
+		localStorage.removeItem('token');
+		socket.emit('logout', user.info.id);
+		window.location.reload();
 	}
 
 	//Click outside box

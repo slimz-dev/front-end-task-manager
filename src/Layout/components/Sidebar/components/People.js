@@ -9,19 +9,26 @@ import styles from '../Sidebar.module.scss';
 //config
 import config from '~/config';
 // import { el } from '@fullcalendar/core/internal-common';
+import { socket } from '~/socket';
 
 const cx = classNames.bind(styles);
 
-const online = [
-	{ state: true, id: '657fdc506a08c4f65ac33abc' },
-	{ state: false, id: '657fdc5d6a08c4f65ac33abf' },
-	{ state: true, id: '657fdc696a08c4f65ac33ac2' },
-	{ state: true, id: '657fdc766a08c4f65ac33ac5' },
-	{ state: false, id: '657fdc816a08c4f65ac33ac8' },
-	{ state: false, id: '657fdc906a08c4f65ac33acb' },
-	{ state: true, id: '657fdcb76a08c4f65ac33acf' },
-];
+// const online = [
+// 	{ state: true, id: '657fdc506a08c4f65ac33abc' },
+// 	{ state: false, id: '657fdc5d6a08c4f65ac33abf' },
+// 	{ state: true, id: '657fdc696a08c4f65ac33ac2' },
+// 	{ state: true, id: '657fdc766a08c4f65ac33ac5' },
+// 	{ state: false, id: '657fdc816a08c4f65ac33ac8' },
+// 	{ state: false, id: '657fdc906a08c4f65ac33acb' },
+// 	{ state: true, id: '657fdcb76a08c4f65ac33acf' },
+// ];
+
 function People() {
+	const [online, setOnline] = useState([]);
+	socket.on('online', (data) => {
+		setOnline(data);
+	});
+
 	const [users, setUsers] = useState({
 		activeUsers: 0,
 		totalUsers: 0,

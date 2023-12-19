@@ -1,17 +1,10 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
 import { getAll } from '~/services/getAllUserService';
+import { UserContext } from '~/contexts/userProvider';
 export const TotalUsers = createContext();
 
 function TotalUsersProvider({ children }) {
-	const [online, setOnline] = useState([
-		{ state: true, id: '657fdc506a08c4f65ac33abc' },
-		{ state: false, id: '657fdc5d6a08c4f65ac33abf' },
-		{ state: true, id: '657fdc696a08c4f65ac33ac2' },
-		{ state: true, id: '657fdc766a08c4f65ac33ac5' },
-		{ state: false, id: '657fdc816a08c4f65ac33ac8' },
-		{ state: false, id: '657fdc906a08c4f65ac33acb' },
-		{ state: true, id: '657fdcb76a08c4f65ac33acf' },
-	]);
+	const userContext = useContext(UserContext);
 	const [users, setUsers] = useState([]);
 	const [total, setTotal] = useState('');
 	const [singleUser, setSingleUser] = useState('');
@@ -21,7 +14,7 @@ function TotalUsersProvider({ children }) {
 			let onlineCount = 0;
 			const result = await getAll();
 			result.data.map((user) => {
-				const thisUserState = online.find((thisUser) => {
+				const thisUserState = userContext.online.find((thisUser) => {
 					return thisUser.id === user._id;
 				});
 				if (thisUserState.state) {
@@ -39,8 +32,10 @@ function TotalUsersProvider({ children }) {
 			});
 			setSingleUser(totalUser[0]);
 		};
-		fetchAll();
-	}, []);
+		if (userContext.online.length !== 0) {
+			fetchAll();
+		}
+	}, [userContext.online]);
 
 	const value = {
 		users,

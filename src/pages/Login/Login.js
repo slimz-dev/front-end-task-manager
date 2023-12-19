@@ -23,7 +23,7 @@ function Login() {
 	const [data, setData] = useState({});
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const user = useContext(UserContext);
+
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -42,8 +42,7 @@ function Login() {
 					setTimeout(() => {
 						window.location.reload();
 					}, 2000);
-					user.setToken(result.data.token);
-					user.setUser(true);
+					localStorage.setItem('token', result.data.token);
 				}
 				toast(msg, {
 					position: 'top-center',
@@ -60,14 +59,11 @@ function Login() {
 		loginUser();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [data]);
-
 	useEffect(() => {
-		if (user.user !== false) {
-			navigate(config.routes.App);
+		if (localStorage.getItem('token')) {
+			return navigate(config.routes.App);
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
 	function handleReset() {
 		return navigate(config.routes.ResetPass);
 	}

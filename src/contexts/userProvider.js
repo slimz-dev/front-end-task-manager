@@ -4,40 +4,47 @@ import { socket } from '~/socket';
 export const UserContext = createContext();
 
 function UserProvider({ children }) {
+	const [online, setOnline] = useState([]);
 	const [info, setInfo] = useState('');
-	const [user, setUser] = useState(
-		localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : false
-	);
 	const [token, setToken] = useState(
 		localStorage.getItem('token') ? localStorage.getItem('token') : false
 	);
+	socket.on('online', (data) => {
+		console.log('online');
+		setOnline(data);
+	});
+	socket.on('disconnect', () => {
+		socket.emit('logout', info.id);
+	});
+	socket.on('offline', (data) => {
+		console.log('this is offline state');
+		console.log(data);
+	});
 	useEffect(() => {
 		const getData = async () => {
 			try {
-				const result = await getMe(token);
-				const user = await result.data[0];
-				if (user === undefined) {
-					localStorage.setItem('user', JSON.stringify(false));
-					localStorage.setItem('token', JSON.stringify(false));
+				const result = await getMe();
+				const userInfo = result.data[0];
+				if (userInfo === undefined) {
+					localStorage.removeItem('token');
+					// socket.disconnect();
 				} else {
-					setInfo(user);
-					socket.emit('login', user._id);
+					localStorage.setItem('token', token);
+					setInfo(userInfo);
+					socket.emit('login', userInfo._id);
 				}
 			} catch (error) {
-				localStorage.setItem('user', JSON.stringify(false));
-				localStorage.setItem('token', JSON.stringify(false));
+				console.log(error);
+				localStorage.removeItem('token');
 			}
 		};
 		getData();
-		localStorage.setItem('user', JSON.stringify(user));
-		localStorage.setItem('token', token);
-	}, [token, user]);
+	}, [token]);
 	const userData = {
 		info,
-		user,
-		setUser,
 		token,
 		setToken,
+		online,
 	};
 	return <UserContext.Provider value={userData}>{children}</UserContext.Provider>;
 }
