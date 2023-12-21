@@ -1,0 +1,46 @@
+.sub-header {
+	font-size: 14px;
+	color: gray;
+}
+
+.msg-padding {
+	padding: 14px;
+	color: black;
+	font-size: 18px;
+}
+
+.input {
+	border: 1px solid #ccc;
+	height: 42px;
+	font-size: 14px;
+	border-radius: 5px;
+	width: 100%;
+	&:focus-visible {
+		outline: none;
+		border-color: hsl(182, 83%, 44%);
+	}
+}
+
+.pill-button {
+	border-radius: 16px;
+	padding: 5px 18px;
+}
+
+.effect {
+	animation: slide-in 0.8s linear;
+}
+
+@keyframes slide-in {
+	0% {
+		opacity: 0;
+		transform: translateY(-50%);
+	}
+	50% {
+		opacity: 0.5;
+		transform: translateY(-25%);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0%);
+	}
+}
