@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
@@ -6,28 +6,15 @@ import { getAll } from '~/services/getAllUserService';
 //css
 import styles from '../Sidebar.module.scss';
 
+import { UserContext } from '~/contexts/userProvider';
 //config
 import config from '~/config';
 // import { el } from '@fullcalendar/core/internal-common';
-import { socket } from '~/socket';
 
 const cx = classNames.bind(styles);
 
-// const online = [
-// 	{ state: true, id: '657fdc506a08c4f65ac33abc' },
-// 	{ state: false, id: '657fdc5d6a08c4f65ac33abf' },
-// 	{ state: true, id: '657fdc696a08c4f65ac33ac2' },
-// 	{ state: true, id: '657fdc766a08c4f65ac33ac5' },
-// 	{ state: false, id: '657fdc816a08c4f65ac33ac8' },
-// 	{ state: false, id: '657fdc906a08c4f65ac33acb' },
-// 	{ state: true, id: '657fdcb76a08c4f65ac33acf' },
-// ];
-
 function People() {
-	const [online, setOnline] = useState([]);
-	socket.on('online', (data) => {
-		setOnline(data);
-	});
+	const totalUser = useContext(UserContext);
 
 	const [users, setUsers] = useState({
 		activeUsers: 0,
@@ -39,7 +26,7 @@ function People() {
 			if (!result.meta) {
 				console.log('error getting all user');
 			} else {
-				const activeUsers = online.filter((userState) => {
+				const activeUsers = totalUser.online.filter((userState) => {
 					return userState.state === true;
 				});
 				setUsers({
@@ -50,7 +37,7 @@ function People() {
 		};
 
 		fetchAll();
-	}, []);
+	}, [totalUser.online]);
 	return (
 		<Link to={config.routes.Member} className="sidebar-link " aria-expanded="false">
 			<svg

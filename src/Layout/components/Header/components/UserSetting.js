@@ -26,7 +26,7 @@ function UserSetting() {
 
 	function handleSignOut() {
 		localStorage.removeItem('token');
-		socket.emit('logout', user.info.id);
+		socket.emit('login', user.info._id, false);
 		window.location.reload();
 	}
 

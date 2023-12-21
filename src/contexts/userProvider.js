@@ -9,17 +9,10 @@ function UserProvider({ children }) {
 	const [token, setToken] = useState(
 		localStorage.getItem('token') ? localStorage.getItem('token') : false
 	);
-	socket.on('online', (data) => {
-		console.log('online');
+	socket.on('user-state', (data) => {
 		setOnline(data);
 	});
-	socket.on('disconnect', () => {
-		socket.emit('logout', info.id);
-	});
-	socket.on('offline', (data) => {
-		console.log('this is offline state');
-		console.log(data);
-	});
+
 	useEffect(() => {
 		const getData = async () => {
 			try {
@@ -31,7 +24,7 @@ function UserProvider({ children }) {
 				} else {
 					localStorage.setItem('token', token);
 					setInfo(userInfo);
-					socket.emit('login', userInfo._id);
+					socket.emit('login', userInfo._id, true);
 				}
 			} catch (error) {
 				console.log(error);
