@@ -1,6 +1,10 @@
+import classNames from 'classnames/bind';
+import styles from './Footer.module.scss';
+
+const cx = classNames.bind(styles);
 function Footer() {
 	return (
-		<footer className="footer">
+		<footer className={cx('footer', 'footer-pos')}>
 			<div className="container-fluid">
 				<div className="row text-muted">
 					<div className="col-12 text-right">

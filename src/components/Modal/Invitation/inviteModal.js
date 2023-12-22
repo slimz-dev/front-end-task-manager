@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { ModalContext } from '~/Layout/components/Sidebar/contexts/ModalProvider';
+import { ModalContext } from '~/contexts/ModalProvider';
 import { Modal, Button } from 'react-bootstrap';
 import classNames from 'classnames/bind';
 import styles from './inviteModal.module.scss';
@@ -15,6 +15,8 @@ const InviteModal = () => {
 	function hideModal() {
 		modal.setShow(false);
 	}
+
+	function submitForm() {}
 	return (
 		<Modal show={modal.show} onHide={hideModal} size="sm" centered className={cx('effect')}>
 			<Modal.Header>
@@ -38,7 +40,7 @@ const InviteModal = () => {
 				<Button variant="danger" onClick={hideModal} className={cx('pill-button')}>
 					Cancel
 				</Button>
-				<Button variant="success" className={cx('pill-button')}>
+				<Button variant="success" onClick={submitForm} className={cx('pill-button')}>
 					Invite
 				</Button>
 			</Modal.Footer>

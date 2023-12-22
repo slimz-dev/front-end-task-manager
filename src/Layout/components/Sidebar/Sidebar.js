@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
 //context
-import ModalProvider from './contexts/ModalProvider';
-import { ModalContext } from './contexts/ModalProvider';
+import ModalProvider from '../../../contexts/ModalProvider';
 import { UserContext } from '~/contexts/userProvider';
 import { Toggle } from '~/Layout/DefaultLayout/context/ToggleProvider';
 
@@ -21,7 +20,7 @@ import Img from '~/components/Img/Img';
 
 // config
 import config from '~/config';
-import InviteModal from '~/components/Modal/inviteModal';
+import InviteModal from '~/components/Modal/Invitation/inviteModal';
 
 const cx = classNames.bind(styles);
 

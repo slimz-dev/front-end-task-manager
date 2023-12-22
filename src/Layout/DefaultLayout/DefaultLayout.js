@@ -10,7 +10,7 @@ function DefaultLayout({ children }) {
 		<div className={cx('wrapper')}>
 			<ToggleProvider>
 				<Sidebar />
-				<div className={cx('main')}>
+				<div className={cx('main', 'position-relative')}>
 					<Header />
 					{children}
 					<Footer />

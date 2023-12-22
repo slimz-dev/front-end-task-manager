@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ModalContext } from '../contexts/ModalProvider';
+import { ModalContext } from '../../../../contexts/ModalProvider';
 import classNames from 'classnames/bind';
 import styles from '../Sidebar.module.scss';
 

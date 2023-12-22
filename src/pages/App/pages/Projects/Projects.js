@@ -1,622 +1,99 @@
 import Img from '~/components/Img/Img';
-
+import ProjectModal from '~/components/Modal/Project/projectModal';
+import ModalProvider from '~/contexts/ModalProvider';
+import Button from './components/Button';
 function Projects() {
 	return (
-		<main class="content">
-			<div class="container-fluid p-0">
-				<a href="#" class="btn btn-primary float-right mt-n1">
-					<i class="fas fa-plus"></i> New project
-				</a>
-				<h1 class="h3 mb-3">Projects</h1>
+		<main className="content">
+			<ModalProvider>
+				<div className="container-fluid p-0">
+					<Button />
+					<h1 className="h3 mb-3">Projects</h1>
+					<div className="row">
+						<div className="col-12 col-md-6 col-lg-3">
+							<div className="card">
+								<div className="card-header px-4 pt-4">
+									<div className="card-actions float-right">
+										<div className="dropdown show">
+											<a
+												href="#"
+												data-toggle="dropdown"
+												data-display="static"
+											>
+												<i
+													className="align-middle"
+													data-feather="more-horizontal"
+												></i>
+											</a>
 
-				<div class="row">
-					<div class="col-12 col-md-6 col-lg-3">
-						<div class="card">
-							<div class="card-header px-4 pt-4">
-								<div class="card-actions float-right">
-									<div class="dropdown show">
-										<a href="#" data-toggle="dropdown" data-display="static">
-											<i
-												class="align-middle"
-												data-feather="more-horizontal"
-											></i>
-										</a>
-
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="#">
-												Action
-											</a>
-											<a class="dropdown-item" href="#">
-												Another action
-											</a>
-											<a class="dropdown-item" href="#">
-												Something else here
-											</a>
+											<div className="dropdown-menu dropdown-menu-right">
+												<a className="dropdown-item" href="#">
+													Action
+												</a>
+												<a className="dropdown-item" href="#">
+													Another action
+												</a>
+												<a className="dropdown-item" href="#">
+													Something else here
+												</a>
+											</div>
 										</div>
 									</div>
+									<h5 className="card-title mb-0">Landing page redesign</h5>
+									<div className="badge badge-success my-2">Finished</div>
 								</div>
-								<h5 class="card-title mb-0">Landing page redesign</h5>
-								<div class="badge badge-success my-2">Finished</div>
-							</div>
-							<div class="card-body px-4 pt-2">
-								<p>
-									Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus,
-									sem quam semper libero, sit amet adipiscing sem neque sed ipsum.
-								</p>
-
-								<Img
-									src="img\avatars\avatar-3.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-								<Img
-									src="img\avatars\avatar-2.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-								<Img
-									src="img\avatars\avatar.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-							</div>
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item px-4 pb-4">
-									<p class="mb-2 font-weight-bold">
-										Progress <span class="float-right">100%</span>
+								<div className="card-body px-4 pt-2">
+									<p>
+										Etiam rhoncus. Maecenas tempus, tellus eget condimentum
+										rhoncus, sem quam semper libero, sit amet adipiscing sem
+										neque sed ipsum.
 									</p>
-									<div class="progress progress-sm">
-										<div
-											class="progress-bar"
-											role="progressbar"
-											aria-valuenow="100"
-											aria-valuemin="0"
-											aria-valuemax="100"
-											style={{ width: '100%' }}
-										></div>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-12 col-md-6 col-lg-3">
-						<div class="card">
-							<div class="card-header px-4 pt-4">
-								<div class="card-actions float-right">
-									<div class="dropdown show">
-										<a href="#" data-toggle="dropdown" data-display="static">
-											<i
-												class="align-middle"
-												data-feather="more-horizontal"
-											></i>
-										</a>
 
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="#">
-												Action
-											</a>
-											<a class="dropdown-item" href="#">
-												Another action
-											</a>
-											<a class="dropdown-item" href="#">
-												Something else here
-											</a>
+									<Img
+										src="img\avatars\avatar-3.jpg"
+										className="rounded-circle mr-1"
+										alt="Avatar"
+										width="28"
+										height="28"
+									/>
+									<Img
+										src="img\avatars\avatar-2.jpg"
+										className="rounded-circle mr-1"
+										alt="Avatar"
+										width="28"
+										height="28"
+									/>
+									<Img
+										src="img\avatars\avatar.jpg"
+										className="rounded-circle mr-1"
+										alt="Avatar"
+										width="28"
+										height="28"
+									/>
+								</div>
+								<ul className="list-group list-group-flush">
+									<li className="list-group-item px-4 pb-4">
+										<p className="mb-2 font-weight-bold">
+											Progress <span className="float-right">100%</span>
+										</p>
+										<div className="progress progress-sm">
+											<div
+												className="progress-bar"
+												role="progressbar"
+												aria-valuenow="100"
+												aria-valuemin="0"
+												aria-valuemax="100"
+												style={{ width: '100%' }}
+											></div>
 										</div>
-									</div>
-								</div>
-								<h5 class="card-title mb-0">Company posters</h5>
-								<div class="badge badge-warning my-2">In progress</div>
+									</li>
+								</ul>
 							</div>
-							<div class="card-body px-4 pt-2">
-								<p>
-									Curabitur ligula sapien, tincidunt non, euismod vitae, posuere
-									imperdiet, leo. Maecenas malesuada. Praesent congue erat at
-									massa.
-								</p>
-
-								<Img
-									src="img\avatars\avatar-3.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-								<Img
-									src="img\avatars\avatar-2.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-								<Img
-									src="img\avatars\avatar.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-							</div>
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item px-4 pb-4">
-									<p class="mb-2 font-weight-bold">
-										Progress <span class="float-right">75%</span>
-									</p>
-									<div class="progress progress-sm">
-										<div
-											class="progress-bar"
-											role="progressbar"
-											aria-valuenow="75"
-											aria-valuemin="0"
-											aria-valuemax="100"
-											style={{ width: '75%' }}
-										></div>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-12 col-md-6 col-lg-3">
-						<div class="card">
-							<div class="card-header px-4 pt-4">
-								<div class="card-actions float-right">
-									<div class="dropdown show">
-										<a href="#" data-toggle="dropdown" data-display="static">
-											<i
-												class="align-middle"
-												data-feather="more-horizontal"
-											></i>
-										</a>
-
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="#">
-												Action
-											</a>
-											<a class="dropdown-item" href="#">
-												Another action
-											</a>
-											<a class="dropdown-item" href="#">
-												Something else here
-											</a>
-										</div>
-									</div>
-								</div>
-								<h5 class="card-title mb-0">Product page design</h5>
-								<div class="badge badge-success my-2">Finished</div>
-							</div>
-							<div class="card-body px-4 pt-2">
-								<p>
-									Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus,
-									sem quam semper libero, sit amet adipiscing sem neque sed ipsum.
-								</p>
-
-								<Img
-									src="img\avatars\avatar-3.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-								<Img
-									src="img\avatars\avatar-2.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-								<Img
-									src="img\avatars\avatar.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-							</div>
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item px-4 pb-4">
-									<p class="mb-2 font-weight-bold">
-										Progress <span class="float-right">100%</span>
-									</p>
-									<div class="progress progress-sm">
-										<div
-											class="progress-bar"
-											role="progressbar"
-											aria-valuenow="100"
-											aria-valuemin="0"
-											aria-valuemax="100"
-											style={{ width: '100%' }}
-										></div>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-12 col-md-6 col-lg-3">
-						<div class="card">
-							<div class="card-header px-4 pt-4">
-								<div class="card-actions float-right">
-									<div class="dropdown show">
-										<a href="#" data-toggle="dropdown" data-display="static">
-											<i
-												class="align-middle"
-												data-feather="more-horizontal"
-											></i>
-										</a>
-
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="#">
-												Action
-											</a>
-											<a class="dropdown-item" href="#">
-												Another action
-											</a>
-											<a class="dropdown-item" href="#">
-												Something else here
-											</a>
-										</div>
-									</div>
-								</div>
-								<h5 class="card-title mb-0">Upgrade CRM software</h5>
-								<div class="badge badge-warning my-2">In progress</div>
-							</div>
-							<div class="card-body px-4 pt-2">
-								<p>
-									Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget,
-									imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices
-									mauris.
-								</p>
-
-								<Img
-									src="img\avatars\avatar-3.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-								<Img
-									src="img\avatars\avatar-2.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-								<Img
-									src="img\avatars\avatar.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-							</div>
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item px-4 pb-4">
-									<p class="mb-2 font-weight-bold">
-										Progress <span class="float-right">50%</span>
-									</p>
-									<div class="progress progress-sm">
-										<div
-											class="progress-bar"
-											role="progressbar"
-											aria-valuenow="50"
-											aria-valuemin="0"
-											aria-valuemax="100"
-											style={{ width: '50%' }}
-										></div>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-12 col-md-6 col-lg-3">
-						<div class="card">
-							<div class="card-header px-4 pt-4">
-								<div class="card-actions float-right">
-									<div class="dropdown show">
-										<a href="#" data-toggle="dropdown" data-display="static">
-											<i
-												class="align-middle"
-												data-feather="more-horizontal"
-											></i>
-										</a>
-
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="#">
-												Action
-											</a>
-											<a class="dropdown-item" href="#">
-												Another action
-											</a>
-											<a class="dropdown-item" href="#">
-												Something else here
-											</a>
-										</div>
-									</div>
-								</div>
-								<h5 class="card-title mb-0">Fix form validation</h5>
-								<div class="badge badge-warning my-2">In progress</div>
-							</div>
-							<div class="card-body px-4 pt-2">
-								<p>
-									Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget,
-									imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices
-									mauris.
-								</p>
-
-								<Img
-									src="img\avatars\avatar-3.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-								<Img
-									src="img\avatars\avatar-2.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-								<Img
-									src="img\avatars\avatar.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-							</div>
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item px-4 pb-4">
-									<p class="mb-2 font-weight-bold">
-										Progress <span class="float-right">65%</span>
-									</p>
-									<div class="progress progress-sm">
-										<div
-											class="progress-bar"
-											role="progressbar"
-											aria-valuenow="65"
-											aria-valuemin="0"
-											aria-valuemax="100"
-											style={{ width: '65%' }}
-										></div>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-12 col-md-6 col-lg-3">
-						<div class="card">
-							<div class="card-header px-4 pt-4">
-								<div class="card-actions float-right">
-									<div class="dropdown show">
-										<a href="#" data-toggle="dropdown" data-display="static">
-											<i
-												class="align-middle"
-												data-feather="more-horizontal"
-											></i>
-										</a>
-
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="#">
-												Action
-											</a>
-											<a class="dropdown-item" href="#">
-												Another action
-											</a>
-											<a class="dropdown-item" href="#">
-												Something else here
-											</a>
-										</div>
-									</div>
-								</div>
-								<h5 class="card-title mb-0">New company logo</h5>
-								<div class="badge badge-danger my-2">On hold</div>
-							</div>
-							<div class="card-body px-4 pt-2">
-								<p>
-									Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus,
-									sem quam semper libero, sit amet adipiscing sem neque sed ipsum.
-								</p>
-
-								<Img
-									src="img\avatars\avatar-3.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-								<Img
-									src="img\avatars\avatar-2.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-								<Img
-									src="img\avatars\avatar.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-							</div>
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item px-4 pb-4">
-									<p class="mb-2 font-weight-bold">
-										Progress <span class="float-right">20%</span>
-									</p>
-									<div class="progress progress-sm">
-										<div
-											class="progress-bar"
-											role="progressbar"
-											aria-valuenow="20"
-											aria-valuemin="0"
-											aria-valuemax="100"
-											style={{ width: '20%' }}
-										></div>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-12 col-md-6 col-lg-3">
-						<div class="card">
-							<div class="card-header px-4 pt-4">
-								<div class="card-actions float-right">
-									<div class="dropdown show">
-										<a href="#" data-toggle="dropdown" data-display="static">
-											<i
-												class="align-middle"
-												data-feather="more-horizontal"
-											></i>
-										</a>
-
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="#">
-												Action
-											</a>
-											<a class="dropdown-item" href="#">
-												Another action
-											</a>
-											<a class="dropdown-item" href="#">
-												Something else here
-											</a>
-										</div>
-									</div>
-								</div>
-								<h5 class="card-title mb-0">Upgrade to latest Maps API</h5>
-								<div class="badge badge-success my-2">Finished</div>
-							</div>
-							<div class="card-body px-4 pt-2">
-								<p>
-									Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget,
-									imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices
-									mauris.
-								</p>
-
-								<Img
-									src="img\avatars\avatar-3.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-								<Img
-									src="img\avatars\avatar-2.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-								<Img
-									src="img\avatars\avatar.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-							</div>
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item px-4 pb-4">
-									<p class="mb-2 font-weight-bold">
-										Progress <span class="float-right">100%</span>
-									</p>
-									<div class="progress progress-sm">
-										<div
-											class="progress-bar"
-											role="progressbar"
-											aria-valuenow="100"
-											aria-valuemin="0"
-											aria-valuemax="100"
-											style={{ width: '100%' }}
-										></div>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-12 col-md-6 col-lg-3">
-						<div class="card">
-							<div class="card-header px-4 pt-4">
-								<div class="card-actions float-right">
-									<div class="dropdown show">
-										<a href="#" data-toggle="dropdown" data-display="static">
-											<i
-												class="align-middle"
-												data-feather="more-horizontal"
-											></i>
-										</a>
-
-										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item" href="#">
-												Action
-											</a>
-											<a class="dropdown-item" href="#">
-												Another action
-											</a>
-											<a class="dropdown-item" href="#">
-												Something else here
-											</a>
-										</div>
-									</div>
-								</div>
-								<h5 class="card-title mb-0">Refactor backend templates</h5>
-								<div class="badge badge-danger my-2">On hold</div>
-							</div>
-							<div class="card-body px-4 pt-2">
-								<p>
-									Curabitur ligula sapien, tincidunt non, euismod vitae, posuere
-									imperdiet, leo. Maecenas malesuada. Praesent congue erat at
-									massa.
-								</p>
-
-								<Img
-									src="img\avatars\avatar-3.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-								<Img
-									src="img\avatars\avatar-2.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-								<Img
-									src="img\avatars\avatar.jpg"
-									class="rounded-circle mr-1"
-									alt="Avatar"
-									width="28"
-									height="28"
-								/>
-							</div>
-							<ul class="list-group list-group-flush">
-								<li class="list-group-item px-4 pb-4">
-									<p class="mb-2 font-weight-bold">
-										Progress <span class="float-right">0%</span>
-									</p>
-									<div class="progress progress-sm">
-										<div
-											class="progress-bar"
-											role="progressbar"
-											aria-valuenow="0"
-											aria-valuemin="0"
-											aria-valuemax="100"
-											style={{ width: '0%' }}
-										></div>
-									</div>
-								</li>
-							</ul>
 						</div>
 					</div>
 				</div>
-			</div>
+				<ProjectModal />
+			</ModalProvider>
 		</main>
 	);
 }
