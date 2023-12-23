@@ -2,6 +2,15 @@
 	margin-right: 1rem;
 }
 
+.calendar {
+	max-width: fit-content !important;
+	position: absolute;
+	z-index: 5;
+}
+
+.none {
+	display: none;
+}
 .date-wrapper {
 	display: flex;
 }
@@ -24,8 +33,16 @@
 	transition: all 0.2s linear;
 }
 
+.date-label-content {
+	margin-left: 4px;
+}
+
 .date-task:focus + .date-label {
 	background: white;
 	font-size: 12px;
 	top: -10px;
+}
+
+.assign-wrapper {
+	position: relative;
 }

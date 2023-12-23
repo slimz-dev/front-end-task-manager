@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 
 import { toast } from 'react-toastify';
@@ -15,11 +15,22 @@ import config from '~/config';
 const cx = classNames.bind(styles);
 function Content() {
 	const navigate = useNavigate();
+	const inputRef = useRef();
+	const buttonRef = useRef();
 	const [data, setData] = useState({});
 	const [firstName, setFirstName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-
+	useEffect(() => {
+		const handlePress = (event) => {
+			const key = event.key;
+			if (key === 'Enter') {
+				buttonRef.current.click();
+			}
+		};
+		inputRef.current.addEventListener('keypress', handlePress, true);
+		return inputRef.current.removeEventListener('keypress', handlePress);
+	}, []);
 	useEffect(() => {
 		const registerUser = async () => {
 			if (Object.keys(data).length > 0) {
@@ -110,6 +121,7 @@ function Content() {
 						<div className="form-group">
 							<label>Password</label>
 							<input
+								ref={inputRef}
 								className="form-control form-control-lg"
 								type="password"
 								name="password"
@@ -120,6 +132,7 @@ function Content() {
 						</div>
 						<div className="text-center mt-3">
 							<div
+								ref={buttonRef}
 								onClick={handleSignUp}
 								className={cx('btn btn-lg btn-primary', 'hover')}
 							>
