@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState, useRef, useContext, useEffect } from 'react';
+import { socket } from '~/socket';
 import classNames from 'classnames/bind';
 import config from '~/config';
 import { UserContext } from '~/contexts/userProvider';
@@ -8,7 +9,6 @@ import Img from '~/components/Img/Img';
 //css
 import styles from '../Header.module.scss';
 
-import { getMe } from '~/services/getMeService';
 const cx = classNames.bind(styles);
 
 function UserSetting() {
@@ -17,20 +17,17 @@ function UserSetting() {
 	const user = useContext(UserContext);
 	const insideRef = useRef();
 	useEffect(() => {
-		const fetchApi = async () => {
-			const result = await getMe(user.token);
-			setCurrentUser(result.data[0]);
-		};
-		fetchApi();
-	}, []);
+		setCurrentUser(user.info);
+	}, [user]);
 
 	function handleDropDown() {
 		setIsOpen(!isOpen);
 	}
 
 	function handleSignOut() {
-		user.setUser(false);
-		user.setToken(false);
+		localStorage.removeItem('token');
+		socket.emit('login', user.info._id, false);
+		window.location.reload();
 	}
 
 	//Click outside box
@@ -47,11 +44,17 @@ function UserSetting() {
 				data-toggle="dropdown"
 			>
 				<Img
-					src=".\assets\img\avatars\avatar.jpg"
+					src={currentUser?.img ? currentUser?.img : ''}
 					className="avatar img-fluid rounded-circle mr-1"
 					alt="Chris Wood"
 				/>
-				<span className="text-dark">{currentUser.firstName}</span>
+				<span className="text-dark">
+					{currentUser
+						? `${currentUser?.firstName} ${
+								currentUser?.lastName ? currentUser?.lastName : ''
+						  }`
+						: ''}
+				</span>
 			</div>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"

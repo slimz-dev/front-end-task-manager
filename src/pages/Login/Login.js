@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames/bind';
-
+import validator from 'validator';
 //Context
 import { UserContext } from '~/contexts/userProvider';
 
@@ -23,12 +23,16 @@ function Login() {
 	const [data, setData] = useState({});
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const user = useContext(UserContext);
+
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		const loginUser = async () => {
 			if (Object.keys(data).length > 0) {
+				if (!validator.isEmail(data.email)) {
+					data.userName = data.email;
+					delete data.email;
+				}
 				const result = await userLogin(data);
 				let msg;
 				if (result.statusCode === 404) {
@@ -36,10 +40,9 @@ function Login() {
 				} else if (result.statusCode === 200) {
 					msg = result.data.message;
 					setTimeout(() => {
-						navigate(config.routes.App);
+						window.location.reload();
 					}, 2000);
-					user.setToken(result.data.token);
-					user.setUser(true);
+					localStorage.setItem('token', result.data.token);
 				}
 				toast(msg, {
 					position: 'top-center',
@@ -54,14 +57,13 @@ function Login() {
 			}
 		};
 		loginUser();
-	}, [data, user, navigate]);
-
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [data]);
 	useEffect(() => {
-		if (user.user !== false) {
-			navigate(config.routes.App);
+		if (localStorage.getItem('token')) {
+			return navigate(config.routes.App);
 		}
 	}, []);
-
 	function handleReset() {
 		return navigate(config.routes.ResetPass);
 	}

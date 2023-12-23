@@ -1,0 +1,10 @@
+.hover {
+	&:hover {
+		background-color: gray !important;
+		cursor: pointer;
+	}
+}
+
+.active {
+	background-color: #dee197 !important;
+}

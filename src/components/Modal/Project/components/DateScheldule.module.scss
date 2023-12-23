@@ -1,0 +1,31 @@
+.margin-right {
+	margin-right: 1rem;
+}
+
+.date-wrapper {
+	display: flex;
+}
+
+.start-container,
+.end-container {
+	position: relative;
+}
+
+.date-task {
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	padding: 7px;
+}
+
+.date-label {
+	position: absolute;
+	left: 11px;
+	top: 7px;
+	transition: all 0.2s linear;
+}
+
+.date-task:focus + .date-label {
+	background: white;
+	font-size: 12px;
+	top: -10px;
+}

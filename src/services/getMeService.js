@@ -1,6 +1,6 @@
 import request from '~/utils/request';
 
-export const getMe = async (token) => {
+export const getMe = async () => {
 	try {
 		const res = await request.get('users/me', {
 			headers: {
