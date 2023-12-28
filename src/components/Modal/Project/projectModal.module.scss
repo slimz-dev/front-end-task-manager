@@ -103,3 +103,22 @@
 		opacity: 1;
 	}
 }
+
+.user-assign {
+	border-radius: 50%;
+	justify-content: center;
+	display: flex;
+	align-items: center;
+	min-width: 1.75rem;
+	height: 1.75rem;
+	&:hover {
+		cursor: pointer;
+		background-color: hsla(228, 48%, 8%, 0.1);
+	}
+}
+
+.assignee-img {
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+}

@@ -21,6 +21,7 @@ import Img from '~/components/Img/Img';
 // config
 import config from '~/config';
 import InviteModal from '~/components/Modal/Invitation/inviteModal';
+import Config from './components/Config';
 
 const cx = classNames.bind(styles);
 
@@ -73,6 +74,9 @@ function Sidebar() {
 						<li className="sidebar-header">Actions</li>
 						<li className="sidebar-item">
 							<MemberAdding />
+						</li>
+						<li className="sidebar-item">
+							<Config />
 						</li>
 					</ul>
 

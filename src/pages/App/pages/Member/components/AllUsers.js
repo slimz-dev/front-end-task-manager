@@ -50,7 +50,8 @@ function AllUsers() {
 						<tr>
 							<th>#</th>
 							<th>Name</th>
-							<th>Company</th>
+							<th>Position</th>
+							<th>Department</th>
 							<th>Email</th>
 							<th>Status</th>
 						</tr>
@@ -78,7 +79,8 @@ function AllUsers() {
 									<td>{`${user.firstName} ${
 										user.lastName ? user.lastName : ''
 									}`}</td>
-									<td>senior</td>
+									<td>{user.role}</td>
+									<td>{user.department}</td>
 									<td>{user.email}</td>
 									<td>
 										<span

@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import Message from './components/Message';
 import Notification from './components/Notification';
 import UserSetting from './components/UserSetting';
 import SearchTask from './components/SearchTask';
@@ -15,9 +14,6 @@ function Header() {
 			<SearchTask />
 			<div className="navbar-collapse collapse">
 				<ul className="navbar-nav ml-auto">
-					<li className="nav-item dropdown">
-						<Message />
-					</li>
 					<li className="nav-item dropdown">
 						<Notification />
 					</li>

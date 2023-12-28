@@ -15,6 +15,7 @@ import styles from './projectModal.module.scss';
 import DateSchedule from './components/DateSchedule/DateSchedule';
 import UserAssign from './components/UserAssign/UserAssign';
 import TotalUsersProvider from '~/pages/App/pages/Member/context/TotalUsersProvider';
+import UserProvider from './components/UserAssign/context/UserProvider';
 
 const cx = classNames.bind(styles);
 const ProjectModal = () => {
@@ -73,7 +74,9 @@ const ProjectModal = () => {
 				</div>
 				<div className={cx('d-flex', 'flex-row', 'assign')}>
 					<TotalUsersProvider>
-						<UserAssign />
+						<UserProvider>
+							<UserAssign />
+						</UserProvider>
 					</TotalUsersProvider>
 					<DateSchedule />
 				</div>

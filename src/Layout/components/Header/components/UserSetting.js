@@ -70,10 +70,6 @@ function UserSetting() {
 					show: isOpen,
 				})}
 			>
-				<Link className="dropdown-item" to={config.routes.Profile}>
-					<i className="align-middle mr-1" data-feather="user"></i> Profile
-				</Link>
-				<div className="dropdown-divider"></div>
 				<Link className="dropdown-item" to={config.routes.Settings}>
 					Settings & Privacy
 				</Link>
