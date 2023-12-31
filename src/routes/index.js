@@ -11,6 +11,7 @@ import {
 	Projects,
 	Tasks,
 	Calendar,
+	AdminConfiguration,
 } from '~/pages';
 import { ContentLayout } from '~/Layout';
 import config from '~/config';
@@ -31,4 +32,5 @@ export const privateRoutes = [
 	{ path: config.routes.Projects, component: Projects },
 	{ path: config.routes.Tasks, component: Tasks },
 	{ path: config.routes.Calendar, component: Calendar },
+	{ path: config.routes.AdminConfigurations, component: AdminConfiguration },
 ];

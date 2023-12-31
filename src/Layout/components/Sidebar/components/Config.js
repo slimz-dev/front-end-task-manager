@@ -41,7 +41,7 @@ function Config() {
 				data-parent="#sidebar"
 			>
 				<li className="sidebar-item">
-					<Link className="sidebar-link" to={config.routes.Settings}>
+					<Link className="sidebar-link" to={config.routes.AdminConfigurations}>
 						<FontAwesomeIcon icon={faUserTie} />
 						Admin Configuration
 					</Link>
