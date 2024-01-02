@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import styles from './components.module.scss';
 
 //fetch api
-import { userRegistration } from '~/services/registerService';
+import { userRegistration } from '~/services/UserService/registerService';
 
 //config
 import config from '~/config';

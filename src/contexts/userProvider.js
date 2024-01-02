@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-import { getMe } from '~/services/getMeService';
+import { getMe } from '~/services/UserService/getMeService';
 import { socket } from '~/socket';
 export const UserContext = createContext();
 

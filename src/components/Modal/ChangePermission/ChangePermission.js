@@ -1,17 +1,12 @@
-import { useState, useContext, useRef } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 //context
-import { ModalContext } from '~/contexts/ModalProvider';
+
+import { GroupContext } from '~/pages/App/pages/AdminConfiguration/components/GroupsTable/context/GroupProvider';
 
 //component render
-import { Modal, Button } from 'react-bootstrap';
-
-//css
-import styles from './AddGroups.module.scss';
+import { Modal } from 'react-bootstrap';
 import AdminPermissions from './components/Admin/Admin';
 import LocalMember from './components/LocalMember/LocalMember';
 import GlobalMember from './components/GlobalMember/GlobalMember';
@@ -23,11 +18,14 @@ import FooterButton from './components/FooterButton/FooterButton';
 import PermissionProvder from './context/PermissionProvider';
 import GroupName from './components/GroupName/GroupName';
 
+//css
+import styles from './ChangePermission.module.scss';
+
 const cx = classNames.bind(styles);
-const AddGroups = () => {
-	const modal = useContext(ModalContext);
+const ChangePermission = () => {
+	const modal = useContext(GroupContext);
 	function hideModal() {
-		modal.setShow(false);
+		modal.handleClose();
 	}
 
 	return (
@@ -35,7 +33,7 @@ const AddGroups = () => {
 			<PermissionProvder>
 				<Modal.Header>
 					<Modal.Title>
-						<strong>Adding group</strong>
+						<strong>Update Group</strong>
 					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body className={cx('d-flex', 'flex-column')}>
@@ -75,4 +73,4 @@ const AddGroups = () => {
 	);
 };
 
-export default AddGroups;
+export default ChangePermission;

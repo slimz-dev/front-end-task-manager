@@ -15,7 +15,7 @@ import config from '~/config';
 import styles from './Login.module.scss';
 
 //Login api
-import { userLogin } from '~/services/loginService';
+import { userLogin } from '~/services/UserService/loginService';
 import { toast, ToastContainer } from 'react-toastify';
 const cx = classNames.bind(styles);
 

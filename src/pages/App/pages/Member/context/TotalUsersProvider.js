@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useContext } from 'react';
-import { getAll } from '~/services/getAllUserService';
+import { getAll } from '~/services/UserService/getAllUserService';
 import { UserContext } from '~/contexts/userProvider';
 export const TotalUsers = createContext();
 

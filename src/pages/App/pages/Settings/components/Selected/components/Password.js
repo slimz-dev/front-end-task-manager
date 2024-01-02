@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import config from '~/config';
-import { changePassword } from '~/services/changePassword';
+import { changePassword } from '~/services/UserService/changePassword';
 import { ToastContainer, toast } from 'react-toastify';
 import { Toast } from 'react-bootstrap';
 function Password() {

@@ -1,6 +1,6 @@
 import { createContext, useState, useContext, useEffect } from 'react';
 import { UserContext } from '~/contexts/userProvider';
-import { changeInfo } from '~/services/changeInfoService';
+import { changeInfo } from '~/services/UserService/changeInfoService';
 export const InfoContext = createContext();
 
 function InfoProvider({ children }) {

@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
-import { getAll } from '~/services/getAllUserService';
+import { getAll } from '~/services/UserService/getAllUserService';
 //css
 import styles from '../Sidebar.module.scss';
 

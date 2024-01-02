@@ -10,8 +10,8 @@ import styles from './AdminConfiguration.module.scss';
 import ActionGroups from './components/ActionGroups/ActionGroups';
 import GroupsTable from './components/GroupsTable/GroupsTable';
 import AdminProvider from './contexts/AdminProvider.js/AdminProvider';
+import GroupProvider from './components/GroupsTable/context/GroupProvider';
 
-const cx = classNames.bind(styles);
 function AdminConfiguration() {
 	return (
 		<main className="content">
@@ -22,7 +22,9 @@ function AdminConfiguration() {
 						<div className="col-xl-12">
 							<div className="card">
 								<div className="card-body">
-									<GroupsTable />
+									<GroupProvider>
+										<GroupsTable />
+									</GroupProvider>
 								</div>
 							</div>
 						</div>
