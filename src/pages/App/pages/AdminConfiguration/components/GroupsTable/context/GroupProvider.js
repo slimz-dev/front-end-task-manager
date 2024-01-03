@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
+import { deleteGroup } from '~/services/GroupService/deleteGroupService';
 import { getGroup } from '~/services/GroupService/getGroupService';
 export const GroupContext = createContext();
 
@@ -20,7 +21,17 @@ function GroupProvider({ children }) {
 		};
 		fetchGroup();
 	}
-
+	function handleDelete(e) {
+		let thisElement = e.target.parentNode;
+		while (!thisElement.id) {
+			thisElement = thisElement.parentNode;
+		}
+		const thisGroup = thisElement.id;
+		const deleteApi = async () => {
+			const result = await deleteGroup(thisGroup);
+		};
+		deleteApi();
+	}
 	useEffect(() => {
 		if (Object.keys(groupInfo).length !== 0) {
 			setShow(true);
@@ -36,6 +47,7 @@ function GroupProvider({ children }) {
 		handleClose,
 		setGroupInfo,
 		groupInfo,
+		handleDelete,
 	};
 	return <GroupContext.Provider value={value}>{children}</GroupContext.Provider>;
 }

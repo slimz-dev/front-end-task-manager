@@ -1,43 +1,61 @@
-import { useState, useRef, createContext } from 'react';
+import { useState, useRef, createContext, useEffect } from 'react';
 import { toast } from 'react-toastify';
-
+import { deleteMultipleGroup } from '~/services/GroupService/deleteMultipleGroupService';
+import { getTotalGroups } from '~/services/GroupService/groupPermissionService';
+import { socket } from '~/socket';
 export const AdminContext = createContext();
 
 function AdminProvider({ children }) {
 	const [isChecked, setIsChecked] = useState({ checked: false, deleted: [] });
-	const inputRef = useRef([]);
+	const [groupsRender, setGroupsRender] = useState([]);
+	const inputRef = useRef({});
+
+	useEffect(() => {
+		const fetchGroup = async () => {
+			const result = await getTotalGroups();
+			setGroupsRender(result.data);
+		};
+		fetchGroup();
+	}, []);
+	socket.on('new_group_update', (data) => {
+		setGroupsRender(data.groups);
+	});
+
 	function handleChecked(e) {
-		let count = isChecked.deleted;
+		let deleteGroups = isChecked.deleted;
 		setIsChecked(() => {
 			// Loop all groups
-			inputRef.current.forEach((group, index) => {
-				// Set deleted state
-				if (e.target.checked) {
-					//Finding already checked
-					const element = count.find((groupFind) => {
-						return groupFind === index;
-					});
-					if (element === undefined) {
-						count.push(index);
+			if (e.target.checked) {
+				for (const [key, value] of Object.entries(inputRef.current)) {
+					if (!value.checked) {
+						deleteGroups.push(key);
+						value.checked = true;
 					}
-				} else {
-					count = [];
 				}
-				// Set state check to all groups
-				group.checked = e.target.checked;
-			});
+			} else {
+				deleteGroups = [];
+				for (const [key, value] of Object.entries(inputRef.current)) {
+					if (value.checked) {
+						value.checked = false;
+					}
+				}
+			}
 			return {
 				checked: e.target.checked,
-				deleted: count,
+				deleted: deleteGroups,
 			};
 		});
 	}
-
 	function handleSingleChecked(e) {
 		//Find the group change
-		const groupFind = inputRef.current.findIndex((group) => {
-			return group === e.target;
-		});
+		function findGroup() {
+			for (const [key, value] of Object.entries(inputRef.current)) {
+				if (value === e.target) {
+					return key;
+				}
+			}
+		}
+		const groupFind = findGroup();
 		setIsChecked((prev) => {
 			//Find already deleted
 			const isDeleted = prev.deleted.findIndex((group) => {
@@ -76,7 +94,12 @@ function AdminProvider({ children }) {
 				theme: 'dark',
 			});
 		} else {
-			toast.success('Deleting.. ', {
+			const deleteMulti = async () => {
+				const groups = isChecked.deleted;
+				const result = await deleteMultipleGroup(groups);
+			};
+			deleteMulti();
+			toast.success('Deleted !!! ', {
 				position: 'top-center',
 				autoClose: 1000,
 				hideProgressBar: false,
@@ -94,6 +117,7 @@ function AdminProvider({ children }) {
 		handleSingleChecked,
 		handleDeletedAction,
 		inputRef,
+		groupsRender,
 	};
 	return <AdminContext.Provider value={value}>{children}</AdminContext.Provider>;
 }

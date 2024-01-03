@@ -23,17 +23,6 @@ const cx = classNames.bind(styles);
 function GroupsTable() {
 	const groups = useContext(AdminContext);
 	const modal = useContext(GroupContext);
-	const [groupsRender, setGroupsRender] = useState([]);
-	useEffect(() => {
-		const fetchGroup = async () => {
-			const result = await getTotalGroups();
-			setGroupsRender(result.data);
-		};
-		fetchGroup();
-	}, []);
-	socket.on('new_group_update', (data) => {
-		setGroupsRender(data.groups);
-	});
 	return (
 		<>
 			<table
@@ -57,12 +46,13 @@ function GroupsTable() {
 					</tr>
 				</thead>
 				<tbody>
-					{groupsRender.map((group, index) => {
+					{groups.groupsRender.map((group, index) => {
+						const groupId = group._id;
 						return (
-							<tr key={group._id} id={group._id}>
+							<tr key={groupId} id={groupId}>
 								<td className={cx('bordered')}>
 									<input
-										ref={(e) => (groups.inputRef.current[index] = e)}
+										ref={(e) => (groups.inputRef.current[groupId] = e)}
 										type="checkbox"
 										onChange={(e) => groups.handleSingleChecked(e)}
 									/>
@@ -75,7 +65,10 @@ function GroupsTable() {
 								>
 									<FontAwesomeIcon icon={faPencil} />
 								</td>
-								<td className={cx('bordered', 'align-center', 'red-color')}>
+								<td
+									className={cx('bordered', 'align-center', 'red-color')}
+									onClick={(e) => modal.handleDelete(e)}
+								>
 									<FontAwesomeIcon icon={faXmark} />
 								</td>
 							</tr>

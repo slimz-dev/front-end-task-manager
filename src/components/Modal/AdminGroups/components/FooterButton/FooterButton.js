@@ -6,9 +6,11 @@ import useClass from '~/hooks/useClass';
 import usePermission from '../../hooks/usePermission';
 import { toast } from 'react-toastify';
 import { postNewGroup } from '~/services/GroupService/newGroupService';
+import { AdminContext } from '~/pages/App/pages/AdminConfiguration/contexts/AdminProvider.js/AdminProvider';
 
 function FooterButton() {
 	const cx = useClass(styles);
+	const totalGroups = useContext(AdminContext);
 	const modal = useContext(ModalContext);
 	const permission = usePermission();
 	function hideModal() {
@@ -16,13 +18,11 @@ function FooterButton() {
 	}
 	function submitGroup() {
 		if (permission.name.name) {
-			const data = {
-				...permission.name,
-				...permission.permission,
-			};
-			const createNewGroup = async () => {
+			const existGroup = totalGroups.groupsRender.find((group) => {
+				return group.name === permission.name.name;
+			});
+			const createNewGroup = async (data) => {
 				const result = await postNewGroup(data);
-				console.log(result);
 				toast.success('Successfully created ', {
 					position: 'top-center',
 					autoClose: 1500,
@@ -34,8 +34,24 @@ function FooterButton() {
 					theme: 'dark',
 				});
 			};
-
-			createNewGroup();
+			if (!existGroup) {
+				const data = {
+					...permission.name,
+					...permission.permission,
+				};
+				createNewGroup(data);
+			} else {
+				toast.warn('Group name existed ❗', {
+					position: 'top-center',
+					autoClose: 1500,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: 'dark',
+				});
+			}
 		} else {
 			toast.warn('Group name required ❗', {
 				position: 'top-center',
@@ -58,7 +74,7 @@ function FooterButton() {
 				Cancel
 			</Button>
 			<Button onClick={submitGroup} className={cx('btn-pill', 'create-btn')}>
-				Create task
+				Add group
 			</Button>
 		</div>
 	);
