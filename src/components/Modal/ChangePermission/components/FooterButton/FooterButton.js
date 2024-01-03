@@ -29,8 +29,8 @@ function FooterButton() {
 	function submitGroup() {
 		if (permission.name.name) {
 			const data = {
-				...permission.name,
 				...permission.permission,
+				...permission.name,
 			};
 			const updateThisGroup = async (groupId) => {
 				const result = await updateGroup(groupId, data);

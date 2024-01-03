@@ -18,7 +18,9 @@ function GroupName() {
 		setIsFirst(false);
 		permission.handleSetName(e);
 	}
-
+	useEffect(() => {
+		permission.handleSetName(inputRef.current);
+	}, []);
 	return (
 		<div className={cx('task-name')}>
 			<input
@@ -28,7 +30,7 @@ function GroupName() {
 				className={cx('input-task')}
 				placeholder="Enter your group name"
 				value={isFirst ? modal.groupInfo.name : permission.name.name}
-				onChange={(e) => handleChangeName(e)}
+				onChange={(e) => handleChangeName(e.target)}
 			></input>
 			<label onClick={handleClick} htmlFor="task" className={cx('task-label', 'blur')}>
 				Group name

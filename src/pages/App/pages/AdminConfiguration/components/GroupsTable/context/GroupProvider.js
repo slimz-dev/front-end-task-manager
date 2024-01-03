@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
+
 import { deleteGroup } from '~/services/GroupService/deleteGroupService';
 import { getGroup } from '~/services/GroupService/getGroupService';
 export const GroupContext = createContext();
@@ -17,7 +18,9 @@ function GroupProvider({ children }) {
 		const thisGroup = thisElement.id;
 		const fetchGroup = async () => {
 			const result = await getGroup(thisGroup);
-			setGroupInfo(result.data[0]);
+			setGroupInfo(() => {
+				return result.data[0];
+			});
 		};
 		fetchGroup();
 	}

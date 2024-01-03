@@ -2,9 +2,11 @@ import styles from '../../ChangePermission.module.scss';
 import useClass from '~/hooks/useClass';
 import { useContext } from 'react';
 import { GroupContext } from '~/pages/App/pages/AdminConfiguration/components/GroupsTable/context/GroupProvider';
+import { PermissionContext } from '../../context/PermissionProvider';
 
 function GlobalMember() {
 	const cx = useClass(styles);
+	const permission = useContext(PermissionContext);
 	const modal = useContext(GroupContext);
 	return (
 		<tr>
@@ -14,6 +16,7 @@ function GlobalMember() {
 					type="checkbox"
 					name="globalMemberManager"
 					value="create"
+					onChange={permission.handleChangePermission}
 					defaultChecked={modal.groupInfo?.globalMemberManager.create}
 				/>
 			</td>

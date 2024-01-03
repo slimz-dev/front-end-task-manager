@@ -1,38 +1,10 @@
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
+import { GroupContext } from '~/pages/App/pages/AdminConfiguration/components/GroupsTable/context/GroupProvider';
 export const PermissionContext = createContext();
 function PermissionProvder({ children }) {
+	const group = useContext(GroupContext);
 	const [name, setName] = useState({});
-	const [permission, setPermission] = useState({
-		admin: {
-			create: false,
-			read: false,
-			update: false,
-			delete: false,
-		},
-		localTaskManager: {
-			create: false,
-			read: false,
-			delete: false,
-			update: false,
-		},
-		globalTaskManager: {
-			create: false,
-		},
-		localMemberManager: {
-			create: false,
-			read: false,
-			delete: false,
-		},
-		globalMemberManager: {
-			create: false,
-		},
-		invite: {
-			create: false,
-		},
-		totalEmployees: {
-			read: false,
-		},
-	});
+	const [permission, setPermission] = useState(group.groupInfo);
 	function handleChangePermission(e) {
 		const permission = e.target.name;
 		const authority = e.target.value;
@@ -45,11 +17,12 @@ function PermissionProvder({ children }) {
 			},
 		}));
 	}
-	function handleSetName(e) {
-		setName({ name: e.target.value });
+	function handleSetName(group) {
+		setName({ name: group.value });
 	}
 
 	const value = {
+		setPermission,
 		handleChangePermission,
 		permission,
 		name,
