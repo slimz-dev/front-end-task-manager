@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import useClass from '~/hooks/useClass';
-import { GroupContext } from '~/pages/App/pages/AdminConfiguration/components/GroupsTable/context/GroupProvider';
+import { GroupContext } from '~/pages/App/pages/AdminConfiguration/components/managerGroupComponents/GroupsTable/context/GroupProvider';
 import styles from '../../ChangePermission.module.scss';
 import usePermission from '../../hooks/usePermission';
 function GroupName() {

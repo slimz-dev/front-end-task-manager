@@ -2,7 +2,7 @@ import styles from '../../ChangePermission.module.scss';
 import useClass from '~/hooks/useClass';
 import usePermission from '../../hooks/usePermission';
 import { useContext } from 'react';
-import { GroupContext } from '~/pages/App/pages/AdminConfiguration/components/GroupsTable/context/GroupProvider';
+import { GroupContext } from '~/pages/App/pages/AdminConfiguration/components/managerGroupComponents/GroupsTable/context/GroupProvider';
 
 function AdminPermissions() {
 	const permission = usePermission();

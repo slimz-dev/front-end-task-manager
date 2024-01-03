@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import { GroupContext } from '~/pages/App/pages/AdminConfiguration/components/GroupsTable/context/GroupProvider';
+import { GroupContext } from '~/pages/App/pages/AdminConfiguration/components/managerGroupComponents/GroupsTable/context/GroupProvider';
 export const PermissionContext = createContext();
 function PermissionProvder({ children }) {
 	const group = useContext(GroupContext);

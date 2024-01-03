@@ -14,7 +14,7 @@ import usePermission from '../../hooks/usePermission';
 //api
 
 //context
-import { GroupContext } from '~/pages/App/pages/AdminConfiguration/components/GroupsTable/context/GroupProvider';
+import { GroupContext } from '~/pages/App/pages/AdminConfiguration/components/managerGroupComponents/GroupsTable/context/GroupProvider';
 import { updateGroup } from '~/services/GroupService/updateGroupService';
 import { AdminContext } from '~/pages/App/pages/AdminConfiguration/contexts/AdminProvider.js/AdminProvider';
 

@@ -4,14 +4,14 @@ import classNames from 'classnames/bind';
 //api methods
 import { getTotalGroups } from '~/services/GroupService/groupPermissionService';
 //css
-import styles from '../../AdminConfiguration.module.scss';
+import styles from '../../../AdminConfiguration.module.scss';
 
 //Component render
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 //context
-import { AdminContext } from '../../contexts/AdminProvider.js/AdminProvider';
+import { AdminContext } from '../../../contexts/AdminProvider.js/AdminProvider';
 import { GroupContext } from './context/GroupProvider';
 
 //socket
