@@ -1,11 +1,12 @@
 import { ToastContainer } from 'react-toastify';
 
 //context
-import ModalProvider from '~/contexts/ModalProvider';
+import UserAssignProvider from '../../contexts/UserAssignProvider/UserAssignProvider';
+import UserProvider from '../components/managerUserComponents/UsersTable/context/UserProvider';
+import { MainContext } from '../../AdminConfiguration';
 
+//component
 import UsersTable from '../components/managerUserComponents/UsersTable/UsersTable';
-import AdminProvider from '../../contexts/AdminProvider.js/AdminProvider';
-import GroupProvider from '../components/managerUserComponents/UsersTable/context/GroupProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLeftLong } from '@fortawesome/free-solid-svg-icons';
 
@@ -15,14 +16,13 @@ import styles from '../../AdminConfiguration.module.scss';
 //hook
 import useClass from '~/hooks/useClass';
 import { useContext } from 'react';
-import { MainContext } from '../../AdminConfiguration';
 function ManageUser() {
 	const cx = useClass(styles);
 	const main = useContext(MainContext);
 	console.log(main);
 	return (
 		<main className="content">
-			<AdminProvider>
+			<UserAssignProvider>
 				<div className="container-fluid p-0">
 					<h1 className="h3 mb-3">Manage Users</h1>
 					<div className="row">
@@ -37,16 +37,16 @@ function ManageUser() {
 									</div>
 								</div>
 								<div className="card-body">
-									<GroupProvider>
+									<UserProvider>
 										<UsersTable />
-									</GroupProvider>
+									</UserProvider>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<ToastContainer />
-			</AdminProvider>
+			</UserAssignProvider>
 		</main>
 	);
 }

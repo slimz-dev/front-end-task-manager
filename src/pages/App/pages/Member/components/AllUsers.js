@@ -39,6 +39,7 @@ function AllUsers() {
 					</thead>
 					<tbody>
 						{totalUsers.users.map((user) => {
+							console.log(user);
 							return (
 								<tr
 									key={user._id}
@@ -61,7 +62,7 @@ function AllUsers() {
 										user.lastName ? user.lastName : ''
 									}`}</td>
 									<td>{user.role.name}</td>
-									<td>{user.department}</td>
+									<td>{user.department?.name}</td>
 									<td>{user.email}</td>
 									<td>
 										<span

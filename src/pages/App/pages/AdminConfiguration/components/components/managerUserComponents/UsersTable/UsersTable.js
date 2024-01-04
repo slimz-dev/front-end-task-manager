@@ -12,17 +12,19 @@ import { faPencil } from '@fortawesome/free-solid-svg-icons';
 
 //context
 import { AdminContext } from '../../../../contexts/AdminProvider.js/AdminProvider';
-import { GroupContext } from './context/GroupProvider';
+import { UserContext } from './context/UserProvider';
 
 //socket
 import { socket } from '~/socket';
 import ChangePermission from '~/components/Modal/ChangePermission/ChangePermission';
+import { UserAssignContext } from '../../../../contexts/UserAssignProvider/UserAssignProvider';
+import UserGroupUpdate from '~/components/Modal/UserGroupUpdate/UserGroupUpdate';
 
 const cx = classNames.bind(styles);
 
 function UsersTable() {
-	const groups = useContext(AdminContext);
-	const modal = useContext(GroupContext);
+	const users = useContext(UserAssignContext);
+	const modal = useContext(UserContext);
 	return (
 		<>
 			<table
@@ -40,27 +42,23 @@ function UsersTable() {
 					</tr>
 				</thead>
 				<tbody>
-					{groups.groupsRender.map((group, index) => {
-						const groupId = group._id;
+					{users.usersRender.map((user, index) => {
+						const groupId = user._id;
 						return (
 							<tr key={groupId} id={groupId}>
 								<td className={cx('bordered')}>{index + 1}</td>
-								<td className={cx('bordered')}>{group.name}</td>
-								<td
-									className={cx('bordered', 'align-center', 'black-color')}
-									onClick={(e) => modal.handleSetShow(e)}
-								>
-									Giám đốc
+								<td className={cx('bordered')}>{`${user.firstName} ${
+									user.lastName ? user.lastName : ''
+								}`}</td>
+								<td className={cx('bordered', 'align-center', 'black-color')}>
+									{user.role.name}
+								</td>
+								<td className={cx('bordered', 'align-center', 'black-color')}>
+									{user.department?.name}
 								</td>
 								<td
 									className={cx('bordered', 'align-center', 'black-color')}
 									onClick={(e) => modal.handleSetShow(e)}
-								>
-									Phòng kinh doanh
-								</td>
-								<td
-									className={cx('bordered', 'align-center', 'black-color')}
-									onClick={(e) => modal.handleDelete(e)}
 								>
 									<FontAwesomeIcon icon={faPencil} />
 								</td>
@@ -69,6 +67,7 @@ function UsersTable() {
 					})}
 				</tbody>
 			</table>
+			<UserGroupUpdate />
 		</>
 	);
 }
