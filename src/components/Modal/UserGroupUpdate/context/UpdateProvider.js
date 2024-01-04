@@ -6,6 +6,7 @@ export const UpdateContext = createContext();
 function UpdateProvider({ children }) {
 	const [group, setGroup] = useState([]);
 	const [department, setDepartment] = useState([]);
+	const [data, setData] = useState({});
 	useEffect(() => {
 		const fetchGroup = async () => {
 			const departments = await getTotalDepartments();
@@ -17,6 +18,8 @@ function UpdateProvider({ children }) {
 	}, []);
 
 	const value = {
+		data,
+		setData,
 		group,
 		department,
 	};

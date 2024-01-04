@@ -10,32 +10,28 @@ import { toast } from 'react-toastify';
 
 //context
 import { ModalContext } from '~/contexts/ModalProvider';
-import { DepartmentContext } from '~/pages/App/pages/AdminConfiguration/contexts/DepartmentProvider/DepartmentProvider';
+import { changeAssign } from '~/services/UserService/changeAssignGroupService';
+import { UserContext } from '~/pages/App/pages/AdminConfiguration/components/components/managerUserComponents/UsersTable/context/UserProvider';
 
 //api
-import { postNewDepartment } from '~/services/DepartmentService/newDepartmentService';
-import { updateDepartment } from '~/services/DepartmentService/updateDepartmentService';
-import { ActionContext } from '~/pages/App/pages/AdminConfiguration/components/components/managerDepartmentComponents/DepartmentsTable/context/ActionProvider';
 
 function FooterButton() {
 	const cx = useClass(styles);
-	const departmentCurrent = useContext(ActionContext);
-	const totalDepartments = useContext(DepartmentContext);
-	const modal = useContext(ModalContext);
-	const department = useUpdate();
+	const user = useContext(UserContext);
+	const list = useUpdate();
+
 	function hideModal() {
-		modal.setShow(false);
+		user.handleClose();
 	}
-	function submitDepartment() {
-		if (department.name.name) {
-			const existDepartment = totalDepartments.departmentsRender.find((thisDep) => {
-				return (
-					thisDep.name === department.name.name &&
-					thisDep._id !== departmentCurrent.departmentInfo._id
-				);
-			});
-			const updateCurrentDepartment = async (departmentId, data) => {
-				const result = await updateDepartment(departmentId, data);
+	function submitAssign() {
+		if (Object.keys(list.data).length === 2) {
+			const existGroup = list.group.find((group) => group.name === list.data.group);
+			const existDepartment = list.department.find(
+				(department) => department.name === list.data.department
+			);
+
+			const updateUser = async (userId, data) => {
+				const result = await changeAssign(userId, data);
 				toast.success('Successfully updated ', {
 					position: 'top-center',
 					autoClose: 1500,
@@ -47,26 +43,17 @@ function FooterButton() {
 					theme: 'dark',
 				});
 			};
-			if (!existDepartment) {
+			if (existGroup && existDepartment) {
+				const userId = user.currentUser;
+				console.log(existGroup._id);
 				const data = {
-					...department.name,
+					role: existGroup._id,
+					department: existDepartment._id,
 				};
-				const departmentId = departmentCurrent.departmentInfo._id;
-				updateCurrentDepartment(departmentId, data);
-			} else {
-				toast.warn('Department name existed ❗', {
-					position: 'top-center',
-					autoClose: 1500,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-					theme: 'dark',
-				});
+				updateUser(userId, data);
 			}
 		} else {
-			toast.warn('Department name required ❗', {
+			toast.warn('Both fields required ❗', {
 				position: 'top-center',
 				autoClose: 1500,
 				hideProgressBar: false,
@@ -86,7 +73,7 @@ function FooterButton() {
 			<Button onClick={hideModal} className={cx('btn-pill', 'cancel-btn')}>
 				Cancel
 			</Button>
-			<Button onClick={submitDepartment} className={cx('btn-pill', 'create-btn')}>
+			<Button onClick={submitAssign} className={cx('btn-pill', 'create-btn')}>
 				Update department
 			</Button>
 		</div>

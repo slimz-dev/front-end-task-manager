@@ -6,7 +6,7 @@ export const UserContext = createContext();
 function UserProvider({ children }) {
 	const [show, setShow] = useState(false);
 
-	const [userInfo, setUserInfo] = useState({});
+	const [currentUser, setCurrentUser] = useState('');
 
 	function handleSetShow(e) {
 		let thisElement = e.target.parentNode;
@@ -15,6 +15,7 @@ function UserProvider({ children }) {
 		}
 
 		const thisUser = thisElement.id;
+		setCurrentUser(thisUser);
 		setShow(true);
 	}
 
@@ -25,6 +26,7 @@ function UserProvider({ children }) {
 		show,
 		handleSetShow,
 		handleClose,
+		currentUser,
 	};
 	return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }

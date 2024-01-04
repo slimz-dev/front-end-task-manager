@@ -39,7 +39,6 @@ function AllUsers() {
 					</thead>
 					<tbody>
 						{totalUsers.users.map((user) => {
-							console.log(user);
 							return (
 								<tr
 									key={user._id}

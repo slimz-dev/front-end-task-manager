@@ -51,10 +51,10 @@ function UsersTable() {
 									user.lastName ? user.lastName : ''
 								}`}</td>
 								<td className={cx('bordered', 'align-center', 'black-color')}>
-									{user.role.name}
+									{user.role ? user.role.name : ''}
 								</td>
 								<td className={cx('bordered', 'align-center', 'black-color')}>
-									{user.department?.name}
+									{user.department ? user.department.name : ''}
 								</td>
 								<td
 									className={cx('bordered', 'align-center', 'black-color')}

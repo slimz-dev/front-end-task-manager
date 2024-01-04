@@ -19,7 +19,7 @@ import { useContext } from 'react';
 function ManageUser() {
 	const cx = useClass(styles);
 	const main = useContext(MainContext);
-	console.log(main);
+
 	return (
 		<main className="content">
 			<UserAssignProvider>
