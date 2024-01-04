@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 
 //context
 
-import { GroupContext } from '~/pages/App/pages/AdminConfiguration/components/managerGroupComponents/GroupsTable/context/GroupProvider';
+import { GroupContext } from '~/pages/App/pages/AdminConfiguration/components/components/managerGroupComponents/GroupsTable/context/GroupProvider';
 
 //component render
 import { Modal } from 'react-bootstrap';

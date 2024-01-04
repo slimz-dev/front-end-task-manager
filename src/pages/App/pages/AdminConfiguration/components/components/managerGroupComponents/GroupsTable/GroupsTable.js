@@ -4,14 +4,14 @@ import classNames from 'classnames/bind';
 //api methods
 import { getTotalGroups } from '~/services/GroupService/groupPermissionService';
 //css
-import styles from '../../../AdminConfiguration.module.scss';
+import styles from '../../../../AdminConfiguration.module.scss';
 
 //Component render
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencil } from '@fortawesome/free-solid-svg-icons';
+import { faPencil, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 //context
-import { AdminContext } from '../../../contexts/AdminProvider.js/AdminProvider';
+import { AdminContext } from '../../../../contexts/AdminProvider.js/AdminProvider';
 import { GroupContext } from './context/GroupProvider';
 
 //socket
@@ -20,7 +20,7 @@ import ChangePermission from '~/components/Modal/ChangePermission/ChangePermissi
 
 const cx = classNames.bind(styles);
 
-function UsersTable() {
+function GroupsTable() {
 	const groups = useContext(AdminContext);
 	const modal = useContext(GroupContext);
 	return (
@@ -32,11 +32,17 @@ function UsersTable() {
 			>
 				<thead>
 					<tr>
+						<th className={cx('bordered')}>
+							<input
+								type="checkbox"
+								checked={groups.isChecked.checked}
+								onChange={(e) => groups.handleChecked(e)}
+							/>
+						</th>
 						<th className={cx('bordered')}>#</th>
-						<th className={cx('w-70rem', 'bordered')}>Name</th>
-						<th className={cx('w-21rem', 'bordered', 'text-center')}>Group</th>
-						<th className={cx('w-21rem', 'bordered', 'text-center')}>Department</th>
+						<th className={cx('w-80rem', 'bordered')}>Name</th>
 						<th className={cx('bordered')}>Change</th>
+						<th className={cx('bordered')}>Delete</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -44,33 +50,35 @@ function UsersTable() {
 						const groupId = group._id;
 						return (
 							<tr key={groupId} id={groupId}>
+								<td className={cx('bordered')}>
+									<input
+										ref={(e) => (groups.inputRef.current[groupId] = e)}
+										type="checkbox"
+										onChange={(e) => groups.handleSingleChecked(e)}
+									/>
+								</td>
 								<td className={cx('bordered')}>{index + 1}</td>
 								<td className={cx('bordered')}>{group.name}</td>
 								<td
 									className={cx('bordered', 'align-center', 'black-color')}
 									onClick={(e) => modal.handleSetShow(e)}
 								>
-									Giám đốc
+									<FontAwesomeIcon icon={faPencil} />
 								</td>
 								<td
-									className={cx('bordered', 'align-center', 'black-color')}
-									onClick={(e) => modal.handleSetShow(e)}
-								>
-									Phòng kinh doanh
-								</td>
-								<td
-									className={cx('bordered', 'align-center', 'black-color')}
+									className={cx('bordered', 'align-center', 'red-color')}
 									onClick={(e) => modal.handleDelete(e)}
 								>
-									<FontAwesomeIcon icon={faPencil} />
+									<FontAwesomeIcon icon={faXmark} />
 								</td>
 							</tr>
 						);
 					})}
 				</tbody>
 			</table>
+			<ChangePermission />
 		</>
 	);
 }
 
-export default UsersTable;
+export default GroupsTable;

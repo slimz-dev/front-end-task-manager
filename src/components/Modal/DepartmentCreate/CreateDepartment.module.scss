@@ -1,0 +1,124 @@
+.wysiwyg {
+	height: 200px;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.input-task::placeholder {
+	opacity: 0;
+	transition: all 3s linaer;
+}
+
+.input-task {
+	margin-bottom: 1.3rem;
+	width: 100%;
+	&:focus-within {
+		&::placeholder {
+			opacity: 1;
+		}
+	}
+}
+.task-label {
+	position: absolute;
+	left: 25px;
+	top: 24px;
+	opacity: 1;
+	transition: all 0.2s linear;
+}
+.input-task:focus-within + .task-label {
+	background: white;
+	position: absolute;
+	font-size: 12px;
+	top: 6px;
+}
+
+.blur {
+	opacity: 0.6;
+	background: white;
+	position: absolute;
+	font-size: 12px;
+	top: 6px;
+}
+.input-task {
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	padding: 7px;
+}
+
+.assign-wrapper {
+	align-items: center;
+}
+
+.assign {
+	margin-bottom: 1.3rem;
+	justify-content: space-between;
+}
+
+.assign-label {
+	margin-right: 0.5rem;
+}
+
+.margin-right {
+	margin-right: 1rem;
+}
+
+.cancel-btn {
+	background-color: white;
+	border-color: transparent;
+	color: black;
+	height: 2.2rem;
+	font-weight: 500;
+	&:hover {
+		border-color: transparent;
+		color: black !important;
+		background-color: hsla(228, 48%, 8%, 0.06);
+	}
+}
+
+.create-btn {
+	font-weight: 500;
+	height: 2.2rem;
+	width: 10rem;
+}
+
+.description {
+	border-radius: 5px;
+}
+
+.effect {
+	animation: fade-in 1s linear;
+}
+
+@keyframes fade-in {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 0.5;
+	}
+	75% {
+		opacity: 0.75;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.user-assign {
+	border-radius: 50%;
+	justify-content: center;
+	display: flex;
+	align-items: center;
+	min-width: 1.75rem;
+	height: 1.75rem;
+	&:hover {
+		cursor: pointer;
+		background-color: hsla(228, 48%, 8%, 0.1);
+	}
+}
+
+.assignee-img {
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+}

@@ -1,11 +1,8 @@
 import { ToastContainer } from 'react-toastify';
 
 //context
-import ModalProvider from '~/contexts/ModalProvider';
+import DepartmentProvider from '../../contexts/DepartmentProvider/DepartmentProvider';
 
-import UsersTable from '../components/managerUserComponents/UsersTable/UsersTable';
-import AdminProvider from '../../contexts/AdminProvider.js/AdminProvider';
-import GroupProvider from '../components/managerUserComponents/UsersTable/context/GroupProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLeftLong } from '@fortawesome/free-solid-svg-icons';
 
@@ -16,15 +13,19 @@ import styles from '../../AdminConfiguration.module.scss';
 import useClass from '~/hooks/useClass';
 import { useContext } from 'react';
 import { MainContext } from '../../AdminConfiguration';
-function ManageUser() {
+import DepartmentsTable from '../components/managerDepartmentComponents/DepartmentsTable/DepartmentsTable';
+import ActionGroups from '../components/managerDepartmentComponents/ActionGroups/ActionGroups';
+import ModalProvider from '~/contexts/ModalProvider';
+import ActionProvider from '../components/managerDepartmentComponents/DepartmentsTable/context/ActionProvider';
+function ManageDepartment() {
 	const cx = useClass(styles);
 	const main = useContext(MainContext);
-	console.log(main);
+
 	return (
 		<main className="content">
-			<AdminProvider>
+			<DepartmentProvider>
 				<div className="container-fluid p-0">
-					<h1 className="h3 mb-3">Manage Users</h1>
+					<h1 className="h3 mb-3">Manage Departments</h1>
 					<div className="row">
 						<div className="col-xl-12">
 							<div className="card">
@@ -37,18 +38,21 @@ function ManageUser() {
 									</div>
 								</div>
 								<div className="card-body">
-									<GroupProvider>
-										<UsersTable />
-									</GroupProvider>
+									<ActionProvider>
+										<DepartmentsTable />
+									</ActionProvider>
 								</div>
 							</div>
 						</div>
 					</div>
+					<ModalProvider>
+						<ActionGroups />
+					</ModalProvider>
 				</div>
 				<ToastContainer />
-			</AdminProvider>
+			</DepartmentProvider>
 		</main>
 	);
 }
 
-export default ManageUser;
+export default ManageDepartment;

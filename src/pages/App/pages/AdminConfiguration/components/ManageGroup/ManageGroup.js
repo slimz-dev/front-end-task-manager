@@ -3,10 +3,10 @@ import { ToastContainer } from 'react-toastify';
 //context
 import ModalProvider from '~/contexts/ModalProvider';
 
-import ActionGroups from '../managerGroupComponents/ActionGroups/ActionGroups';
-import GroupsTable from '../managerGroupComponents/GroupsTable/GroupsTable';
+import ActionGroups from '../components/managerGroupComponents/ActionGroups/ActionGroups';
+import GroupsTable from '../components/managerGroupComponents/GroupsTable/GroupsTable';
 import AdminProvider from '../../contexts/AdminProvider.js/AdminProvider';
-import GroupProvider from '../managerGroupComponents/GroupsTable/context/GroupProvider';
+import GroupProvider from '../components/managerGroupComponents/GroupsTable/context/GroupProvider';
 
 function ManageGroup() {
 	return (
