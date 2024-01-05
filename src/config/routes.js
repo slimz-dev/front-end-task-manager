@@ -15,4 +15,5 @@ export const childRoutes = {
 	Tasks: `${mainRoutes.App}/tasks`,
 	Calendar: `${mainRoutes.App}/calendar`,
 	AdminConfigurations: `${mainRoutes.App}/admin-configurations`,
+	MyDepartment: `${mainRoutes.App}/department`,
 };

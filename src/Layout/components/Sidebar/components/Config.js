@@ -48,9 +48,9 @@ function Config() {
 				</li>
 
 				<li className="sidebar-item">
-					<Link className="sidebar-link" to={config.routes.Projects}>
+					<Link className="sidebar-link" to={config.routes.MyDepartment}>
 						<FontAwesomeIcon icon={faScrewdriverWrench} />
-						Team Configuration
+						My Department
 					</Link>
 				</li>
 			</ul>

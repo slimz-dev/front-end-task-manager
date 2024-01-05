@@ -13,3 +13,4 @@ export { default as Projects } from './App/pages/Projects/Projects';
 export { default as Tasks } from './App/pages/Tasks/Tasks';
 export { default as Calendar } from './App/pages/Calendar/Calendar';
 export { default as AdminConfiguration } from './App/pages/AdminConfiguration/AdminConfiguration';
+export { default as MyDepartment } from './App/pages/MyDepartment/MyDepartment';
