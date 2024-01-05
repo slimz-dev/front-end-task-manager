@@ -8,7 +8,7 @@ function Projects() {
 			<ModalProvider>
 				<div className="container-fluid p-0">
 					<Button />
-					<h1 className="h3 mb-3">Projects</h1>
+					<h1 className="h3 mb-3">Tasks</h1>
 					<div className="row">
 						<div className="col-12 col-md-6 col-lg-3">
 							<div className="card">

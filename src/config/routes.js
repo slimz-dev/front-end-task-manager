@@ -9,7 +9,6 @@ export const mainRoutes = {
 
 export const childRoutes = {
 	Member: `${mainRoutes.App}/member`,
-	Profile: `${mainRoutes.App}/profile`,
 	Settings: `${mainRoutes.App}/settings`,
 	Projects: `${mainRoutes.App}/projects`,
 	Tasks: `${mainRoutes.App}/tasks`,

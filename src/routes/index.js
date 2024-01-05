@@ -6,7 +6,6 @@ import {
 	Unknown,
 	App,
 	Member,
-	Profile,
 	Settings,
 	Projects,
 	Tasks,
@@ -28,7 +27,6 @@ export const publicRoutes = [
 export const privateRoutes = [
 	{ path: config.routes.App, component: App },
 	{ path: config.routes.Member, component: Member },
-	{ path: config.routes.Profile, component: Profile },
 	{ path: config.routes.Settings, component: Settings },
 	{ path: config.routes.Projects, component: Projects },
 	{ path: config.routes.Tasks, component: Tasks },

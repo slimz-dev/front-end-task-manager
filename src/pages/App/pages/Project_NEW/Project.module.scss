@@ -1,0 +1,77 @@
+.w-90rem {
+	width: 90rem;
+}
+
+.w-70rem {
+	width: 70rem;
+}
+
+.w-21rem {
+	width: 21rem;
+}
+
+.bordered {
+	border: 1px solid black !important;
+}
+
+.action-groups {
+	display: flex;
+	justify-content: space-between;
+}
+
+.group-action-groups {
+	display: flex;
+	width: 13rem;
+	justify-content: space-between;
+}
+
+.align-center {
+	text-align: center;
+	font-size: 1rem;
+	cursor: pointer;
+}
+
+.black-color {
+	color: #354052;
+}
+
+.red-color {
+	color: red;
+}
+.button-css {
+	border: none;
+	font-size: 1rem;
+	border-radius: 1rem;
+	padding: 0.4rem 1.8rem;
+	font-weight: 500;
+	cursor: pointer;
+	color: white;
+}
+
+.add-hover {
+	&:hover {
+		background: #99e9b2;
+		color: black;
+	}
+}
+
+.delete-hover {
+	&:hover {
+		background: rgb(231, 231, 147);
+		color: black;
+	}
+}
+
+.assign-hover {
+	&:hover {
+		background: rgb(86, 179, 255);
+		color: black;
+	}
+}
+
+.hover {
+	&:hover {
+		cursor: pointer;
+		color: red;
+	}
+}

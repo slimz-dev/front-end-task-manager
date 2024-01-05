@@ -11,7 +11,7 @@ function Button() {
 			className="btn btn-primary float-right mt-n1"
 			style={{ cursor: 'pointer' }}
 		>
-			<i className="fas fa-plus"></i> New project
+			<i className="fas fa-plus"></i> New Task Assign
 		</div>
 	);
 }
