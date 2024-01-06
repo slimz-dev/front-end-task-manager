@@ -1,14 +1,16 @@
 import { useState, useRef, createContext, useEffect } from 'react';
 
 import { getTotalDepartments } from '~/services/DepartmentService/departmentService';
-import { getDepartmentTask } from '~/services/ProjectService/getDepartmentService';
+import { getDepartmentTask } from '~/services/ProjectService/getDepartmentTaskService';
 
 import { socket } from '~/socket';
 export const DepartmentContext = createContext();
 
 function DepartmentProvider({ data, children }) {
 	const [departmentsRender, setDepartmentsRender] = useState([]);
+	const [departmentId, setDepartmentId] = useState('');
 	const [thisDepartment, setThisDepartment] = useState([]);
+	const [progress, setProgress] = useState('100%');
 	const inputRef = useRef({});
 	const { setIsDepartment } = data;
 	useEffect(() => {
@@ -28,6 +30,7 @@ function DepartmentProvider({ data, children }) {
 			thisElement = thisElement.parentNode;
 		}
 		const departmentId = thisElement.id;
+		setDepartmentId(departmentId);
 		const fetchDepartmentTask = async () => {
 			const result = await getDepartmentTask(departmentId);
 			setIsDepartment(() => {
@@ -43,6 +46,9 @@ function DepartmentProvider({ data, children }) {
 		handleSetDepartment,
 		setIsDepartment,
 		thisDepartment,
+		progress,
+		setProgress,
+		departmentId,
 	};
 	return <DepartmentContext.Provider value={myValue}>{children}</DepartmentContext.Provider>;
 }

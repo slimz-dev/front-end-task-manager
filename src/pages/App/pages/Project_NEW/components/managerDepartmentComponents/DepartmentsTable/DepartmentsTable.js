@@ -19,7 +19,6 @@ const cx = classNames.bind(styles);
 function DepartmentsTable() {
 	const groups = useContext(DepartmentContext);
 	const modal = useContext(ActionContext);
-	console.log(groups);
 	return (
 		<main className="content">
 			<div className="container-fluid p-0">

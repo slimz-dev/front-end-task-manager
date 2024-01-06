@@ -18,6 +18,11 @@
 	margin-left: 10px;
 }
 
+.pointer {
+	&:hover {
+		cursor: pointer;
+	}
+}
 .bordered {
 	border: 1px solid black !important;
 }
