@@ -6,7 +6,7 @@ export const addNewJob = async (taskId, title) => {
 		const result = await request.post(`/tasks/${taskId}/job`, {
 			title: title,
 		});
-		socket.emit('update_job');
+		socket.emit('update_job', taskId);
 		return {
 			statusCode: result.status,
 			data: result.data.data,

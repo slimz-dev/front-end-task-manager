@@ -19,7 +19,7 @@ function TaskModalProvider({ children }) {
 		const fetchTask = async () => {
 			const result = await getSelectTask(department.departmentId, taskId);
 			setShow(() => {
-				console.log(result);
+				console.log(result.data);
 				setTaskInfo(result.data[0]);
 				return true;
 			});
