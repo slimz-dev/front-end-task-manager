@@ -4,21 +4,13 @@ import classNames from 'classnames/bind';
 //css
 import styles from '../../../Project.module.scss';
 
-//Component render
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencil, faXmark } from '@fortawesome/free-solid-svg-icons';
-
 //context
-import { ActionContext } from './context/ActionProvider';
-
 import { DepartmentContext } from '../../../contexts/DepartmentProvider/DepartmentProvider';
-import UpdateDepartment from '~/components/Modal/DepartmentUpdate/UpdateDepartment';
 
 const cx = classNames.bind(styles);
 
 function DepartmentsTable() {
 	const groups = useContext(DepartmentContext);
-	const modal = useContext(ActionContext);
 	return (
 		<main className="content">
 			<div className="container-fluid p-0">

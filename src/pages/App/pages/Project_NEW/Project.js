@@ -12,7 +12,6 @@ import styles from './Project.module.scss';
 //hook
 import DepartmentsTable from './components/managerDepartmentComponents/DepartmentsTable/DepartmentsTable';
 
-import ActionProvider from './components/managerDepartmentComponents/DepartmentsTable/context/ActionProvider';
 import { useState } from 'react';
 import Projects from './components/Projects/Projects';
 function Project() {
@@ -22,7 +21,7 @@ function Project() {
 	};
 	return (
 		<DepartmentProvider data={value}>
-			<ActionProvider>{isDepartment ? <DepartmentsTable /> : <Projects />}</ActionProvider>
+			{isDepartment ? <DepartmentsTable /> : <Projects />}
 			<ToastContainer />
 		</DepartmentProvider>
 	);

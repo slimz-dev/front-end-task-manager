@@ -6,8 +6,7 @@ function ProgressBar({ data }) {
 		}
 	});
 	const jobLength = data.length;
-
-	const progressPercent = jobLength ? Math.floor(jobLength / count) : 0;
+	const progressPercent = jobLength ? Math.floor(count / jobLength) : 0;
 	return (
 		<div
 			className="progress-bar"

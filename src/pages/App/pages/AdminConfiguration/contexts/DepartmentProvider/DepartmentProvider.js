@@ -12,6 +12,7 @@ function DepartmentProvider({ children }) {
 	useEffect(() => {
 		const fetchGroup = async () => {
 			const result = await getTotalDepartments();
+			console.log(result);
 			setDepartmentsRender(result.data);
 		};
 		fetchGroup();

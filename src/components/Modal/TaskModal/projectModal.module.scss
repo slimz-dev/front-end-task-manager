@@ -1,21 +1,31 @@
-.wysiwyg {
-	height: 200px;
-	display: flex;
-	flex-wrap: wrap;
+.w-100 {
+	width: 100%;
 }
 
-.input-task::placeholder {
-	opacity: 0;
-	transition: all 3s linaer;
-}
-
-.button-add {
+.notification,
+.job-add {
+	margin-top: 10px;
 	background-color: black;
 	color: white;
 	width: fit-content;
 	padding: 6px 12px;
 	cursor: pointer;
 	border-radius: 16px;
+}
+
+.action-container {
+	display: flex;
+	margin-top: 10px;
+	.action-input {
+		flex: 1;
+		border: 1px solid black;
+		border-radius: 8px;
+		padding: 10px;
+	}
+	.action-handler-container {
+		display: flex;
+		align-items: center;
+	}
 }
 
 .button-close {
@@ -27,40 +37,38 @@
 	}
 }
 
-.input-task {
-	margin-bottom: 1.3rem;
-	width: 100%;
-	&:focus-within {
-		&::placeholder {
-			opacity: 1;
-		}
+.button-add {
+	font-size: 19px;
+	margin-left: 15px;
+	cursor: pointer;
+	&:hover {
+		color: green;
 	}
 }
-.task-label {
-	position: absolute;
-	left: 25px;
-	top: 24px;
-	opacity: 1;
-	transition: all 0.2s linear;
-}
-.input-task:focus-within + .task-label {
-	background: white;
-	position: absolute;
-	font-size: 12px;
-	top: 6px;
+
+.job-element {
+	width: 100%;
+	margin-bottom: 10px;
+	padding: 5px 0px;
+	&:hover {
+		background-color: #cbcbcb;
+		border-radius: 10px;
+	}
+	.job-label {
+		padding-left: 5px;
+		width: 100%;
+		cursor: pointer;
+	}
 }
 
-.blur {
-	opacity: 0.6;
-	background: white;
-	position: absolute;
-	font-size: 12px;
-	top: 6px;
+.job-container {
+	font-size: 18px;
+	font-weight: 600;
 }
-.input-task {
-	border-radius: 5px;
-	border: 1px solid #ccc;
-	padding: 7px;
+
+.job-checkbox {
+	margin-right: 10px !important;
+	width: 1rem;
 }
 
 .assign-wrapper {
@@ -68,8 +76,10 @@
 }
 
 .assign {
-	margin-bottom: 1.3rem;
 	justify-content: space-between;
+	font-weight: 800;
+	margin-top: 12px;
+	margin-bottom: 4px;
 }
 
 .assign-label {
@@ -78,19 +88,6 @@
 
 .margin-right {
 	margin-right: 1rem;
-}
-
-.cancel-btn {
-	background-color: white;
-	border-color: transparent;
-	color: black;
-	height: 2.2rem;
-	font-weight: 500;
-	&:hover {
-		border-color: transparent;
-		color: black !important;
-		background-color: hsla(228, 48%, 8%, 0.06);
-	}
 }
 
 .create-btn {
@@ -103,23 +100,9 @@
 	border-radius: 5px;
 }
 
-.effect {
-	animation: fade-in 1s linear;
-}
-
-@keyframes fade-in {
-	0% {
-		opacity: 0;
-	}
-	50% {
-		opacity: 0.5;
-	}
-	75% {
-		opacity: 0.75;
-	}
-	100% {
-		opacity: 1;
-	}
+.img-sizing {
+	width: 40px;
+	border-radius: 50%;
 }
 
 .user-assign {
@@ -139,4 +122,17 @@
 	width: 28px;
 	height: 28px;
 	border-radius: 50%;
+}
+
+.comment {
+	flex: 1;
+	margin-left: 13px;
+}
+
+.mg-bottom-10px {
+	margin-bottom: 10px;
+}
+
+.hour {
+	font-size: 12px;
 }

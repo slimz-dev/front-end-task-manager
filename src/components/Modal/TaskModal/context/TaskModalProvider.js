@@ -1,6 +1,8 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { DepartmentContext } from '~/pages/App/pages/Project_NEW/contexts/DepartmentProvider/DepartmentProvider';
+import { addNewJob } from '~/services/ProjectService/addJobService';
 import { getSelectTask } from '~/services/ProjectService/getSelectTaskService';
+import { socket } from '~/socket';
 
 export const TaskModalContext = createContext();
 
@@ -16,19 +18,33 @@ function TaskModalProvider({ children }) {
 		const taskId = thisElement.id;
 		const fetchTask = async () => {
 			const result = await getSelectTask(department.departmentId, taskId);
-
 			setShow(() => {
+				console.log(result);
 				setTaskInfo(result.data[0]);
 				return true;
 			});
 		};
 		fetchTask();
 	}
+
+	socket.on('updated_job', (data) => {
+		setTaskInfo(data.tasks[0]);
+	});
+
+	function addJob(title) {
+		const postJob = async () => {
+			const result = await addNewJob(taskInfo._id, title);
+		};
+		if (title) {
+			postJob();
+		}
+	}
 	const value = {
 		show,
 		setShow,
 		handleChooseTask,
 		taskInfo,
+		addJob,
 	};
 	return <TaskModalContext.Provider value={value}>{children}</TaskModalContext.Provider>;
 }
