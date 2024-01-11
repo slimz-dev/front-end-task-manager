@@ -136,3 +136,34 @@
 .hour {
 	font-size: 12px;
 }
+
+.task-title {
+	justify-content: space-between;
+	width: 100%;
+}
+
+.title {
+	width: 100%;
+}
+
+.task-date {
+	font-size: 11px;
+	opacity: 0.8;
+	font-weight: 700;
+}
+
+.task-date-value {
+	font-weight: 700;
+}
+
+.my-badge {
+	width: fit-content;
+}
+
+.hover {
+	cursor: pointer;
+	font-size: 20px;
+	&:hover {
+		color: rgb(231, 106, 106);
+	}
+}

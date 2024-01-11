@@ -11,6 +11,7 @@ function TaskRender() {
 	const departmentTasks = useContext(DepartmentContext);
 	const modal = useContext(TaskModalContext);
 	const cx = useClass(styles);
+
 	return (
 		<>
 			{departmentTasks.thisDepartment.map((task, index) => {
@@ -51,8 +52,7 @@ function TaskRender() {
 							<ul className="list-group list-group-flush">
 								<li className="list-group-item px-4 pb-4">
 									<p className="mb-2 font-weight-bold">
-										Progress{' '}
-										<span className="float-right">
+										<span className={cx('float-right', 'ml-10')}>
 											<ProgressCheck data={task.smallJob} />
 										</span>
 									</p>

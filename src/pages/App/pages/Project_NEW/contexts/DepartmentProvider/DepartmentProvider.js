@@ -24,6 +24,9 @@ function DepartmentProvider({ data, children }) {
 		setDepartmentsRender(data.departments);
 	});
 
+	socket.on('changed_job', (data) => {
+		setThisDepartment(data.tasks);
+	});
 	function handleSetDepartment(e) {
 		let thisElement = e.target.parentNode;
 		while (!thisElement.id) {

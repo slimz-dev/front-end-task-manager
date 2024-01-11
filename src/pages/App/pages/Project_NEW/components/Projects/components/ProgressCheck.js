@@ -7,8 +7,9 @@ function ProgressCheck({ data }) {
 	});
 	const jobLength = data.length;
 
-	const progressPercent = jobLength ? Math.floor(count / jobLength) : 0;
-	return <>{`${progressPercent}%`}</>;
+	const progressPercent = jobLength ? Math.floor((count / jobLength) * 100) : 0;
+	const width = progressPercent.toString();
+	return <>{`${width}%`}</>;
 }
 
 export default ProgressCheck;

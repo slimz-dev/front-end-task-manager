@@ -19,7 +19,6 @@ function TaskModalProvider({ children }) {
 		const fetchTask = async () => {
 			const result = await getSelectTask(department.departmentId, taskId);
 			setShow(() => {
-				console.log(result.data);
 				setTaskInfo(result.data[0]);
 				return true;
 			});
@@ -33,7 +32,7 @@ function TaskModalProvider({ children }) {
 
 	function addJob(title) {
 		const postJob = async () => {
-			const result = await addNewJob(taskInfo._id, title);
+			const result = await addNewJob(taskInfo._id, title, taskInfo.department);
 		};
 		if (title) {
 			postJob();
@@ -45,6 +44,7 @@ function TaskModalProvider({ children }) {
 		handleChooseTask,
 		taskInfo,
 		addJob,
+		setTaskInfo,
 	};
 	return <TaskModalContext.Provider value={value}>{children}</TaskModalContext.Provider>;
 }
