@@ -34,7 +34,7 @@ function TaskModalProvider({ children }) {
 		const postJob = async () => {
 			const result = await addNewJob(taskInfo._id, title, taskInfo.department);
 		};
-		if (title) {
+		if (title.trim()) {
 			postJob();
 		}
 	}

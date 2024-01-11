@@ -11,7 +11,17 @@ function TaskRender() {
 	const departmentTasks = useContext(DepartmentContext);
 	const modal = useContext(TaskModalContext);
 	const cx = useClass(styles);
-
+	function isOnTime(task) {
+		if (task.state) {
+			const expiredDate = new Date(task.expiredDate);
+			const completeDate = new Date(task.completedDate);
+			if (expiredDate > completeDate) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
 	return (
 		<>
 			{departmentTasks.thisDepartment.map((task, index) => {
@@ -25,12 +35,16 @@ function TaskRender() {
 							<div className="card-header px-4 pt-4">
 								<h5 className="card-title mb-0">{task.name}</h5>
 								<div
-									className={cx('badge my-2', {
-										'badge-success': task.state,
+									className={cx('badge my-2', 'badge-success', {
 										'badge-warning': !task.state,
+										'badge-danger': !isOnTime(task) && task.state,
 									})}
 								>
-									{task.state ? 'Finished' : 'Working'}
+									{!task.state
+										? 'Working'
+										: isOnTime(task)
+										? 'Finished'
+										: 'Delayed'}
 								</div>
 							</div>
 							<div className="card-body px-4 pt-2">
