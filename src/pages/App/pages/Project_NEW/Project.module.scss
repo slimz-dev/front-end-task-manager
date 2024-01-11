@@ -17,7 +17,16 @@
 .ml-10 {
 	margin-left: 10px;
 }
-
+.trash {
+	position: absolute;
+	right: 1rem;
+	font-size: 1.3rem;
+	top: 1rem;
+	color: #47bac1;
+	&:hover {
+		color: #a180da;
+	}
+}
 .pointer {
 	&:hover {
 		cursor: pointer;

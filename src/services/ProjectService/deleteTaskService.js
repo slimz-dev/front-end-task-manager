@@ -1,9 +1,9 @@
 import { socket } from '~/socket';
 import request from '~/utils/request';
 
-export const postNewTask = async (data, departmentId) => {
+export const deleteTask = async (taskId, departmentId) => {
 	try {
-		const result = await request.post('/tasks/new', data);
+		const result = await request.delete(`/tasks/${taskId}`);
 		socket.emit('change_job', departmentId);
 		return {
 			statusCode: result.status,

@@ -1,18 +1,19 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 import classNames from 'classnames/bind';
 import styles from '../../projectModal.module.scss';
 import Users from './components/Users';
-import { UserContext } from './context/UserProvider';
+import { UserAssignContext } from './context/UserProvider';
 import Img from '~/components/Img/Img';
+import { TaskAssignContext } from '../../context/TaskAssignProvider';
 
 const cx = classNames.bind(styles);
 
 function UserAssign() {
-	const userAssign = useContext(UserContext);
-
+	const userAssign = useContext(UserAssignContext);
+	const task = useContext(TaskAssignContext);
 	return (
 		<div className={cx('assign-wrapper', 'd-flex')}>
 			<span className={cx('assign-label')}>Assign to</span>
@@ -22,10 +23,10 @@ function UserAssign() {
 					userAssign.setIsOpen(true);
 				}}
 			>
-				{userAssign.assignees.length === 0 ? (
+				{task.assignees.length === 0 ? (
 					<FontAwesomeIcon icon={faUser} />
 				) : (
-					userAssign.assignees.map((assignee) => {
+					task.assignees.map((assignee) => {
 						return (
 							<Img
 								key={assignee.id}

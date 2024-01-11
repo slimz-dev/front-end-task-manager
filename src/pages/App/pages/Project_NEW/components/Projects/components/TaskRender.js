@@ -6,6 +6,9 @@ import { DepartmentContext } from '../../../contexts/DepartmentProvider/Departme
 import useClass from '~/hooks/useClass';
 import { TaskModalContext } from '~/components/Modal/TaskModal/context/TaskModalProvider';
 import Img from '~/components/Img/Img';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { deleteTask } from '~/services/ProjectService/deleteTaskService';
 
 function TaskRender() {
 	const departmentTasks = useContext(DepartmentContext);
@@ -21,6 +24,18 @@ function TaskRender() {
 				return false;
 			}
 		}
+	}
+	function handleDeleteTask(e) {
+		e.stopPropagation();
+		let thisElement = e.target;
+		while (!thisElement.id) {
+			thisElement = thisElement.parentNode;
+		}
+		const taskId = thisElement.id;
+		const deleteThisTask = async () => {
+			const result = await deleteTask(taskId, departmentTasks.departmentId);
+		};
+		deleteThisTask();
 	}
 	return (
 		<>
@@ -46,6 +61,13 @@ function TaskRender() {
 										? 'Finished'
 										: 'Delayed'}
 								</div>
+								<span
+									id={task._id}
+									className={cx('trash')}
+									onClick={(e) => handleDeleteTask(e)}
+								>
+									<FontAwesomeIcon icon={faTrash} />
+								</span>
 							</div>
 							<div className="card-body px-4 pt-2">
 								<p>{task.description}</p>

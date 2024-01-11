@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
@@ -9,12 +9,12 @@ import styles from './DateScheldule.module.scss';
 //compoenent render
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { TaskAssignContext } from '../../context/TaskAssignProvider';
 
 const cx = classNames.bind(styles);
 function DateSchedule() {
 	const inputRef = useRef([]);
-	const [minDate, setMinDate] = useState(new Date());
-	const [maxDate, setMaxDate] = useState('');
+	const task = useContext(TaskAssignContext);
 	const [isStart, setIsStart] = useState(true);
 	const [isEnd, setIsEnd] = useState(true);
 	const [startDate, setStartDate] = useState('');
@@ -29,14 +29,14 @@ function DateSchedule() {
 	}
 	function handleSetBegin(date, e) {
 		setStartDate(`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`);
-		setMinDate(date);
+		task.setMinDate(date);
 		setIsStart(true);
 	}
 
 	function handleSetEnd(date, e) {
 		setEndDate(`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`);
 		setIsEnd(true);
-		setMaxDate(date);
+		task.setMaxDate(date);
 	}
 
 	function handleOpenStart() {
@@ -71,7 +71,7 @@ function DateSchedule() {
 						none: isStart,
 					})}
 					minDate={new Date()}
-					maxDate={maxDate ? maxDate : ''}
+					maxDate={task.maxDate ? task.maxDate : ''}
 					onChange={(value, e) => handleSetBegin(value, e)}
 				/>
 			</div>
@@ -95,7 +95,7 @@ function DateSchedule() {
 					className={cx('calendar', {
 						none: isEnd,
 					})}
-					minDate={minDate}
+					minDate={task.minDate}
 					onChange={(value, e) => handleSetEnd(value, e)}
 				/>
 			</div>

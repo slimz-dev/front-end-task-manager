@@ -1,20 +1,17 @@
-import { useContext, useEffect, useRef, useState } from 'react';
-import { useDebounce } from '@uidotdev/usehooks';
-import { TotalUsers } from '~/pages/App/pages/Member/context/TotalUsersProvider';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useContext, useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Users.module.scss';
 import Img from '~/components/Img/Img';
-import { UserContext } from '../context/UserProvider';
+import { UserAssignContext } from '../context/UserProvider';
+import { DepartmentContext } from '~/pages/App/pages/Project_NEW/contexts/DepartmentProvider/DepartmentProvider';
+import { TaskAssignContext } from '../../../context/TaskAssignProvider';
 
 const cx = classNames.bind(styles);
 function Users() {
 	const containerRef = useRef();
-	const total = useContext(TotalUsers);
-	const assign = useContext(UserContext);
-	const [userSearch, setUserSearch] = useState(total.users);
-	const debouncedSearchTerm = useDebounce(userSearch, 300);
+	const task = useContext(TaskAssignContext);
+	const assign = useContext(UserAssignContext);
+	const department = useContext(DepartmentContext);
 	useEffect(() => {
 		const clicked = (e) => {
 			if (assign.isOpen) {
@@ -30,7 +27,7 @@ function Users() {
 	}, []);
 	return (
 		<div className={cx('wrapper')} ref={containerRef}>
-			<div className={cx('header')}>
+			{/* <div className={cx('header')}>
 				<div className={cx('header-icon')}>
 					<FontAwesomeIcon icon={faMagnifyingGlass} />
 				</div>
@@ -44,9 +41,9 @@ function Users() {
 					<div className={cx('title')}>Everyone</div>
 				</div>
 				<div className={cx('plus-icon')}>+</div>
-			</div>
+			</div> */}
 			<div className={cx('user-wrapper')}>
-				{userSearch.map((user) => {
+				{department.departmentUsers.map((user) => {
 					return (
 						<div
 							className={cx('select-all')}
@@ -68,7 +65,7 @@ function Users() {
 								}`}</div>
 							</div>
 							<div multi="true" className={cx('plus-icon')}>
-								{assign.assignees.find((assignees) => assignees.id === user._id)
+								{task.assignees.find((assignees) => assignees.id === user._id)
 									? '-'
 									: '+'}
 							</div>

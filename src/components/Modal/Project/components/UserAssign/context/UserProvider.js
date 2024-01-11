@@ -1,29 +1,30 @@
 import { createContext, useContext, useState } from 'react';
-import { TotalUsers } from '~/pages/App/pages/Member/context/TotalUsersProvider';
+import { DepartmentContext } from '~/pages/App/pages/Project_NEW/contexts/DepartmentProvider/DepartmentProvider';
+import { TaskAssignContext } from '../../../context/TaskAssignProvider';
 
-export const UserContext = createContext();
+export const UserAssignContext = createContext();
 
 function UserProvider({ children }) {
-	const total = useContext(TotalUsers);
+	const task = useContext(TaskAssignContext);
+	const department = useContext(DepartmentContext);
 	const [isOpen, setIsOpen] = useState(false);
-	const [assignees, setAssignees] = useState([]);
 	function handleSelected(e) {
 		let thisElement = e.target;
 		const multiple = thisElement.getAttribute('multi');
 		while (!thisElement.id) {
 			thisElement = thisElement.parentNode;
 		}
-		const thisUser = total.users.find((user) => {
+		const thisUser = department.departmentUsers.find((user) => {
 			return user._id === thisElement.id;
 		});
 		checkSelected(thisUser, multiple);
 	}
 
 	function checkSelected(user, multiple) {
-		const alreadyAssigned = assignees.findIndex((assignee) => assignee.id === user._id);
+		const alreadyAssigned = task.assignees.findIndex((assignee) => assignee.id === user._id);
 		if (alreadyAssigned === -1) {
 			if (multiple !== null) {
-				setAssignees((prev) => [
+				task.setAssignees((prev) => [
 					...prev,
 					{
 						src: user.img,
@@ -31,7 +32,7 @@ function UserProvider({ children }) {
 					},
 				]);
 			} else {
-				setAssignees([
+				task.setAssignees([
 					{
 						src: user.img,
 						id: user._id,
@@ -41,21 +42,20 @@ function UserProvider({ children }) {
 			}
 		} else {
 			if (multiple !== null) {
-				assignees.splice(alreadyAssigned, 1);
-				setAssignees((prev) => [...prev]);
+				task.assignees.splice(alreadyAssigned, 1);
+				task.setAssignees((prev) => [...prev]);
 			} else {
-				setAssignees([]);
+				task.setAssignees([]);
 			}
 		}
 	}
+
 	const value = {
-		assignees,
-		setAssignees,
 		handleSelected,
 		isOpen,
 		setIsOpen,
 	};
-	return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+	return <UserAssignContext.Provider value={value}>{children}</UserAssignContext.Provider>;
 }
 
 export default UserProvider;
