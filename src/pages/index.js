@@ -8,7 +8,6 @@ export { default as App } from './App/App';
 //child components
 export { default as Member } from './App/pages/Member/Member';
 export { default as Settings } from './App/pages/Settings/Settings';
-// export { default as Projects } from './App/pages/Projects/Projects';
 export { default as Projects } from './App/pages/Project_NEW/Project';
 export { default as Tasks } from './App/pages/Tasks/Tasks';
 export { default as Calendar } from './App/pages/Calendar/Calendar';

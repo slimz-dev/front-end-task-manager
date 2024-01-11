@@ -17,11 +17,9 @@ import { changeJob } from '~/services/ProjectService/changeJobService';
 import JobsRender from './components/JobsRender/JobsRender';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CommentsRender from './components/CommentsRender/CommentsRender';
-import { UserContext } from '~/contexts/userProvider';
 
 const cx = classNames.bind(styles);
 const TaskModal = () => {
-	const user = useContext(UserContext);
 	const modal = useContext(TaskModalContext);
 	const [initDate, setInitDate] = useState('');
 	const [expiredDate, setExpiredDate] = useState('');
@@ -55,11 +53,10 @@ const TaskModal = () => {
 	}
 
 	async function handleAddComment() {
-		console.log({
-			_id: modal.taskInfo._id,
-			content: commentContent,
-			createBy: user.info._id,
-		});
+		if (commentContent) {
+			setCommentContent('');
+			await modal.addComment(commentContent);
+		}
 	}
 
 	function handleSetJobTitle(e) {
