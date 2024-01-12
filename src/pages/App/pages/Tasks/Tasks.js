@@ -1,45 +1,48 @@
 import { useRef, useState, useEffect } from 'react';
 import Img from '~/components/Img/Img';
+import useClass from '~/hooks/useClass';
+import styles from './Task.module.scss';
 
 let fakeApi = [
 	{
 		state: 'Upcoming',
 		id: 0,
-		description: 'View task 0',
+		name: 'View task 0',
 	},
 	{
 		state: 'Upcoming',
 		id: 1,
-		description: 'View task 1',
+		name: 'View task 1',
 	},
 	{
 		state: 'Upcoming',
 		id: 2,
-		description: 'View task 2',
+		name: 'View task 2',
 	},
 	{
 		state: 'In progress',
 		id: 3,
-		description: 'View task 3',
+		name: 'View task 3',
 	},
 	{
 		state: 'On hold',
 		id: 4,
-		description: 'View task 4',
+		name: 'View task 4',
 	},
 	{
 		state: 'On hold',
 		id: 5,
-		description: 'View task 5',
+		name: 'View task 5',
 	},
 	{
 		state: 'Completed',
 		id: 6,
-		description: 'View task 6',
+		name: 'View task 6',
 	},
 ];
 
 function Tasks() {
+	const cx = useClass(styles);
 	const [dragItem, setDragItem] = useState('');
 	const [data, setData] = useState(fakeApi);
 	const stateRef = useRef([]);
@@ -98,7 +101,9 @@ function Tasks() {
 					>
 						<div className="card">
 							<div className="card-header">
-								<h5 className="card-title">Upcoming</h5>
+								<h5 className={cx('card-title', 'card-label', 'upcoming')}>
+									Upcoming
+								</h5>
 							</div>
 							<div className="card-body p-3">
 								<div>
@@ -123,7 +128,7 @@ function Tasks() {
 															</span>
 														</label>
 													</div>
-													<p>{task.description}</p>
+													<p>{task.name}</p>
 													<div className="float-right mt-n1">
 														<Img
 															src="img\avatars\avatar.jpg"
@@ -133,7 +138,13 @@ function Tasks() {
 															alt="Avatar"
 														/>
 													</div>
-													<a className="btn btn-primary btn-sm" href="#a">
+													<a
+														className={cx(
+															'upcoming',
+															'btn btn-primary btn-sm'
+														)}
+														href="#a"
+													>
 														View
 													</a>
 												</div>
@@ -143,7 +154,10 @@ function Tasks() {
 										);
 									})}
 								</div>
-								<a href="#a" className="btn btn-primary btn-block">
+								<a
+									href="#a"
+									className={cx('upcoming', 'btn btn-primary btn-block')}
+								>
 									Add new task
 								</a>
 							</div>
@@ -157,7 +171,9 @@ function Tasks() {
 					>
 						<div className="card">
 							<div className="card-header">
-								<h5 className="card-title">In progress</h5>
+								<h5 className={cx('card-title', 'card-label', 'in-progress')}>
+									In progress
+								</h5>
 							</div>
 							<div className="card-body p-3">
 								<div>
@@ -182,7 +198,7 @@ function Tasks() {
 															</span>
 														</label>
 													</div>
-													<p>{task.description}</p>
+													<p>{task.name}</p>
 													<div className="float-right mt-n1">
 														<Img
 															src="img\avatars\avatar.jpg"
@@ -192,7 +208,13 @@ function Tasks() {
 															alt="Avatar"
 														/>
 													</div>
-													<a className="btn btn-primary btn-sm" href="#a">
+													<a
+														className={cx(
+															'in-progress',
+															'btn btn-primary btn-sm'
+														)}
+														href="#a"
+													>
 														View
 													</a>
 												</div>
@@ -202,7 +224,10 @@ function Tasks() {
 										);
 									})}
 								</div>
-								<a href="#a" className="btn btn-primary btn-block">
+								<a
+									href="#a"
+									className={cx('in-progress', 'btn btn-primary btn-block')}
+								>
 									Add new task
 								</a>
 							</div>
@@ -216,7 +241,7 @@ function Tasks() {
 					>
 						<div className="card">
 							<div className="card-header">
-								<h5 className="card-title">On hold</h5>
+								<h5 className={cx('card-title', 'card-label', 'hold')}>On hold</h5>
 							</div>
 							<div className="card-body p-3">
 								<div>
@@ -241,7 +266,7 @@ function Tasks() {
 															</span>
 														</label>
 													</div>
-													<p>{task.description}</p>
+													<p>{task.name}</p>
 													<div className="float-right mt-n1">
 														<Img
 															src="img\avatars\avatar.jpg"
@@ -251,7 +276,13 @@ function Tasks() {
 															alt="Avatar"
 														/>
 													</div>
-													<a className="btn btn-primary btn-sm" href="#a">
+													<a
+														className={cx(
+															'btn btn-primary btn-sm',
+															'hold'
+														)}
+														href="#a"
+													>
 														View
 													</a>
 												</div>
@@ -261,7 +292,7 @@ function Tasks() {
 										);
 									})}
 								</div>
-								<a href="#a" className="btn btn-primary btn-block">
+								<a href="#a" className={cx('btn btn-primary btn-block', 'hold')}>
 									Add new task
 								</a>
 							</div>
@@ -275,7 +306,9 @@ function Tasks() {
 					>
 						<div className="card">
 							<div className="card-header">
-								<h5 className="card-title">Completed</h5>
+								<h5 className={cx('card-title', 'card-label', 'completed')}>
+									Completed
+								</h5>
 							</div>
 							<div className="card-body p-3">
 								<div>
@@ -300,7 +333,7 @@ function Tasks() {
 															</span>
 														</label>
 													</div>
-													<p>{task.description}</p>
+													<p>{task.name}</p>
 													<div className="float-right mt-n1">
 														<Img
 															src="img\avatars\avatar.jpg"
@@ -310,7 +343,13 @@ function Tasks() {
 															alt="Avatar"
 														/>
 													</div>
-													<a className="btn btn-primary btn-sm" href="#a">
+													<a
+														className={cx(
+															'completed',
+															'btn btn-primary btn-sm'
+														)}
+														href="#a"
+													>
 														View
 													</a>
 												</div>
@@ -320,7 +359,10 @@ function Tasks() {
 										);
 									})}
 								</div>
-								<a href="#a" className="btn btn-primary btn-block">
+								<a
+									href="#a"
+									className={cx('completed', 'btn btn-primary btn-block')}
+								>
 									Add new task
 								</a>
 							</div>

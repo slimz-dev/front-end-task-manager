@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { UserContext } from '~/contexts/userProvider';
-import { DepartmentContext } from '~/pages/App/pages/Project_NEW/contexts/DepartmentProvider/DepartmentProvider';
+import { DepartmentContext } from '~/pages/App/pages/Project/contexts/DepartmentProvider/DepartmentProvider';
 import { addNewComment } from '~/services/ProjectService/addCommentService';
 import { addNewJob } from '~/services/ProjectService/addJobService';
 import { getSelectTask } from '~/services/ProjectService/getSelectTaskService';

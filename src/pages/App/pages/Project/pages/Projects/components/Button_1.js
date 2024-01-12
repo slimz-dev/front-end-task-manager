@@ -1,14 +1,14 @@
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import config from '~/config';
 import useClass from '~/hooks/useClass';
-import { DepartmentContext } from '../../../contexts/DepartmentProvider/DepartmentProvider';
 import styles from '../../../Project.module.scss';
 function BackButton() {
+	const navigate = useNavigate();
 	const cx = useClass(styles);
-	const department = useContext(DepartmentContext);
 	function handleShow() {
-		department.setIsDepartment(true);
+		navigate(config.routes.Projects);
 	}
 	return (
 		<div onClick={handleShow} className="btn btn-primary  mt-n1" style={{ cursor: 'pointer' }}>

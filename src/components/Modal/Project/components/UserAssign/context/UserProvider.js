@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import { DepartmentContext } from '~/pages/App/pages/Project_NEW/contexts/DepartmentProvider/DepartmentProvider';
+import { DepartmentContext } from '~/pages/App/pages/Project/contexts/DepartmentProvider/DepartmentProvider';
 import { TaskAssignContext } from '../../../context/TaskAssignProvider';
 
 export const UserAssignContext = createContext();

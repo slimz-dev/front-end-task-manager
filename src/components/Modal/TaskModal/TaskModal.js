@@ -23,10 +23,12 @@ const TaskModal = () => {
 	const modal = useContext(TaskModalContext);
 	const [initDate, setInitDate] = useState('');
 	const [expiredDate, setExpiredDate] = useState('');
-	const [job, setJob] = useState(false);
-	const [comment, setComment] = useState(false);
-	const [jobTitle, setJobTitle] = useState('');
-	const [commentContent, setCommentContent] = useState('');
+	const [apiData, setApiData] = useState({
+		job: false,
+		jobTitle: '',
+		comment: false,
+		commentContent: '',
+	});
 	const [isOnTime, setIsOnTime] = useState(true);
 	const [data, setData] = useState([]);
 
@@ -34,38 +36,59 @@ const TaskModal = () => {
 		const currentDate = new Date();
 		if (modal.taskInfo.length !== 0) {
 			setInitDate(new Date(modal.taskInfo.initDate).toDateString());
-
+			console.log(isOnTime, new Date(modal.taskInfo.expiredDate));
 			setExpiredDate(new Date(modal.taskInfo.expiredDate).toDateString());
 			if (currentDate > new Date(modal.taskInfo.expiredDate)) {
+				console.log('>>>>>Current ', currentDate);
+				console.log('>>>> Expired', new Date(modal.taskInfo.expiredDate));
 				setIsOnTime(false);
+			} else {
+				setIsOnTime(true);
 			}
 		}
 		setData(modal.taskInfo.smallJob);
 	}, [modal.taskInfo]);
-
 	function hideModal() {
+		setApiData({
+			job: false,
+			jobTitle: '',
+			comment: false,
+			commentContent: '',
+		});
 		modal.setShow(false);
 	}
 	async function handleAddJob() {
-		await modal.addJob(jobTitle);
-		setJob(false);
-		setJobTitle('');
+		await modal.addJob(apiData.jobTitle);
+		setApiData((prev) => ({
+			...prev,
+			job: false,
+			jobTitle: '',
+		}));
 	}
 
 	async function handleAddComment() {
-		if (commentContent) {
-			setCommentContent('');
-			await modal.addComment(commentContent);
+		if (apiData.commentContent) {
+			setApiData((prev) => ({
+				...prev,
+				commentContent: '',
+			}));
+			await modal.addComment(apiData.commentContent);
 		}
 	}
 
 	function handleSetJobTitle(e) {
 		const title = e.target.value;
-		setJobTitle(title);
+		setApiData((prev) => ({
+			...prev,
+			jobTitle: title,
+		}));
 	}
 	function handleSetComment(e) {
 		const commentValue = e.target.value;
-		setCommentContent(commentValue);
+		setApiData((prev) => ({
+			...prev,
+			commentContent: commentValue,
+		}));
 	}
 	function handleSubmit() {
 		const postJob = async () => {
@@ -99,6 +122,7 @@ const TaskModal = () => {
 											'badge-danger': !isOnTime,
 										})}
 									>
+										{console.log(isOnTime)}
 										{modal.taskInfo.state
 											? ''
 											: isOnTime
@@ -132,12 +156,12 @@ const TaskModal = () => {
 					<Modal.Body className={cx('d-flex', 'flex-column')}>
 						<JobsRender setData={setData} />
 						<div className={cx('button-container')}>
-							{job ? (
+							{apiData.job ? (
 								<div className={cx('action-container')}>
 									<input
 										className={cx('action-input')}
 										placeholder="Enter your new job"
-										value={jobTitle}
+										value={apiData.jobTitle}
 										onChange={handleSetJobTitle}
 									/>
 									<div className={cx('action-handler-container')}>
@@ -146,23 +170,28 @@ const TaskModal = () => {
 										</span>
 										<span
 											className={cx('button-close')}
-											onClick={() => setJob(false)}
+											onClick={() =>
+												setApiData((prev) => ({ ...prev, job: false }))
+											}
 										>
 											<FontAwesomeIcon icon={faXmark} />
 										</span>
 									</div>
 								</div>
 							) : (
-								<div className={cx('job-add')} onClick={() => setJob(true)}>
+								<div
+									className={cx('job-add')}
+									onClick={() => setApiData((prev) => ({ ...prev, job: true }))}
+								>
 									+ Add Job
 								</div>
 							)}
-							{comment ? (
+							{apiData.comment ? (
 								<div className={cx('action-container')}>
 									<input
 										className={cx('action-input')}
 										placeholder="Enter your comment"
-										value={commentContent}
+										value={apiData.commentContent}
 										onChange={handleSetComment}
 									/>
 									<div className={cx('action-handler-container')}>
@@ -174,7 +203,9 @@ const TaskModal = () => {
 										</span>
 										<span
 											className={cx('button-close')}
-											onClick={() => setComment(false)}
+											onClick={() =>
+												setApiData((prev) => ({ ...prev, comment: false }))
+											}
 										>
 											<FontAwesomeIcon icon={faXmark} />
 										</span>
@@ -183,7 +214,9 @@ const TaskModal = () => {
 							) : (
 								<div
 									className={cx('notification')}
-									onClick={() => setComment(true)}
+									onClick={() =>
+										setApiData((prev) => ({ ...prev, comment: true }))
+									}
 								>
 									+ Add comment
 								</div>

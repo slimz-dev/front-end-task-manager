@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import styles from './Users.module.scss';
 import Img from '~/components/Img/Img';
 import { UserAssignContext } from '../context/UserProvider';
-import { DepartmentContext } from '~/pages/App/pages/Project_NEW/contexts/DepartmentProvider/DepartmentProvider';
+import { DepartmentContext } from '~/pages/App/pages/Project/contexts/DepartmentProvider/DepartmentProvider';
 import { TaskAssignContext } from '../../../context/TaskAssignProvider';
 
 const cx = classNames.bind(styles);

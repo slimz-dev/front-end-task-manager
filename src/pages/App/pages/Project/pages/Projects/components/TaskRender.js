@@ -2,13 +2,14 @@ import ProgressCheck from './ProgressCheck';
 import ProgressBar from './Progressbar';
 import { useContext } from 'react';
 import styles from '../../../Project.module.scss';
-import { DepartmentContext } from '../../../contexts/DepartmentProvider/DepartmentProvider';
+
 import useClass from '~/hooks/useClass';
 import { TaskModalContext } from '~/components/Modal/TaskModal/context/TaskModalProvider';
 import Img from '~/components/Img/Img';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { deleteTask } from '~/services/ProjectService/deleteTaskService';
+import { DepartmentContext } from '../../../contexts/DepartmentProvider/DepartmentProvider';
 
 function TaskRender() {
 	const departmentTasks = useContext(DepartmentContext);
