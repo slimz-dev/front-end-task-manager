@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { ModalContext } from '~/contexts/ModalProvider';
 import { UserContext } from '~/contexts/userProvider';
+import { deletePersonalTask } from '~/services/PersonalTaskService/deletePersonalTaskService';
 import { getPersonalTask } from '~/services/PersonalTaskService/getPersonalTaskService';
 import { updateTaskState } from '~/services/PersonalTaskService/updatePersonalTaskService';
 
@@ -47,13 +48,13 @@ function TaskProvider({ children }) {
 				let stateChange;
 				switch (index) {
 					case 0:
-						stateChange = 'Upcoming';
+						stateChange = 'UpComing';
 						break;
 					case 1:
-						stateChange = 'In progress';
+						stateChange = 'InProgress';
 						break;
 					case 2:
-						stateChange = 'On hold';
+						stateChange = 'OnHold';
 						break;
 					default:
 						stateChange = 'Completed';
@@ -82,6 +83,21 @@ function TaskProvider({ children }) {
 		modal.setShow(true);
 	}
 
+	function handleDelete(e) {
+		let thisElement = e.target;
+		while (!thisElement.id) {
+			thisElement = thisElement.parentNode;
+		}
+		if (thisElement.id) {
+			const taskId = thisElement.id;
+			const deleteTask = async () => {
+				const result = await deletePersonalTask(data._id, taskId);
+				setData(result.data);
+			};
+			deleteTask();
+		}
+	}
+
 	const value = {
 		data,
 		stateRef,
@@ -90,6 +106,8 @@ function TaskProvider({ children }) {
 		handleStart,
 		taskState,
 		handleOpenModal,
+		setData,
+		handleDelete,
 	};
 	return <TaskContext.Provider value={value}>{children}</TaskContext.Provider>;
 }

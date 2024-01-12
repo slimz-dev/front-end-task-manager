@@ -1,4 +1,6 @@
-import { useContext } from 'react';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useContext, useState } from 'react';
 import Img from '~/components/Img/Img';
 import { ModalContext } from '~/contexts/ModalProvider';
 import { UserContext } from '~/contexts/userProvider';
@@ -11,10 +13,21 @@ function Completed() {
 	const modal = useContext(ModalContext);
 	const cx = useClass(styles);
 	const taskStorage = useContext(TaskContext);
+	const [isDescription, setIsDescription] = useState({
+		isDescription: false,
+		task: '',
+	});
 
+	function handleViewDescription(e) {
+		setIsDescription({
+			isDescription: !isDescription.isDescription,
+			task: e.target.id,
+		});
+	}
 	function handleAdd() {
 		modal.setShow(true);
 	}
+
 	return (
 		<div className="card">
 			<div className="card-header">
@@ -34,13 +47,12 @@ function Completed() {
 									>
 										<div className="card-body p-3">
 											<div className="float-right mr-n2">
-												<label className="custom-control custom-checkbox">
-													<input
-														type="checkbox"
-														className="custom-control-input"
-													/>
-													<span className="custom-control-label text-hide">
-														Checkbox
+												<label className="custom-control ">
+													<span
+														className={cx('trash')}
+														onClick={(e) => taskStorage.handleDelete(e)}
+													>
+														<FontAwesomeIcon icon={faTrash} />
 													</span>
 												</label>
 											</div>
@@ -54,15 +66,19 @@ function Completed() {
 													alt="Avatar"
 												/>
 											</div>
-											<a
+											<div
+												id={element._id}
 												className={cx(
 													'completed',
 													'btn btn-primary btn-sm'
 												)}
-												href="#a"
+												onClick={(e) => handleViewDescription(e)}
 											>
-												View
-											</a>
+												{isDescription.isDescription &&
+												isDescription.task === element._id
+													? element.description
+													: 'View'}
+											</div>
 										</div>
 									</div>
 								) : (
@@ -72,7 +88,7 @@ function Completed() {
 						: ''}
 				</div>
 				<a
-					id="completed"
+					id="Completed"
 					href="#a"
 					className={cx('completed', 'btn btn-primary btn-block')}
 					onClick={(e) => taskStorage.handleOpenModal(e)}

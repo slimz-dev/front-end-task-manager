@@ -6,17 +6,41 @@ import { Modal, Button } from 'react-bootstrap';
 //css
 import styles from './PersonalTaskModal.module.scss';
 import { ModalContext } from '~/contexts/ModalProvider';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import useClass from '~/hooks/useClass';
+import { TaskContext } from '~/pages/App/pages/Tasks/context/TaskProvider/TaskProvider';
+import { newPersonalTask } from '~/services/PersonalTaskService/newPersonalTaskService';
+import { UserContext } from '~/contexts/userProvider';
 
 function PersonalTaskModal() {
+	const user = useContext(UserContext);
 	const cx = useClass(styles);
 	const modal = useContext(ModalContext);
-
+	const task = useContext(TaskContext);
+	const [data, setData] = useState({});
 	function hideModal() {
 		modal.setShow(false);
+		setData({});
 	}
-	function handleSubmit() {}
+	function handleChange(e) {
+		setData((prev) => ({
+			...prev,
+			[e.target.id]: e.target.value,
+		}));
+	}
+	function handleSubmit() {
+		if (data.description && data.name) {
+			const postNewTask = async () => {
+				const result = await newPersonalTask(user.info._id, {
+					...data,
+					state: task.taskState,
+				});
+				task.setData(result.data);
+				setData({});
+			};
+			postNewTask();
+		}
+	}
 	return (
 		<>
 			{modal.show ? (
@@ -38,14 +62,23 @@ function PersonalTaskModal() {
 						<div className={cx('button-container')}>
 							<div className={cx('d-flex', 'flex-column', 'relative')}>
 								<label className={cx('input-label')}>Task Name</label>
-								<input className={cx('input')} placeholder="Enter your task name" />
+								<input
+									id="name"
+									className={cx('input')}
+									placeholder="Enter your task name"
+									value={data.name ? data.name : ''}
+									onChange={(e) => handleChange(e)}
+								/>
 							</div>
 							<div className={cx('d-flex', 'flex-column', 'relative')}>
 								<label className={cx('input-label')}>Description</label>
 								<textarea
+									id="description"
+									value={data.description ? data.description : ''}
 									className={cx('input')}
 									rows="10"
 									placeholder="Enter your description"
+									onChange={(e) => handleChange(e)}
 								/>
 							</div>
 						</div>

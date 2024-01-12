@@ -1,4 +1,6 @@
-import { useContext } from 'react';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useContext, useState } from 'react';
 import Img from '~/components/Img/Img';
 import { UserContext } from '~/contexts/userProvider';
 import useClass from '~/hooks/useClass';
@@ -9,6 +11,18 @@ function InProgress() {
 	const user = useContext(UserContext);
 	const cx = useClass(styles);
 	const taskStorage = useContext(TaskContext);
+
+	const [isDescription, setIsDescription] = useState({
+		isDescription: false,
+		task: '',
+	});
+
+	function handleViewDescription(e) {
+		setIsDescription({
+			isDescription: !isDescription.isDescription,
+			task: e.target.id,
+		});
+	}
 	return (
 		<div className="card">
 			<div className="card-header">
@@ -18,7 +32,7 @@ function InProgress() {
 				<div>
 					{taskStorage.data
 						? taskStorage.data.task.map((element, id) => {
-								return element.state === 'In progress' ? (
+								return element.state === 'InProgress' ? (
 									<div
 										id={element._id}
 										key={id}
@@ -28,13 +42,12 @@ function InProgress() {
 									>
 										<div className="card-body p-3">
 											<div className="float-right mr-n2">
-												<label className="custom-control custom-checkbox">
-													<input
-														type="checkbox"
-														className="custom-control-input"
-													/>
-													<span className="custom-control-label text-hide">
-														Checkbox
+												<label className="custom-control ">
+													<span
+														className={cx('trash')}
+														onClick={(e) => taskStorage.handleDelete(e)}
+													>
+														<FontAwesomeIcon icon={faTrash} />
 													</span>
 												</label>
 											</div>
@@ -48,15 +61,19 @@ function InProgress() {
 													alt="Avatar"
 												/>
 											</div>
-											<a
+											<div
+												id={element._id}
 												className={cx(
 													'in-progress',
 													'btn btn-primary btn-sm'
 												)}
-												href="#a"
+												onClick={(e) => handleViewDescription(e)}
 											>
-												View
-											</a>
+												{isDescription.isDescription &&
+												isDescription.task === element._id
+													? element.description
+													: 'View'}
+											</div>
 										</div>
 									</div>
 								) : (

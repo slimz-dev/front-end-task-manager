@@ -20,3 +20,15 @@
 	padding: 6px;
 	font-weight: 600;
 }
+
+.trash {
+	font-size: 1.2rem;
+	position: absolute;
+	right: 7px;
+	top: -12px;
+	color: #c25f8d;
+	&:hover {
+		cursor: pointer;
+		color: #9b9095;
+	}
+}
