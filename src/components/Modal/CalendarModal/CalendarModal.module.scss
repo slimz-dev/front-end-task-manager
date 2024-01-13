@@ -1,0 +1,78 @@
+.w-100 {
+	width: 100%;
+}
+
+.input {
+	padding: 10px 3px 3px 3px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+}
+
+.task-title {
+	font-weight: 500;
+}
+
+.input-label {
+	color: #a180da;
+	position: absolute;
+	top: -10px;
+	left: 16px;
+	background: white;
+	font-size: 12px;
+}
+
+.label {
+	margin-bottom: 0;
+	margin-right: 10px;
+}
+.select {
+	border: 1px solid #ccc;
+	padding: 3px;
+	border-radius: 5px;
+	width: 4rem;
+}
+.all-day {
+	margin-top: 10px;
+}
+
+.date-container {
+	height: 5rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.date-label {
+	width: 5rem;
+	font-weight: 500;
+	font-size: 12px;
+}
+
+.label-start {
+	color: #5fc27e;
+}
+
+.label-end {
+	color: red;
+}
+.input {
+	&:focus-visible {
+		outline: none;
+		border: 1px solid rgb(166, 54, 184);
+	}
+}
+
+.button-add {
+	font-size: 19px;
+	margin-left: 15px;
+	cursor: pointer;
+	&:hover {
+		color: green;
+	}
+}
+
+.create-btn {
+	font-weight: 500;
+	height: 2.2rem;
+	width: 8rem;
+}
