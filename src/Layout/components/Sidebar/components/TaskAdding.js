@@ -1,3 +1,5 @@
+import { faLayerGroup } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import styles from '../Sidebar.module.scss';
 
@@ -5,28 +7,22 @@ const cx = classNames.bind(styles);
 
 function TaskAdding() {
 	return (
-		<a href="#a" className={cx('sidebar-link', 'center-button', 'not-hover')}>
+		<div className={cx('sidebar-link', 'center-button', 'not-hover')}>
 			<button
 				className={cx('btn btn-primary btn-lg btn-pill', 'btn-width')}
 				data-toggle="button"
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
-					aria-hidden="true"
-					role="img"
-					className={cx('icon-width-height')}
-					viewBox="0 0 24 24"
+					height="16"
+					width="18"
+					viewBox="0 0 576 512"
 				>
-					<path
-						fill="currentColor"
-						fillRule="evenodd"
-						d="M15.358 4.464a8.25 8.25 0 104.892 7.54v-.827a.75.75 0 011.5 0v.828a9.751 9.751 0 01-17.93 5.302A9.75 9.75 0 0115.969 3.094a.75.75 0 01-.61 1.37Zm6.172-.195a.75.75 0 010 1.061l-9 9.01a.75.75 0 01-1.06 0l-2.7-2.7a.75.75 0 111.06-1.061l2.17 2.17 8.47-8.48a.75.75 0 011.06 0Z"
-						clipRule="evenodd"
-					></path>
+					<path d="M264.5 5.2c14.9-6.9 32.1-6.9 47 0l218.6 101c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 149.8C37.4 145.8 32 137.3 32 128s5.4-17.9 13.9-21.8L264.5 5.2zM476.9 209.6l53.2 24.6c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 277.8C37.4 273.8 32 265.3 32 256s5.4-17.9 13.9-21.8l53.2-24.6 152 70.2c23.4 10.8 50.4 10.8 73.8 0l152-70.2zm-152 198.2l152-70.2 53.2 24.6c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L45.9 405.8C37.4 401.8 32 393.3 32 384s5.4-17.9 13.9-21.8l53.2-24.6 152 70.2c23.4 10.8 50.4 10.8 73.8 0z" />
 				</svg>
-				<span>Add task</span>
+				<span>It - The Revolution.</span>
 			</button>
-		</a>
+		</div>
 	);
 }
 
