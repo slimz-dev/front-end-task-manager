@@ -8,3 +8,48 @@
 .active {
 	background-color: #dee197 !important;
 }
+
+.add-button {
+	background: #05dd05;
+	color: white;
+	padding: 4px 8px;
+	border-radius: 28px;
+	font-weight: 700;
+	cursor: pointer;
+	font-size: 1rem;
+	&:hover {
+		opacity: 0.5;
+	}
+}
+
+.img {
+	width: 30px;
+	margin-right: 10px;
+}
+
+.x-icon {
+	display: flex;
+	justify-content: flex-end;
+	font-size: 19px;
+	margin-right: 15px;
+	cursor: pointer;
+	&:hover {
+		color: red;
+	}
+}
+.user-container {
+	position: absolute;
+	background: white;
+	width: 12rem;
+	border-radius: 5px;
+	padding-top: 7px;
+	box-shadow: 1px 4px 13px;
+}
+
+.user-box {
+	padding: 10px;
+	&:hover {
+		background: rgb(219, 215, 215);
+		cursor: pointer;
+	}
+}
