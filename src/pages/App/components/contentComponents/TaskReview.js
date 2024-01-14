@@ -1,43 +1,23 @@
+import { useEffect, useState } from 'react';
+import useClass from '~/hooks/useClass';
+import { getMyTasks } from '~/services/UserService/getMyTasks';
+import styles from '../../App.module.scss';
+
 function TaskReview() {
+	const cx = useClass(styles);
+	const [data, setData] = useState([]);
+	useEffect(() => {
+		const fetchTasks = async () => {
+			const result = await getMyTasks();
+			setData(result.data);
+		};
+		fetchTasks();
+	}, []);
 	return (
 		<>
 			<div className="col-12 col-lg-12 col-xl-12 d-flex">
 				<div className="card flex-fill">
 					<div className="card-header">
-						<div className="card-actions float-right">
-							<div className="dropdown show">
-								<a href="#" data-toggle="dropdown" data-display="static">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="24"
-										height="24"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										strokeWidth="2"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										className="feather feather-more-horizontal align-middle"
-									>
-										<circle cx="12" cy="12" r="1"></circle>
-										<circle cx="19" cy="12" r="1"></circle>
-										<circle cx="5" cy="12" r="1"></circle>
-									</svg>
-								</a>
-
-								<div className="dropdown-menu dropdown-menu-right">
-									<a className="dropdown-item" href="#">
-										Action
-									</a>
-									<a className="dropdown-item" href="#">
-										Another action
-									</a>
-									<a className="dropdown-item" href="#">
-										Something else here
-									</a>
-								</div>
-							</div>
-						</div>
 						<h5 className="card-title mb-0">Latest Projects</h5>
 					</div>
 					<div
@@ -107,80 +87,45 @@ function TaskReview() {
 												colSpan="1"
 												aria-label="Assignee: activate to sort column ascending"
 											>
-												Assignee
+												Assigner
 											</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr role="row" className="odd">
-											<td className="sorting_1">Project Apollo</td>
-											<td className="d-none d-xl-table-cell">01/01/2018</td>
-											<td className="d-none d-xl-table-cell">31/06/2018</td>
-											<td>
-												<span className="badge badge-success">Done</span>
-											</td>
-											<td className="d-none d-md-table-cell">Carl Jenkins</td>
-										</tr>
-										<tr role="row" className="even">
-											<td className="sorting_1">Project Fireball</td>
-											<td className="d-none d-xl-table-cell">01/01/2018</td>
-											<td className="d-none d-xl-table-cell">31/06/2018</td>
-											<td>
-												<span className="badge badge-danger">
-													Cancelled
-												</span>
-											</td>
-											<td className="d-none d-md-table-cell">
-												Bertha Martin
-											</td>
-										</tr>
-										<tr role="row" className="odd">
-											<td className="sorting_1">Project Hades</td>
-											<td className="d-none d-xl-table-cell">01/01/2018</td>
-											<td className="d-none d-xl-table-cell">31/06/2018</td>
-											<td>
-												<span className="badge badge-success">Done</span>
-											</td>
-											<td className="d-none d-md-table-cell">Stacie Hall</td>
-										</tr>
-										<tr role="row" className="even">
-											<td className="sorting_1">Project Nitro</td>
-											<td className="d-none d-xl-table-cell">01/01/2018</td>
-											<td className="d-none d-xl-table-cell">31/06/2018</td>
-											<td>
-												<span className="badge badge-warning">
-													In progress
-												</span>
-											</td>
-											<td className="d-none d-md-table-cell">Carl Jenkins</td>
-										</tr>
-										<tr role="row" className="odd">
-											<td className="sorting_1">Project Phoenix</td>
-											<td className="d-none d-xl-table-cell">01/01/2018</td>
-											<td className="d-none d-xl-table-cell">31/06/2018</td>
-											<td>
-												<span className="badge badge-success">Done</span>
-											</td>
-											<td className="d-none d-md-table-cell">
-												Bertha Martin
-											</td>
-										</tr>
-										<tr role="row" className="even">
-											<td className="sorting_1">Project Romeo</td>
-											<td className="d-none d-xl-table-cell">01/01/2018</td>
-											<td className="d-none d-xl-table-cell">31/06/2018</td>
-											<td>
-												<span className="badge badge-success">Done</span>
-											</td>
-											<td className="d-none d-md-table-cell">
-												Ashley Briggs
-											</td>
-										</tr>
+										{data.map((task) => {
+											return (
+												<tr role="row" className="odd">
+													<td className="sorting_1">{task.name}</td>
+													<td className="d-none d-xl-table-cell">
+														{task.initDate.split('T')[0]}
+													</td>
+													<td className="d-none d-xl-table-cell">
+														{task.expiredDate.split('T')[0]}
+													</td>
+													<td>
+														<span
+															className={cx('badge badge-success', {
+																'badge-warning': !task.state,
+															})}
+														>
+															{task.state ? 'Done' : 'Working'}
+														</span>
+													</td>
+													<td className="d-none d-md-table-cell">
+														{`${task.assigner.firstName} ${
+															task.assigner.lastName
+																? task.assigner.lastName
+																: ''
+														}`}
+													</td>
+												</tr>
+											);
+										})}
 									</tbody>
 								</table>
 							</div>
 						</div>
-						<div className="row">
+						{/* <div className="row">
 							<div className="col-sm-12 col-md-5">
 								<div
 									className="dataTables_info"
@@ -250,7 +195,7 @@ function TaskReview() {
 									</ul>
 								</div>
 							</div>
-						</div>
+						</div> */}
 					</div>
 				</div>
 			</div>

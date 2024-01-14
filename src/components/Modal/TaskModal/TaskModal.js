@@ -36,11 +36,8 @@ const TaskModal = () => {
 		const currentDate = new Date();
 		if (modal.taskInfo.length !== 0) {
 			setInitDate(new Date(modal.taskInfo.initDate).toDateString());
-			console.log(isOnTime, new Date(modal.taskInfo.expiredDate));
 			setExpiredDate(new Date(modal.taskInfo.expiredDate).toDateString());
 			if (currentDate > new Date(modal.taskInfo.expiredDate)) {
-				console.log('>>>>>Current ', currentDate);
-				console.log('>>>> Expired', new Date(modal.taskInfo.expiredDate));
 				setIsOnTime(false);
 			} else {
 				setIsOnTime(true);
@@ -122,7 +119,6 @@ const TaskModal = () => {
 											'badge-danger': !isOnTime,
 										})}
 									>
-										{console.log(isOnTime)}
 										{modal.taskInfo.state
 											? ''
 											: isOnTime
