@@ -1,9 +1,19 @@
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Header from './components/Header';
 import Content from './components/Content';
+import { UserContext } from '~/contexts/userProvider';
+import { useNavigate } from 'react-router-dom';
+import config from '~/config';
 function Register() {
+	const navigate = useNavigate();
+	const isLogin = localStorage.getItem('token');
+	useEffect(() => {
+		if (isLogin) {
+			navigate(config.routes.App);
+		}
+	}, [isLogin]);
 	return (
 		<main className="main d-flex w-100">
 			<div className="container d-flex flex-column">

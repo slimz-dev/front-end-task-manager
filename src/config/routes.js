@@ -1,7 +1,7 @@
 export const mainRoutes = {
 	Home: '/',
 	Login: '/login',
-	Register: '/register',
+	Register: '/register/:token',
 	ResetPass: '/reset-password',
 	App: '/app',
 	Unknown: '*',

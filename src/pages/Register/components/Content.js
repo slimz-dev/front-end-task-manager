@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 
@@ -14,6 +14,7 @@ import config from '~/config';
 
 const cx = classNames.bind(styles);
 function Content() {
+	const params = useParams();
 	const navigate = useNavigate();
 	const inputRef = useRef();
 	const buttonRef = useRef();
@@ -35,7 +36,7 @@ function Content() {
 		const registerUser = async () => {
 			if (Object.keys(data).length > 0) {
 				try {
-					const result = await userRegistration(data);
+					const result = await userRegistration(params.token, data);
 					if (result.User) {
 						toast('Registration successfully', {
 							position: 'top-center',

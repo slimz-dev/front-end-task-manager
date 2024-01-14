@@ -4,7 +4,7 @@ function Hour() {
 	const [array, setArray] = useState([]);
 	const [firstTime, SetIsFirstTime] = useState(false);
 	let transferArray = [];
-	for (let i = 1; i <= 24; i++) {
+	for (let i = 0; i <= 24; i++) {
 		if (i <= 9) {
 			transferArray.push(`0${i}`);
 		} else {

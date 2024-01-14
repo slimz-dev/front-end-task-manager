@@ -3,6 +3,7 @@ import { ModalContext } from '~/contexts/ModalProvider';
 import { Modal, Button } from 'react-bootstrap';
 import classNames from 'classnames/bind';
 import styles from './inviteModal.module.scss';
+import { sendEmail } from '~/services/EmailService/newPersonalTaskService';
 
 const cx = classNames.bind(styles);
 const InviteModal = () => {
@@ -16,7 +17,18 @@ const InviteModal = () => {
 		modal.setShow(false);
 	}
 
-	function submitForm() {}
+	async function submitForm() {
+		const regex =
+			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		if (email.match(regex)) {
+			const data = {
+				email: email,
+			};
+			await sendEmail(data);
+		} else {
+			console.log('no');
+		}
+	}
 	return (
 		<Modal show={modal.show} onHide={hideModal} size="sm" centered className={cx('effect')}>
 			<Modal.Header>
