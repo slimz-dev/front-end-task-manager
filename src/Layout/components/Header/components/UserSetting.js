@@ -45,10 +45,10 @@ function UserSetting() {
 			>
 				<Img
 					src={currentUser?.img ? currentUser?.img : ''}
-					className="avatar img-fluid rounded-circle mr-1"
+					className="avatar img-fluid rounded-circle mr-1 fc-unselectable"
 					alt="Chris Wood"
 				/>
-				<span className="text-dark">
+				<span className="text-dark fc-unselectable">
 					{currentUser
 						? `${currentUser?.firstName} ${
 								currentUser?.lastName ? currentUser?.lastName : ''

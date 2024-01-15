@@ -51,7 +51,7 @@ function TaskModalProvider({ children }) {
 				content: content,
 				createBy: user.info._id,
 			};
-			const result = await addNewComment(taskInfo._id, data);
+			const result = await addNewComment(taskInfo._id, data, taskInfo.department);
 		};
 		postComment();
 	}

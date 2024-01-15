@@ -1,0 +1,13 @@
+import request from '~/utils/request';
+
+export const pushNotification = async (userId, data) => {
+	try {
+		const result = await request.post(`/notification/${userId}`, data);
+		return {
+			statusCode: result.status,
+			data: result.data.data,
+		};
+	} catch (error) {
+		return error;
+	}
+};

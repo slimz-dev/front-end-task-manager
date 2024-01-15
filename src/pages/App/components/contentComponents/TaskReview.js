@@ -13,6 +13,14 @@ function TaskReview() {
 		};
 		fetchTasks();
 	}, []);
+	function compareDate(complete, expired) {
+		const completeDate = new Date(complete);
+		const expiredDate = new Date(expired);
+		if (completeDate > expiredDate) {
+			return false;
+		}
+		return true;
+	}
 	return (
 		<>
 			<div className="col-12 col-lg-12 col-xl-12 d-flex">
@@ -92,9 +100,9 @@ function TaskReview() {
 										</tr>
 									</thead>
 									<tbody>
-										{data.map((task) => {
+										{data.map((task, index) => {
 											return (
-												<tr role="row" className="odd">
+												<tr role="row" className="odd" key={index}>
 													<td className="sorting_1">{task.name}</td>
 													<td className="d-none d-xl-table-cell">
 														{task.initDate.split('T')[0]}
@@ -106,9 +114,20 @@ function TaskReview() {
 														<span
 															className={cx('badge badge-success', {
 																'badge-warning': !task.state,
+																'badge-danger': !compareDate(
+																	task.completedDate,
+																	task.expiredDate
+																),
 															})}
 														>
-															{task.state ? 'Done' : 'Working'}
+															{!task.state
+																? 'Working'
+																: compareDate(
+																		task.completedDate,
+																		task.expiredDate
+																  )
+																? 'Done'
+																: 'Delayed'}
 														</span>
 													</td>
 													<td className="d-none d-md-table-cell">

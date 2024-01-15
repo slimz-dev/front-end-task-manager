@@ -52,13 +52,13 @@ function Pages() {
 				</li> */}
 				<li className="sidebar-item">
 					<Link className="sidebar-link" to={config.routes.Settings}>
-						Settings
+						My Settings
 					</Link>
 				</li>
 
 				<li className="sidebar-item">
 					<Link className="sidebar-link" to={config.routes.Projects}>
-						Tasks
+						Projects
 					</Link>
 				</li>
 

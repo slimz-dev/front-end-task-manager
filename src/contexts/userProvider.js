@@ -12,7 +12,6 @@ function UserProvider({ children }) {
 	socket.on('user-state', (data) => {
 		setOnline(data);
 	});
-
 	useEffect(() => {
 		const getData = async () => {
 			try {
