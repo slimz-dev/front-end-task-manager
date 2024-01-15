@@ -19,9 +19,10 @@ function NotificationProvider({ children }) {
 		if (user.info._id) {
 			fetchNotification();
 		}
-		socket.once('notification', () => {
+		socket.on('notification', () => {
 			const reRenderNotify = async () => {
 				const result = await getNotification(user.info._id);
+				console.log(result);
 				setIsOpenNoti(true);
 				setData(result);
 			};
