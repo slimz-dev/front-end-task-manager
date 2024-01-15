@@ -52,3 +52,13 @@
 	overflow-y: scroll;
 	max-height: 500px;
 }
+
+a:hover {
+	text-decoration: none;
+}
+
+.hover-bg {
+	&:hover {
+		background: #ebebf3 !important;
+	}
+}

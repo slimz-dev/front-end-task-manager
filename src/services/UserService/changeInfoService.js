@@ -13,4 +13,6 @@ export const changeInfo = async (data) => {
 	}
 };
 
-request.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+request.defaults.headers.common['Authorization'] = `Bearer ${
+	localStorage.getItem('token') ? localStorage.getItem('token') : ''
+}`;

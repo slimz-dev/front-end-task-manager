@@ -2,18 +2,21 @@ import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '~/contexts/userProvider';
 import useClass from '~/hooks/useClass';
 import { getNotification } from '~/services/NotificationService/getNotification';
-import { pushNotification } from '~/services/NotificationService/pushNotification';
+import { changeStateNotification } from '~/services/NotificationService/changeStateNotification';
 import { socket } from '~/socket';
 import styles from '../Header.module.scss';
 import TimeAgo from 'react-timeago';
 import viStrings from 'react-timeago/lib/language-strings/vi';
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
+import { Link } from 'react-router-dom';
+import config from '~/config';
 
 const formatter = buildFormatter(viStrings);
 function Notification() {
 	const user = useContext(UserContext);
 	const [data, setData] = useState([]);
 	const [isOpen, setIsOpen] = useState(false);
+	const [isOpenNoti, setIsOpenNoti] = useState(true);
 	const cx = useClass(styles);
 
 	useEffect(() => {
@@ -27,6 +30,7 @@ function Notification() {
 		socket.once('notification', () => {
 			const reRenderNotify = async () => {
 				const result = await getNotification(user.info._id);
+				setIsOpenNoti(true);
 				setData(result);
 			};
 			reRenderNotify();
@@ -37,6 +41,31 @@ function Notification() {
 	}, [user.info]);
 	function handleOpen() {
 		setIsOpen(!isOpen);
+		setIsOpenNoti(false);
+	}
+	function handleChooseNotification(e) {
+		let thisElement = e.target;
+		while (!thisElement.id) {
+			thisElement = thisElement.parentNode;
+		}
+		const notificationId = thisElement.id;
+		const newNotify = data.data.notification.map((noti) => {
+			if (noti._id === notificationId) {
+				return {
+					...noti,
+					read: true,
+				};
+			}
+			return noti;
+		});
+		const setNewNotify = async () => {
+			const result = await changeStateNotification(data.data._id, newNotify);
+			setData(() => {
+				setIsOpen(false);
+				return result;
+			});
+		};
+		setNewNotify();
 	}
 	return (
 		<>
@@ -48,7 +77,7 @@ function Notification() {
 						id="alertsDropdown"
 						data-toggle="dropdown"
 					>
-						{data.num ? (
+						{data.num && isOpenNoti ? (
 							<span className={cx('bell-num', 'fc-unselectable')}>{data.num}</span>
 						) : (
 							''
@@ -81,10 +110,18 @@ function Notification() {
 						</div>
 						{data.data.notification.map((noti, index) => {
 							return (
-								<div className="list-group" key={index}>
+								<Link
+									id={noti._id}
+									to={`${config.routes.Projects}/${noti.departmentId._id}`}
+									className={cx('list-group', 'hover-bg')}
+									key={index}
+									onClick={(e) => handleChooseNotification(e)}
+								>
 									<div
-										href="#"
-										className="list-group-item fc-unselectable cursor-pointer"
+										className={cx(
+											'list-group-item fc-unselectable cursor-pointer',
+											'hover-bg'
+										)}
 									>
 										<div className="row no-gutters align-items-center">
 											<div className="col-2">
@@ -94,7 +131,12 @@ function Notification() {
 												></i>
 											</div>
 											<div className="col-10">
-												{/* <h4 className="text-dark">Phòng kế toán</h4> */}
+												{noti.read ? (
+													''
+												) : (
+													<h4 className="badge-danger badge">new</h4>
+												)}
+
 												<div className="text-muted  mt-1">
 													You have a new comment on
 													<span className={cx('f-700')}>
@@ -102,7 +144,12 @@ function Notification() {
 														"{noti.taskId.name}" project
 													</span>
 												</div>
-												<div className="text-muted small mt-1">
+												<div
+													className={cx(
+														'text-muted small mt-1  ',
+														'underline-none'
+													)}
+												>
 													<TimeAgo
 														date={noti.createdAt}
 														formatter={formatter}
@@ -111,7 +158,7 @@ function Notification() {
 											</div>
 										</div>
 									</div>
-								</div>
+								</Link>
 							);
 						})}
 
