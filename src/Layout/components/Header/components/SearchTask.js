@@ -4,7 +4,7 @@ function SearchTask() {
 			<input
 				className="form-control form-control-no-border mr-sm-2"
 				type="text"
-				placeholder="Search projects..."
+				// placeholder="Search projects..."
 				aria-label="Search"
 			/>
 		</form>

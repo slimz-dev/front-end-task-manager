@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import Footer from '../components/Footer';
 import ToggleProvider from './context/ToggleProvider';
+import NotificationProvider from './context/NotificationProvider';
 const cx = classNames.bind(styles);
 function DefaultLayout({ children }) {
 	return (
@@ -11,8 +12,10 @@ function DefaultLayout({ children }) {
 			<ToggleProvider>
 				<Sidebar />
 				<div className={cx('main', 'position-relative')}>
-					<Header />
-					{children}
+					<NotificationProvider>
+						<Header />
+						{children}
+					</NotificationProvider>
 					<Footer />
 				</div>
 			</ToggleProvider>

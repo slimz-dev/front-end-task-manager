@@ -15,7 +15,7 @@ function CalendarProvider({ children }) {
 	useEffect(() => {
 		const fetchCalendar = async () => {
 			const result = await getMyCalendar(user.info._id);
-			setData(result.data[0].calendar);
+			setData(result.data.calendar);
 		};
 		if (user.info) {
 			fetchCalendar();

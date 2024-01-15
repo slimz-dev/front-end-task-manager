@@ -10,38 +10,40 @@ import viStrings from 'react-timeago/lib/language-strings/vi';
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
 import { Link } from 'react-router-dom';
 import config from '~/config';
+import { NotificationContext } from '~/Layout/DefaultLayout/context/NotificationProvider';
 
 const formatter = buildFormatter(viStrings);
 function Notification() {
-	const user = useContext(UserContext);
-	const [data, setData] = useState([]);
+	// const user = useContext(UserContext);
+	const notification = useContext(NotificationContext);
+	// const [data, setData] = useState([]);
 	const [isOpen, setIsOpen] = useState(false);
-	const [isOpenNoti, setIsOpenNoti] = useState(true);
+	// const [isOpenNoti, setIsOpenNoti] = useState(true);
 	const cx = useClass(styles);
 
-	useEffect(() => {
-		const fetchNotification = async () => {
-			const result = await getNotification(user.info._id);
-			setData(result);
-		};
-		if (user.info._id) {
-			fetchNotification();
-		}
-		socket.once('notification', () => {
-			const reRenderNotify = async () => {
-				const result = await getNotification(user.info._id);
-				setIsOpenNoti(true);
-				setData(result);
-			};
-			reRenderNotify();
-		});
-		return () => {
-			socket.off('notification');
-		};
-	}, [user.info]);
+	// useEffect(() => {
+	// 	const fetchNotification = async () => {
+	// 		const result = await getNotification(user.info._id);
+	// 		setData(result);
+	// 	};
+	// 	if (user.info._id) {
+	// 		fetchNotification();
+	// 	}
+	// 	socket.once('notification', () => {
+	// 		const reRenderNotify = async () => {
+	// 			const result = await getNotification(user.info._id);
+	// 			setIsOpenNoti(true);
+	// 			setData(result);
+	// 		};
+	// 		reRenderNotify();
+	// 	});
+	// 	return () => {
+	// 		socket.off('notification');
+	// 	};
+	// }, [user.info]);
 	function handleOpen() {
 		setIsOpen(!isOpen);
-		setIsOpenNoti(false);
+		notification.setIsOpenNoti(false);
 	}
 	function handleChooseNotification(e) {
 		let thisElement = e.target;
@@ -49,7 +51,7 @@ function Notification() {
 			thisElement = thisElement.parentNode;
 		}
 		const notificationId = thisElement.id;
-		const newNotify = data.data.notification.map((noti) => {
+		const newNotify = notification.data.data.notification.map((noti) => {
 			if (noti._id === notificationId) {
 				return {
 					...noti,
@@ -59,8 +61,8 @@ function Notification() {
 			return noti;
 		});
 		const setNewNotify = async () => {
-			const result = await changeStateNotification(data.data._id, newNotify);
-			setData(() => {
+			const result = await changeStateNotification(notification.data.data._id, newNotify);
+			notification.setData(() => {
 				setIsOpen(false);
 				return result;
 			});
@@ -69,7 +71,7 @@ function Notification() {
 	}
 	return (
 		<>
-			{data.length !== 0 ? (
+			{notification.data.length !== 0 ? (
 				<div>
 					<div
 						className="nav-icon dropdown-toggle cursor-pointer"
@@ -77,8 +79,10 @@ function Notification() {
 						id="alertsDropdown"
 						data-toggle="dropdown"
 					>
-						{data.num && isOpenNoti ? (
-							<span className={cx('bell-num', 'fc-unselectable')}>{data.num}</span>
+						{notification.data.num && notification.isOpenNoti ? (
+							<span className={cx('bell-num', 'fc-unselectable')}>
+								{notification.data.num}
+							</span>
 						) : (
 							''
 						)}
@@ -106,9 +110,9 @@ function Notification() {
 						aria-labelledby="alertsDropdown"
 					>
 						<div className="dropdown-menu-header fc-unselectable">
-							{data.num} New Notifications
+							{notification.data.num} New Notifications
 						</div>
-						{data.data.notification.map((noti, index) => {
+						{notification.data.data.notification.map((noti, index) => {
 							return (
 								<Link
 									id={noti._id}
