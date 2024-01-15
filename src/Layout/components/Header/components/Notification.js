@@ -24,17 +24,12 @@ function Notification() {
 		if (user.info._id) {
 			fetchNotification();
 		}
-		socket.once('notification', (data) => {
-			console.log('go');
-			const { departmentId, taskId, receive } = data;
-			const pushNotify = async () => {
-				const result = await pushNotification(receive, {
-					departmentId,
-					taskId,
-				});
+		socket.once('notification', () => {
+			const reRenderNotify = async () => {
+				const result = await getNotification(user.info._id);
 				setData(result);
 			};
-			pushNotify();
+			reRenderNotify();
 		});
 		return () => {
 			socket.off('notification');

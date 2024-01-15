@@ -4,7 +4,7 @@ export const pushNotification = async (userId, data) => {
 	try {
 		const result = await request.post(`/notification/${userId}`, data);
 		return {
-			statusCode: result.status,
+			num: result.data.meta.numbers,
 			data: result.data.data,
 		};
 	} catch (error) {
