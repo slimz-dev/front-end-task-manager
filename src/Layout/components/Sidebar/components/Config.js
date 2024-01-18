@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from '../Sidebar.module.scss';
 import config from '~/config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faScrewdriverWrench, faUserTie } from '@fortawesome/free-solid-svg-icons';
+import { UserContext } from '~/contexts/userProvider';
 
 const cx = classNames.bind(styles);
 
 function Config() {
+	const user = useContext(UserContext);
 	const [isOpen, setIsOpen] = useState(false);
 	function handleOpen() {
 		setIsOpen(!isOpen);
@@ -41,17 +43,32 @@ function Config() {
 				data-parent="#sidebar"
 			>
 				<li className="sidebar-item">
-					<Link className="sidebar-link" to={config.routes.AdminConfigurations}>
-						<FontAwesomeIcon icon={faUserTie} />
-						Admin Configuration
-					</Link>
+					{user.info.length !== 0 ? (
+						user.info.role.admin.create ||
+						user.info.role.admin.update ||
+						user.info.role.admin.delete ||
+						user.info.role.admin.read ? (
+							<Link className="sidebar-link" to={config.routes.AdminConfigurations}>
+								<FontAwesomeIcon icon={faUserTie} />
+								Admin Configuration
+							</Link>
+						) : (
+							''
+						)
+					) : (
+						''
+					)}
 				</li>
 
 				<li className="sidebar-item">
-					<Link className="sidebar-link" to={config.routes.MyDepartment}>
-						<FontAwesomeIcon icon={faScrewdriverWrench} />
-						My Department
-					</Link>
+					{user.info.department ? (
+						<Link className="sidebar-link" to={config.routes.MyDepartment}>
+							<FontAwesomeIcon icon={faScrewdriverWrench} />
+							My Department
+						</Link>
+					) : (
+						''
+					)}
 				</li>
 			</ul>
 		</>

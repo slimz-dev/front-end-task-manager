@@ -10,8 +10,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { deleteTask } from '~/services/ProjectService/deleteTaskService';
 import { DepartmentContext } from '../../../contexts/DepartmentProvider/DepartmentProvider';
+import { UserContext } from '~/contexts/userProvider';
+import toastDenied from '~/toastDenied/toast';
+import { toast } from 'react-toastify';
 
 function TaskRender() {
+	const user = useContext(UserContext);
 	const departmentTasks = useContext(DepartmentContext);
 	const modal = useContext(TaskModalContext);
 	const cx = useClass(styles);
@@ -28,15 +32,29 @@ function TaskRender() {
 	}
 	function handleDeleteTask(e) {
 		e.stopPropagation();
-		let thisElement = e.target;
-		while (!thisElement.id) {
-			thisElement = thisElement.parentNode;
+		if (user.info.role.localTaskManager.delete) {
+			let thisElement = e.target;
+			while (!thisElement.id) {
+				thisElement = thisElement.parentNode;
+			}
+			const taskId = thisElement.id;
+			const deleteThisTask = async () => {
+				const result = await deleteTask(taskId, departmentTasks.departmentId);
+				toast.success('Successfully deleted !!!', {
+					position: 'top-center',
+					autoClose: 2000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: 'dark',
+				});
+			};
+			deleteThisTask();
+		} else {
+			toastDenied();
 		}
-		const taskId = thisElement.id;
-		const deleteThisTask = async () => {
-			const result = await deleteTask(taskId, departmentTasks.departmentId);
-		};
-		deleteThisTask();
 	}
 	return (
 		<>

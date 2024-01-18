@@ -11,6 +11,8 @@ import { delUserDepartment } from '~/services/UserService/deleteUserDepartmentSe
 import swal from 'sweetalert';
 import { changeAssign } from '~/services/UserService/changeAssignGroupService';
 import { socket } from '~/socket';
+import toastDenied from '~/toastDenied/toast';
+import { ToastContainer } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -19,28 +21,39 @@ function AllUsers() {
 	const totalUsers = useContext(TotalUsers);
 	const [isOpen, setIsOpen] = useState(false);
 	function handleDelete(e) {
-		let thisElement = e.target;
-		while (!thisElement.id) {
-			thisElement = thisElement.parentNode;
-		}
-		swal({
-			title: 'Are you sure?',
-			text: 'Are you sure to remove this person !',
-			icon: 'warning',
-			buttons: ['Cancel', 'Yes, do it !'],
-			dangerMode: true,
-		}).then((ok) => {
-			const deleteDepartment = async () => {
-				const result = await delUserDepartment(thisElement.id, userContext.info.department);
-			};
-			if (ok) {
-				deleteDepartment();
+		if (!userContext.info.role.localMemberManager.delete) {
+			toastDenied();
+		} else {
+			let thisElement = e.target;
+			while (!thisElement.id) {
+				thisElement = thisElement.parentNode;
 			}
-		});
+			swal({
+				title: 'Are you sure?',
+				text: 'Are you sure to remove this person !',
+				icon: 'warning',
+				buttons: ['Cancel', 'Yes, do it !'],
+				dangerMode: true,
+			}).then((ok) => {
+				const deleteDepartment = async () => {
+					const result = await delUserDepartment(
+						thisElement.id,
+						userContext.info.department
+					);
+				};
+				if (ok) {
+					deleteDepartment();
+				}
+			});
+		}
 	}
 
 	function handleOpen() {
-		setIsOpen(true);
+		if (userContext.info.role.localMemberManager.create) {
+			setIsOpen(true);
+		} else {
+			toastDenied();
+		}
 	}
 	function handleClose() {
 		setIsOpen(false);
@@ -173,6 +186,7 @@ function AllUsers() {
 					)}
 				</div>
 			</div>
+			<ToastContainer />
 		</div>
 	);
 }

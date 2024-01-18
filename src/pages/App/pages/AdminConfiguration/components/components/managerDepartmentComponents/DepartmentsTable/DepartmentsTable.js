@@ -13,12 +13,30 @@ import { ActionContext } from './context/ActionProvider';
 
 import { DepartmentContext } from '../../../../contexts/DepartmentProvider/DepartmentProvider';
 import UpdateDepartment from '~/components/Modal/DepartmentUpdate/UpdateDepartment';
+import { UserContext } from '~/contexts/userProvider';
+import toastDenied from '~/toastDenied/toast';
 
 const cx = classNames.bind(styles);
 
 function DepartmentsTable() {
+	const user = useContext(UserContext);
 	const groups = useContext(DepartmentContext);
 	const modal = useContext(ActionContext);
+	function handleShow(e) {
+		if (user.info.role.admin.update) {
+			modal.handleSetShow(e);
+		} else {
+			toastDenied();
+		}
+	}
+
+	function handleDelete(e) {
+		if (user.info.role.admin.delete) {
+			modal.handleDelete(e);
+		} else {
+			toastDenied();
+		}
+	}
 	return (
 		<>
 			<table
@@ -43,13 +61,13 @@ function DepartmentsTable() {
 								<td className={cx('bordered')}>{department.name}</td>
 								<td
 									className={cx('bordered', 'align-center', 'black-color')}
-									onClick={(e) => modal.handleSetShow(e)}
+									onClick={(e) => handleShow(e)}
 								>
 									<FontAwesomeIcon icon={faPencil} />
 								</td>
 								<td
 									className={cx('bordered', 'align-center', 'red-color')}
-									onClick={(e) => modal.handleDelete(e)}
+									onClick={(e) => handleDelete(e)}
 								>
 									<FontAwesomeIcon icon={faXmark} />
 								</td>

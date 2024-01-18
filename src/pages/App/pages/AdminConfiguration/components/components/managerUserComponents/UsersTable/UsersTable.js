@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import classNames from 'classnames/bind';
 
 //api methods
-import { getTotalGroups } from '~/services/GroupService/groupPermissionService';
 //css
 import styles from '../../../../AdminConfiguration.module.scss';
 
@@ -11,12 +10,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 
 //context
-import { AdminContext } from '../../../../contexts/AdminProvider.js/AdminProvider';
 import { UserContext } from './context/UserProvider';
 
 //socket
-import { socket } from '~/socket';
-import ChangePermission from '~/components/Modal/ChangePermission/ChangePermission';
 import { UserAssignContext } from '../../../../contexts/UserAssignProvider/UserAssignProvider';
 import UserGroupUpdate from '~/components/Modal/UserGroupUpdate/UserGroupUpdate';
 

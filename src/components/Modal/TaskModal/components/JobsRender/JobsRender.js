@@ -5,9 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../projectModal.module.scss';
 import { deleteJob } from '~/services/ProjectService/deleteJobService';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { UserContext } from '~/contexts/userProvider';
+import toastDenied from '~/toastDenied/toast';
+import { toast } from 'react-toastify';
 
 function JobsRender({ setData }) {
 	const cx = useClass(styles);
+	const user = useContext(UserContext);
 	const modal = useContext(TaskModalContext);
 	function handleCheckJob(e) {
 		const checked = e.target.checked;
@@ -32,11 +36,25 @@ function JobsRender({ setData }) {
 	}
 
 	async function handleDeleteJob(e) {
-		let thisElement = e.target;
-		while (!thisElement.id) {
-			thisElement = thisElement.parentNode;
+		if (user.info.role.localTaskManager.update) {
+			let thisElement = e.target;
+			while (!thisElement.id) {
+				thisElement = thisElement.parentNode;
+			}
+			await deleteJob(thisElement.id, modal.taskInfo._id, modal.taskInfo.department);
+			toast.success('Successfully deleted !!!', {
+				position: 'top-center',
+				autoClose: 2000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: 'dark',
+			});
+		} else {
+			toastDenied();
 		}
-		await deleteJob(thisElement.id, modal.taskInfo._id, modal.taskInfo.department);
 	}
 	return (
 		<div className={cx('job-container', 'flex-column', 'd-flex', 'justify-content-between')}>

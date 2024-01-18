@@ -65,9 +65,17 @@ function Sidebar() {
 						<li className="sidebar-item">
 							<Pages />
 						</li>
-						<li className="sidebar-item">
-							<People />
-						</li>
+						{user.info ? (
+							user.info.role.totalEmployees.read ? (
+								<li className="sidebar-item">
+									<People />
+								</li>
+							) : (
+								''
+							)
+						) : (
+							''
+						)}
 						<li className="sidebar-item">
 							<Calendar />
 						</li>

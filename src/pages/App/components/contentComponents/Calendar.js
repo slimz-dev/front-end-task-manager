@@ -12,7 +12,7 @@ function Calendar() {
 							<div>
 								<Img
 									width="100%"
-									src="https://cdn1.vectorstock.com/i/1000x1000/38/15/motivation-slogan-and-quote-work-so-hard-that-one-vector-33223815.jpg"
+									src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2IgEtQ-dvj9mk-LwmuXOqW1e95iFhtC3A3g&usqp=CAU"
 								/>
 							</div>
 						</div>

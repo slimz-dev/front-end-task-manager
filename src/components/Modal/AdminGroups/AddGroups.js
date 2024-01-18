@@ -58,7 +58,7 @@ const AddGroups = () => {
 							<tbody>
 								<AdminPermissions />
 								<LocalMember />
-								<GlobalMember />
+								{/* <GlobalMember /> */}
 								<LocalTask />
 								<GlobalTask />
 								<Invite />

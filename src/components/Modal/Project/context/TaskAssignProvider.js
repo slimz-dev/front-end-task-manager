@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react';
+import { toast } from 'react-toastify';
 import { UserContext } from '~/contexts/userProvider';
 import { DepartmentContext } from '~/pages/App/pages/Project/contexts/DepartmentProvider/DepartmentProvider';
 import { postNewTask } from '~/services/ProjectService/newDepartmentService';
@@ -24,6 +25,16 @@ function TaskAssignProvider({ children, data }) {
 		};
 		const postTask = async () => {
 			const result = await postNewTask(value, department.departmentId);
+			toast.success('Successfully submitted !!!', {
+				position: 'top-center',
+				autoClose: 2000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: 'dark',
+			});
 		};
 		postTask();
 	}

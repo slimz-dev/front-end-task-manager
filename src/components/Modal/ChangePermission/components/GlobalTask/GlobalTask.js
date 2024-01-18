@@ -11,6 +11,7 @@ function GlobalTask() {
 	return (
 		<tr>
 			<td className={cx('bordered')}>Task Management (Global)</td>
+			<td className={cx('bordered')}></td>
 			<td className={cx('bordered')}>
 				<input
 					type="checkbox"
@@ -20,7 +21,6 @@ function GlobalTask() {
 					defaultChecked={modal.groupInfo?.globalTaskManager.create}
 				/>
 			</td>
-			<td className={cx('bordered')}></td>
 			<td className={cx('bordered')}></td>
 			<td className={cx('bordered')}></td>
 		</tr>

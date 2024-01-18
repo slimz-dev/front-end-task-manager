@@ -5,23 +5,40 @@ import { ModalContext } from '~/contexts/ModalProvider';
 import { AdminContext } from '../../../../contexts/AdminProvider.js/AdminProvider';
 import styles from '../../../../AdminConfiguration.module.scss';
 import { MainContext } from '../../../../AdminConfiguration';
+import { UserContext } from '~/contexts/userProvider';
+import toastDenied from '~/toastDenied/toast';
 
 const cx = classNames.bind(styles);
 function ActionGroups() {
+	const user = useContext(UserContext);
 	const groups = useContext(AdminContext);
 	const modal = useContext(ModalContext);
 	const main = useContext(MainContext);
+	function handleAdd() {
+		if (user.info.role.admin.create) {
+			modal.setShow(true);
+		} else {
+			toastDenied();
+		}
+	}
+	function handleDelete() {
+		if (user.info.role.admin.delete) {
+			groups.handleDeletedAction();
+		} else {
+			toastDenied();
+		}
+	}
 	return (
 		<div className={cx('action-groups')}>
 			<div className={cx('group-action-groups')}>
 				<button
-					onClick={() => modal.setShow(true)}
+					onClick={handleAdd}
 					className={cx('button-css', 'badge-success', 'add-hover')}
 				>
 					Add
 				</button>
 				<button
-					onClick={groups.handleDeletedAction}
+					onClick={handleDelete}
 					className={cx('button-css', 'badge-warning', 'delete-hover')}
 				>
 					Delete

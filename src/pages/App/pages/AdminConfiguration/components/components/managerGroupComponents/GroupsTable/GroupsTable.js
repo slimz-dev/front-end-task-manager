@@ -14,15 +14,32 @@ import { faPencil, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { AdminContext } from '../../../../contexts/AdminProvider.js/AdminProvider';
 import { GroupContext } from './context/GroupProvider';
 
-//socket
-import { socket } from '~/socket';
 import ChangePermission from '~/components/Modal/ChangePermission/ChangePermission';
+import { UserContext } from '~/contexts/userProvider';
+
+import toastDenied from '~/toastDenied/toast';
 
 const cx = classNames.bind(styles);
 
 function GroupsTable() {
+	const user = useContext(UserContext);
 	const groups = useContext(AdminContext);
 	const modal = useContext(GroupContext);
+	function handleShow(e) {
+		if (user.info.role.admin.update) {
+			modal.handleSetShow(e);
+		} else {
+			toastDenied();
+		}
+	}
+
+	function handleDelete(e) {
+		if (user.info.role.admin.delete) {
+			modal.handleDelete(e);
+		} else {
+			toastDenied();
+		}
+	}
 	return (
 		<>
 			<table
@@ -61,13 +78,13 @@ function GroupsTable() {
 								<td className={cx('bordered')}>{group.name}</td>
 								<td
 									className={cx('bordered', 'align-center', 'black-color')}
-									onClick={(e) => modal.handleSetShow(e)}
+									onClick={(e) => handleShow(e)}
 								>
 									<FontAwesomeIcon icon={faPencil} />
 								</td>
 								<td
 									className={cx('bordered', 'align-center', 'red-color')}
-									onClick={(e) => modal.handleDelete(e)}
+									onClick={(e) => handleDelete(e)}
 								>
 									<FontAwesomeIcon icon={faXmark} />
 								</td>

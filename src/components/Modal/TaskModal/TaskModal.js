@@ -17,9 +17,13 @@ import { changeJob } from '~/services/ProjectService/changeJobService';
 import JobsRender from './components/JobsRender/JobsRender';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CommentsRender from './components/CommentsRender/CommentsRender';
+import { UserContext } from '~/contexts/userProvider';
+import toastDenied from '~/toastDenied/toast';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 const TaskModal = () => {
+	const user = useContext(UserContext);
 	const modal = useContext(TaskModalContext);
 	const [initDate, setInitDate] = useState('');
 	const [expiredDate, setExpiredDate] = useState('');
@@ -56,6 +60,16 @@ const TaskModal = () => {
 	}
 	async function handleAddJob() {
 		await modal.addJob(apiData.jobTitle);
+		toast.success('Successfully job added !!!', {
+			position: 'top-center',
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			theme: 'dark',
+		});
 		setApiData((prev) => ({
 			...prev,
 			job: false,
@@ -70,6 +84,16 @@ const TaskModal = () => {
 				commentContent: '',
 			}));
 			await modal.addComment(apiData.commentContent);
+			toast.success('Successfully posted comment !!!', {
+				position: 'top-center',
+				autoClose: 2000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: 'dark',
+			});
 		}
 	}
 
@@ -90,8 +114,26 @@ const TaskModal = () => {
 	function handleSubmit() {
 		const postJob = async () => {
 			const result = await changeJob(modal.taskInfo._id, data, modal.taskInfo.department);
+			toast.success('Successfully submitted !!!', {
+				position: 'top-center',
+				autoClose: 2000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: 'dark',
+			});
 		};
 		postJob();
+	}
+	function handleOpenJob() {
+		console.log(user.info.role);
+		if (user.info.role.localTaskManager.update) {
+			setApiData((prev) => ({ ...prev, job: true }));
+		} else {
+			toastDenied();
+		}
 	}
 	return (
 		<>
@@ -175,10 +217,7 @@ const TaskModal = () => {
 									</div>
 								</div>
 							) : (
-								<div
-									className={cx('job-add')}
-									onClick={() => setApiData((prev) => ({ ...prev, job: true }))}
-								>
+								<div className={cx('job-add')} onClick={handleOpenJob}>
 									+ Add Job
 								</div>
 							)}

@@ -6,11 +6,31 @@ import styles from '../../../Project.module.scss';
 
 //context
 import { DepartmentContext } from '../../../contexts/DepartmentProvider/DepartmentProvider';
+import { UserContext } from '~/contexts/userProvider';
+import toastDenied from '~/toastDenied/toast';
+import { ToastContainer } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
 function DepartmentsTable() {
+	const user = useContext(UserContext);
 	const groups = useContext(DepartmentContext);
+	function handleChoose(e) {
+		let thisElement = e.target.parentNode;
+		while (!thisElement.id) {
+			thisElement = thisElement.parentNode;
+		}
+		const departmentId = thisElement.id;
+		if (departmentId === user.info.department && user.info.role.localTaskManager.read) {
+			groups.handleSetDepartment(departmentId);
+		} else {
+			if (user.info.role.globalTaskManager.create) {
+				groups.handleSetDepartment(departmentId);
+			} else {
+				toastDenied();
+			}
+		}
+	}
 	return (
 		<main className="content">
 			<div className="container-fluid p-0">
@@ -59,9 +79,7 @@ function DepartmentsTable() {
 																'w-90rem',
 																'hover'
 															)}
-															onClick={(e) =>
-																groups.handleSetDepartment(e)
-															}
+															onClick={(e) => handleChoose(e)}
 														>
 															{department.name}
 														</td>
@@ -76,6 +94,7 @@ function DepartmentsTable() {
 					</div>
 				</div>
 			</div>
+			<ToastContainer />
 		</main>
 	);
 }

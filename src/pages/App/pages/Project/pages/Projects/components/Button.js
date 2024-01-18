@@ -1,9 +1,16 @@
 import { useContext } from 'react';
 import { ModalContext } from '~/contexts/ModalProvider';
+import { UserContext } from '~/contexts/userProvider';
+import toastDenied from '~/toastDenied/toast';
 function AssignButton() {
+	const user = useContext(UserContext);
 	const modal = useContext(ModalContext);
 	function handleShow() {
-		modal.setShow(true);
+		if (user.info.role.localTaskManager.create) {
+			modal.setShow(true);
+		} else {
+			toastDenied();
+		}
 	}
 	return (
 		<div
