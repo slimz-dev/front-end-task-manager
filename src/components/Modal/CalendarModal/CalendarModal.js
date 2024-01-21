@@ -13,6 +13,7 @@ import Minutes from './components/Minutes/Minutes';
 import { CalendarContext } from '~/pages/App/pages/Calendar/context/CalendarProvider/CalendarProvider';
 import { newCalendar } from '~/services/CalendarService/newCalendarService';
 import { UserContext } from '~/contexts/userProvider';
+import { toast, ToastContainer } from 'react-toastify';
 
 function CalendarModal() {
 	const user = useContext(UserContext);
@@ -41,6 +42,16 @@ function CalendarModal() {
 			const postNewCalendar = async () => {
 				const result = await newCalendar(user.info._id, appointmentData);
 				calendar.setData(result.data.calendar);
+				toast.success('Created successfully !', {
+					position: 'top-center',
+					autoClose: 2000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: 'dark',
+				});
 			};
 			postNewCalendar();
 		} else {
@@ -55,6 +66,16 @@ function CalendarModal() {
 				const postNewCalendar = async () => {
 					const result = await newCalendar(user.info._id, appointmentData);
 					calendar.setData(result.data.calendar);
+					toast.success('Created successfully !', {
+						position: 'top-center',
+						autoClose: 2000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: 'dark',
+					});
 				};
 				postNewCalendar();
 			}
@@ -182,6 +203,7 @@ function CalendarModal() {
 			) : (
 				''
 			)}
+			<ToastContainer />
 		</>
 	);
 }

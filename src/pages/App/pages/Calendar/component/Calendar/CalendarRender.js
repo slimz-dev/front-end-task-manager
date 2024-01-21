@@ -10,6 +10,7 @@ import CalendarProvider, { CalendarContext } from '../../context/CalendarProvide
 import swal from '@sweetalert/with-react';
 import { deleteCalender } from '~/services/CalendarService/deleteMyCalendarService';
 import { UserContext } from '~/contexts/userProvider';
+import { toast, ToastContainer } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -49,6 +50,16 @@ function CalendarRender() {
 				const deleteMyCalendar = async () => {
 					const result = await deleteCalender(user.info._id, id);
 					calendar.setData(result.data.calendar);
+					toast.success('Deleted successfully !', {
+						position: 'top-center',
+						autoClose: 2000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: 'dark',
+					});
 				};
 				deleteMyCalendar();
 			}
@@ -81,6 +92,7 @@ function CalendarRender() {
 				}}
 				height="90%"
 			></FullCalendar>
+			<ToastContainer />
 		</>
 	);
 }
