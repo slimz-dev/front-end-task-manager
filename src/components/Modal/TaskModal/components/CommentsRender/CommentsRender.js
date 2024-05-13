@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import ReactTimeago from 'react-timeago';
 import VietStrings from 'react-timeago/lib/language-strings/vi';
+import en from 'react-timeago/lib/language-strings/en';
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
 
 import Img from '~/components/Img/Img';
@@ -10,7 +11,7 @@ import styles from '../../projectModal.module.scss';
 function CommentsRender() {
 	const modal = useContext(TaskModalContext);
 	const cx = useClass(styles);
-	const formatter = buildFormatter(VietStrings);
+	const formatter = buildFormatter(en);
 	return (
 		<div className={cx('comment-container')}>
 			{modal.taskInfo.comment.map((comment, index) => {

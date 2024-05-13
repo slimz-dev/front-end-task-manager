@@ -4,6 +4,7 @@ import { Modal, Button } from 'react-bootstrap';
 import classNames from 'classnames/bind';
 import styles from './inviteModal.module.scss';
 import { sendEmail } from '~/services/EmailService/newPersonalTaskService';
+import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 const InviteModal = () => {
@@ -26,7 +27,7 @@ const InviteModal = () => {
 			};
 			await sendEmail(data);
 		} else {
-			console.log('no');
+			toast('Wrong mail type');
 		}
 	}
 	return (

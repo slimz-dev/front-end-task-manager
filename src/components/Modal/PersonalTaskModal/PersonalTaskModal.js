@@ -11,6 +11,7 @@ import useClass from '~/hooks/useClass';
 import { TaskContext } from '~/pages/App/pages/Tasks/context/TaskProvider/TaskProvider';
 import { newPersonalTask } from '~/services/PersonalTaskService/newPersonalTaskService';
 import { UserContext } from '~/contexts/userProvider';
+import { toast } from 'react-toastify';
 
 function PersonalTaskModal() {
 	const user = useContext(UserContext);
@@ -37,8 +38,11 @@ function PersonalTaskModal() {
 				});
 				task.setData(result.data);
 				setData({});
+				toast('Task saved successfully');
 			};
 			postNewTask();
+		} else {
+			toast('All fields required');
 		}
 	}
 	return (

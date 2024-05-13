@@ -2,13 +2,14 @@ import { useContext, useEffect, useState } from 'react';
 import { NotificationContext } from '~/Layout/DefaultLayout/context/NotificationProvider';
 import TimeAgo from 'react-timeago';
 import viStrings from 'react-timeago/lib/language-strings/vi';
+import en from 'react-timeago/lib/language-strings/en';
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
 import { Link } from 'react-router-dom';
 import config from '~/config';
 import { UserContext } from '~/contexts/userProvider';
 import { getMyCalendar } from '~/services/CalendarService/getMyCalendarService';
 
-const formatter = buildFormatter(viStrings);
+const formatter = buildFormatter(en);
 function Appointment() {
 	const [isMeeting, setIsMeeting] = useState(false);
 	const user = useContext(UserContext);

@@ -7,12 +7,13 @@ import { socket } from '~/socket';
 import styles from '../Header.module.scss';
 import TimeAgo from 'react-timeago';
 import viStrings from 'react-timeago/lib/language-strings/vi';
+import en from 'react-timeago/lib/language-strings/en';
 import buildFormatter from 'react-timeago/lib/formatters/buildFormatter';
 import { Link } from 'react-router-dom';
 import config from '~/config';
 import { NotificationContext } from '~/Layout/DefaultLayout/context/NotificationProvider';
 
-const formatter = buildFormatter(viStrings);
+const formatter = buildFormatter(en);
 function Notification() {
 	// const user = useContext(UserContext);
 	const notification = useContext(NotificationContext);

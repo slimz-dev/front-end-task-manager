@@ -30,7 +30,7 @@ function UserAssign() {
 						return (
 							<Img
 								key={assignee.id}
-								src={assignee.src}
+								src={assignee.src ? assignee.src : ''}
 								className={cx('assignee-img')}
 							/>
 						);

@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
 import { ModalContext } from '~/contexts/ModalProvider';
 import { UserContext } from '~/contexts/userProvider';
 import { deletePersonalTask } from '~/services/PersonalTaskService/deletePersonalTaskService';
@@ -94,6 +95,7 @@ function TaskProvider({ children }) {
 				const result = await deletePersonalTask(data._id, taskId);
 				setData(result.data);
 			};
+			toast('Task deleted successfully');
 			deleteTask();
 		}
 	}

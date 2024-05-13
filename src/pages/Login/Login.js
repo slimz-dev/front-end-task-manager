@@ -35,6 +35,9 @@ function Login() {
 				}
 				const result = await userLogin(data);
 				let msg;
+				if (result.statusCode === 401) {
+					msg = 'Wrong password ! Retry';
+				}
 				if (result.statusCode === 404) {
 					msg = "This account doesn't exist";
 				} else if (result.statusCode === 200) {
@@ -84,7 +87,17 @@ function Login() {
 		if (email && password) {
 			setData({ email, password });
 		} else {
-			console.log('dont have enough info');
+			let msg = 'All fields required !';
+			toast(msg, {
+				position: 'top-center',
+				autoClose: 300,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: 'dark',
+			});
 		}
 	}
 
@@ -114,7 +127,7 @@ function Login() {
 											</div>
 											<form>
 												<div className="form-group">
-													<label>Email</label>
+													<label>Email | username</label>
 													<input
 														className="form-control form-control-lg"
 														type="email"

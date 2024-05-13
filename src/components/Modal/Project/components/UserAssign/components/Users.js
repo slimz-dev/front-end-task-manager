@@ -54,7 +54,7 @@ function Users() {
 							<div className={cx('user-info')}>
 								<div className={cx('img')}>
 									<Img
-										src={user.img}
+										src={user.img ? user.img : ''}
 										width="24px"
 										height="24px"
 										className={cx('img-sizing')}
