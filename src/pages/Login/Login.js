@@ -127,7 +127,7 @@ function Login() {
 											</div>
 											<form>
 												<div className="form-group">
-													<label>Email | username</label>
+													<label>Email | username [h@gmail.com]</label>
 													<input
 														className="form-control form-control-lg"
 														type="email"
@@ -138,7 +138,7 @@ function Login() {
 													/>
 												</div>
 												<div className="form-group">
-													<label>Password</label>
+													<label>Password [sdsdasd]</label>
 													<input
 														className="form-control form-control-lg"
 														type="password"
